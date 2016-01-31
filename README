@@ -1,1 +1,9 @@
-Test README.
+I made the first two pages for a brewery called Penrose Brewery. I figured each brewery will have their own design project folder here.
+
+Controllers folder will have php files that essentially define our API-one to interact with orders, one to interact with customer info, etc so code is easy to track down. 
+
+Views will have any raw SQL setup type stuff (defining tables, initializing data, etc)
+
+I suggest making a local copy of this project to try and view it. There are a lot of include files for the design. Once things are functioning better we can just each use our own private domains as test areas to develop in.
+
+-Chris
