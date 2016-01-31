@@ -1,0 +1,51 @@
+/* GENERAL */
+
+table {
+	border: 1px solid black;
+}
+
+th {
+	border-bottom: 1px solid black;
+}
+
+.detail-link {
+	color: #b08930;
+	text-decoration: underline;
+}
+
+.main-div {
+	margin-top: 5%;
+}
+
+/* LOGIN PAGE */
+
+#login-div {
+	width: 100%;
+}
+
+#login-forms, #login-info {
+	display: inline-block;
+}
+
+#forgot-pass-link {
+	font-weight: italics;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+#login-info {
+	vertical-align: top;
+	margin-top: 5%;
+}
+
+
+
+/* LANDING PAGE */
+
+#order-button {
+	border: 3px solid #b08930;
+	padding: 1%;
+	font-size: 26px;
+}
+
+
