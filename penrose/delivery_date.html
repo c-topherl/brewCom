@@ -31,7 +31,6 @@
 
 <link rel="stylesheet" href="css/brewery.css">
 <link rel="stylesheet" href="css/styles.css">
-<link href="css/dataTables.min.css" rel="stylesheet" type="text/css">
 
 
 
@@ -125,61 +124,53 @@
 			<hr class="section-rule">
 
 			<div class="wrapper">
-			   
-			   <div id="push-list-div">
-			   	<h4>Today's hot brews!</h4><br>
-			   	<table id="push-list-table"> 
-			   		<tr>
-			   			<th>Beer</th>
-			   			<th>Type</th>
-			   			<th>ABV</th>
-			   			<th>IBUs</th>
-			   			<th>Availability</th>
-			   			<th>&nbsp;</th>
-			   		</tr>
-			   		<tr>
-			   			<td>Devoir</td>
-			   			<td>Saison Ale</td>
-			   			<td>4.3%</td>
-			   			<td>25</td>
-			   			<td>On tap, growlers</td>
-			   			<td><a href="http://penrosebrewing.com/beer/detail/devoir" class="detail-link" target="_blank">Details</a></td>
-			   		</tr>
-			   		<tr>
-			   			<td>P·2</td>
-			   			<td>Belgian Pale Ale</td>
-			   			<td>5.4%</td>
-			   			<td>45</td>
-			   			<td>On tap, growlers</td>
-			   			<td><a href="http://penrosebrewing.com/beer/detail/p2" class="detail-link" target="_blank">Details</a></td>
-			   		</tr>
-			   		<tr>
-			   			<td>Desirous</td>
-			   			<td>White IPA</td>
-			   			<td>6.2%</td>
-			   			<td>60</td>
-			   			<td>On tap, growlers</td>
-			   			<td><a href="http://penrosebrewing.com/beer/detail/desirous" class="detail-link" target="_blank">Details</a></td>
-			   		</tr>
-			   		<tr>
-			   			<td>Fractal</td>
-			   			<td>Belgian IPA</td>
-			   			<td>6.5%</td>
-			   			<td>65</td>
-			   			<td>On tap, growlers</td>
-			   			<td><a href="http://penrosebrewing.com/beer/detail/desirous" class="detail-link" target="_blank">Details</a></td>
-			   		</tr>
-			   	</table>
-			   </div>
+			   <!--
+				<div class="beer-grid no-headline-rule">
+				</div>
+			-->
 
-			   <div id="announcements" class="main-div">
-			   		<h4>Announcements</h4>
-			   		<p>This is a test announcement on the main landing page. Welcome to E-Commerce!</p>
-			   	</div>
 
-			   	<div class="main-div" id="order-div">
-			   		<a href="delivery_date.html" class="order-button">New Order</a>
-			   	</div>					
+				<div id="login-forms">
+					<form action="order.html" method="post">
+						<table id="delivery-table">
+							<tr>
+								<td><p>Delivery Date:</p></td>
+								<td style="vertical-align: top;">
+									<select>
+										<option value="20160105">01/05/16</option>
+										<option value="20160106">01/06/16</option>
+										<option value="20160107">01/07/16</option>
+										<option value="20160108">01/08/16</option>
+										<option value="20160109">01/09/16</option>
+										<option value="20160110">01/10/16</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td><p>Delivery Method:</p></td>
+								<td style="vertical-align: top;">
+									<select>
+										<option value="pickup">Pickup</option>
+										<option value="delivery">Delivery</option>
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td><p>Location:</p></td>
+								<td style="vertical-align: top;">
+									<select>
+										<option value="0">Brewhouse A</option>
+										<option value="1">Brewhouse B</option>
+									</select>
+								</td>
+							</tr>
+						</table>
+						<br><br><br>
+						<a class="continue-button" href="order.html">Continue >></a>
+					</form>
+					</div>
+
+					
 			</div>    
 		</section>		 
 
@@ -229,7 +220,6 @@
 <script src="js/waypoints.js"></script>
 <script src="js/module.header-animation.js"></script>
 <script src="js/loader.js"></script>
-<script src="js/dataTables.min.js"></script>
 
 
 		<script src="js/module.grid-rollover.js"></script>
@@ -243,7 +233,6 @@
                     anchorSelector: '.btn-more-alt',
                     addClass:'hover'
                 });
-                $('#push-list-table').dataTable();
     		});
         </script>
 	</body>

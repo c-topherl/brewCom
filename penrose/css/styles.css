@@ -17,6 +17,8 @@ th {
 	margin-top: 5%;
 }
 
+
+
 /* LOGIN PAGE */
 
 #login-div {
@@ -42,10 +44,98 @@ th {
 
 /* LANDING PAGE */
 
-#order-button {
+.header-logo {
+	margin-top: 8%;
+}
+
+.left-links {
+	margin-right: 15%;
+}
+
+.right-links {
+	margin-left: 15%;
+}
+
+.nav-link {
+	margin-right: 2%;
+	margin-left: 2%;
+	margin-bottom: 10%;
+	vertical-align: middle;
+}
+
+.order-button {
 	border: 3px solid #b08930;
 	padding: 1%;
 	font-size: 26px;
+	border-radius: 20px;
 }
+
+.order-button:hover {
+	cursor: pointer;
+}
+
+
+
+/* DELIVERY DATE PAGE */
+
+#delivery-table  {
+	border: none;
+}
+
+#delivery-table td p {
+	vertical-align: middle;
+}
+
+.continue-button {
+	border: 3px solid #b08930;
+	padding: 3%;
+	font-size: 22px;
+	border-radius: 26px;
+}
+
+.continue-button:hover {
+	cursor: pointer;
+}
+
+
+
+/* ORDER PAGE */
+
+.order-quantity {
+	width: 45px;
+}
+
+.view-cart-button {
+	border: 3px solid #b08930;
+	padding: 2%;
+	font-size: 22px;
+	border-radius: 26px;
+}
+
+.view-cart-button:hover {
+	cursor: pointer;
+}
+
+
+
+/* CART PAGE */
+
+.total {
+	margin-right: 5%;
+	margin-top: 3%;
+}
+
+#cart-table tr:hover {
+	background: white;
+}
+
+
+
+/* CHECKOUT PAGE */
+
+textarea {
+	width: 250px;
+}
+
 
 
