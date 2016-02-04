@@ -1,5 +1,4 @@
 <?php
-include("commonfunctions.php");
 class DBConnection
 {
     private $connection;
