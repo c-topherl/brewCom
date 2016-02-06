@@ -69,12 +69,12 @@
                 <li class="home"><a href="/">Home</a></li>
                 
                 <li class="nav-link"><a href="home.html">Home</a></li>
-                <li class="nav-link"><a href="javascript:void(0)">Place Order</a></li>
+                <li class="nav-link"><a href="delivery_date.html">Place Order</a></li>
                 <li class="nav-link"><a href="open_orders.html">View Orders</a></li>
                 <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
          		<li class="header-logo"><h1><a class="logo" href="/">Penrose Brewing Company</a></h1></li>
          		<li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
-				<li class="nav-link"><a href="update_info.html">Update Info</a></li>
+				<li class="nav-link"><a href="javascript:void(0)">Update Info</a></li>
                 <li class="nav-link"><a href="log_out.html">Log Out</a></li>
                 
                 <!-- Hidden on Desktop -->
@@ -122,28 +122,18 @@
 			<div class="wrapper">
 
 				<form action="place_order.html" method="post">
-
-			   		<div style="display: inline-block;">
-			   			<p>Username:</p>
-			   		</div>
-			   		<div align="left" style="display: inline-block;">
-			   			<input type="text" size="20"/>
-			   		</div>
-			   		<br>
-			   		<div style="display: inline-block;">
-			   			<p>Password:</p>
-			   		</div>
-			   		<div align="left" style="display: inline-block;">
-			   			<input type="text" size="20"/>
-			   		</div>
-			   		<br>
-			   		<div style="display: inline-block;">
-			   			<p>Email:</p>
-			   		</div>
-			   		<div align="right" style="display: inline-block;">
-			   			<input type="text" size="25"/>
-			   		</div>
-
+					
+						<label for="username" >Username</label>
+						<input type="text" id="username" />
+						<br>
+						<label for="password" >Password</label>
+						<input type="password" id="password" />
+						<br>
+						<label for="password2" style="margin-right:1%;">Re-type</label>
+						<input type="password" id="password2" onblur="comparePasswords(this)"/>
+						<br>
+						<label for="email" style="margin-right:2%;">Email</label>
+						<input type="text" id="email" onblur="validateEmail(this)"/>
 
 			   	<br><br><br><br>
 				<a class="view-cart-button" href="update_confirmation.html">Submit</a>
@@ -199,11 +189,14 @@
 <script src="js/module.header-animation.js"></script>
 <script src="js/loader.js"></script>
 <script src="js/dataTables.min.js"></script>
-
-
-		<script src="js/module.grid-rollover.js"></script>
-		<script src="js/animation.beer.js"></script>
-		<script src="js/page.beer-landing.js"></script>
+<script src="js/waypoints.js"></script>
+<script src="js/module.header-animation.js"></script>
+<script src="js/loader.js"></script>
+<script src="js/dataTables.min.js"></script>
+<script src="js/module.grid-rollover.js"></script>
+<script src="js/animation.beer.js"></script>
+<script src="js/page.beer-landing.js"></script>
+<script src="js/site.js"></script>
 
 		 <script type="text/javascript">
             

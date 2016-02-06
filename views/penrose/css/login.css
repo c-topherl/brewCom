@@ -1,0 +1,18 @@
+#login-div {
+	width: 100%;
+}
+
+#login-forms, #login-info {
+	display: inline-block;
+}
+
+#forgot-pass-link {
+	font-weight: italics;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+#login-info {
+	vertical-align: top;
+	margin-top: 5%;
+}

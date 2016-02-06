@@ -90,7 +90,7 @@
 <!-- Main Nav -->
 <nav class="nav-main nav-header nav-short">
     <ul>
-        <li class="nav-link"><a href="home.html">Home</a></li>
+        <li class="nav-link"><a href="javascript:void(0)">Home</a></li>
         <li class="nav-link"><a href="delivery_date.html">Place Order</a></li>
         <li class="nav-link"><a href="open_orders.html">View Orders</a></li>
         <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
@@ -121,14 +121,67 @@
 
 			<div class="wrapper">
 
-			   	<div id="confirmation">
-			   		<br><br>
-			   		<p>Your customer info has been updated!</p>
+					<div style="width: 10%; align:left;">
+			   			<a class="back-button" href="open_orders.html" align="left">&lt;&lt; Back</a>
+			   		</div>
+
+			   		<h4>Order 12345</h4><br>
+			   		<p>Delivery 01/18/2016</p>
+
+			   	<!--
+			   		<div class="customer-info">
+			   			<label for="ship-to">Ship to</label>
+			   			<p id="ship-to">Test Customer</p>
+			   			<label for="ship-to-add1">&nbsp;</label>
+			   			<p id="ship-to-add1">123 Cherry St</p>
+			   		</div>
+			   	-->
+				   	<table id="cart-table"> 
+			   			<tr>
+				   			<th>Beer</th>
+			   				<th>Type</th>
+			   				<th>Unit</th>
+			   				<th>Price</th>
+			   				<th>Quantity</th>
+			   			</tr>
+			   			<tr>
+				   			<td>Devoir</td>
+			   				<td>Saison Ale</td>
+			   				<td>Keg</td>
+			   				<td>$89.99</td>
+			   				<td>5</td>
+			   			</tr>
+			   			<tr>
+				   			<td>&nbsp;</td>
+			   				<td>&nbsp;</td>
+			   				<td>Bottles (6)</td>
+			   				<td>$6.99</td>
+			   				<td>20</td>
+			   			</tr>
+			   			<tr>
+				   			<td>&nbsp;</td>
+			   				<td>&nbsp;</td>
+			   				<td>Bottles (12)</td>
+			   				<td>$12.99</td>
+			   				<td>10</td>
+
+			   			</tr>
+			   			<tr>
+				   			<td>P·2</td>
+			   				<td>Belgian Pale Ale</td>
+			   				<td>Keg</td>
+			   				<td>$89.99</td>
+			   				<td>3</td>
+			   			</tr>
+			   		</table>
+
+			   		<div class="total" align="right">
+			   			<p>Subtotal: $500.00</p>
+			   			<p>Tax: $48.00</p>
+			   			<p><b>Total: $548.00</b><p>
+			   		</div>
 			   	</div>
-
-			   	<br><br><br><br>
-				<a class="view-cart-button" href="home.html">Home</a>
-
+								
 			</div>    
 		</section>		 
 

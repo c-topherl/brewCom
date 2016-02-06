@@ -3932,7 +3932,6 @@ form textarea:focus {
   outline: none; }
 
 form label {
-  display: block;
   margin: 5px 0 7px 0;
   font-style: italic; }
 

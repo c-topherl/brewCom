@@ -127,7 +127,7 @@
 			   			<p>Confirmation email:</p>
 			   		</div>
 			   		<div align="left" style="display: inline-block;">
-			   			<input type="text" size="30"/>
+			   			<input type="text" size="30" onblur="validateEmail(this)"/>
 			   		</div>
 			   		<br>
 			   		<div style="display: inline-block;">
@@ -139,6 +139,7 @@
 			   	</div>
 
 			   	<br><br><br><br>
+			   	<a class="view-cart-button" href="cart.html">&lt;&lt;Back</a>&nbsp;&nbsp;&nbsp;
 				<a class="view-cart-button" href="confirmation.html">Place Order</a>
 			</form>
 								
@@ -192,12 +193,10 @@
 <script src="js/module.header-animation.js"></script>
 <script src="js/loader.js"></script>
 <script src="js/dataTables.min.js"></script>
-
-
-		<script src="js/module.grid-rollover.js"></script>
-		<script src="js/animation.beer.js"></script>
-		<script src="js/page.beer-landing.js"></script>
-
+<script src="js/module.grid-rollover.js"></script>
+<script src="js/animation.beer.js"></script>
+<script src="js/page.beer-landing.js"></script>
+<script src="js/site.js"></script>
 		 <script type="text/javascript">
             
             $(document).ready(function () {

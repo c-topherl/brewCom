@@ -69,8 +69,8 @@
                 <li class="home"><a href="/">Home</a></li>
                 
                 <li class="nav-link"><a href="home.html">Home</a></li>
-                <li class="nav-link"><a href="javascript:void(0)">Place Order</a></li>
-                <li class="nav-link"><a href="open_orders.html">View Orders</a></li>
+                <li class="nav-link"><a href="delivery_date.html">Place Order</a></li>
+                <li class="nav-link"><a href="javascript:void(0)">View Orders</a></li>
                 <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
          		<li class="header-logo"><h1><a class="logo" href="/">Penrose Brewing Company</a></h1></li>
          		<li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
@@ -90,7 +90,7 @@
 <!-- Main Nav -->
 <nav class="nav-main nav-header nav-short">
     <ul>
-        <li class="nav-link"><a href="home.html">Home</a></li>
+        <li class="nav-link"><a href="javascript:void(0)">Home</a></li>
         <li class="nav-link"><a href="delivery_date.html">Place Order</a></li>
         <li class="nav-link"><a href="open_orders.html">View Orders</a></li>
         <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
@@ -121,14 +121,40 @@
 
 			<div class="wrapper">
 
-			   	<div id="confirmation">
-			   		<br><br>
-			   		<p>Your customer info has been updated!</p>
+			   	<div id="order-div">
+				   	<table id="order-table"> 
+				   		<thead>
+			   				<tr>
+					   			<th>Order Number</th>
+			   					<th>Delivery Date</th>
+			   					<th>Delivery Method</th>
+			   					<th>Total Amount</th>
+			   				</tr>
+			   			</thead>
+			   			<tbody>
+			   				<tr>
+					   			<td><a href="order_detail.html" class="detail-link">12345</a></td>
+			   					<td>01/18/2016</td>
+			   					<td>Delivery</td>
+			   					<td>$189.23</td>
+			   				</tr>
+			   				<tr>
+					   			<td><a href="order_detail.html" class="detail-link">54321</a></td>
+			   					<td>01/19/2016</td>
+			   					<td>Delivery</td>
+			   					<td>$56.88</td>
+			   				</tr>
+			   				<tr>
+					   			<td><a href="order_detail.html" class="detail-link">24680</a></td>
+			   					<td>01/20/2016</td>
+			   					<td>Pickup</td>
+			   					<td>$125.15</td>
+			   				</tr>
+				   		</tbody>
+			   		</table>
 			   	</div>
-
-			   	<br><br><br><br>
-				<a class="view-cart-button" href="home.html">Home</a>
-
+	
+								
 			</div>    
 		</section>		 
 
@@ -155,7 +181,7 @@
 
 <!-- JQUERY --> 
 
-<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script src="js/EasePack.min.js"></script>
 <script src="js/TweenMax.min.js"></script>
 <script src="js/ScrollToPlugin.min.js"></script>
@@ -191,7 +217,7 @@
                     anchorSelector: '.btn-more-alt',
                     addClass:'hover'
                 });
-                $('#cart-table').dataTable();
+                $('#order-table').DataTable();
     		});
         </script>
 	</body>

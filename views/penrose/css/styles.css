@@ -18,30 +18,6 @@ th {
 }
 
 
-
-/* LOGIN PAGE */
-
-#login-div {
-	width: 100%;
-}
-
-#login-forms, #login-info {
-	display: inline-block;
-}
-
-#forgot-pass-link {
-	font-weight: italics;
-	font-size: 12px;
-	text-decoration: underline;
-}
-
-#login-info {
-	vertical-align: top;
-	margin-top: 5%;
-}
-
-
-
 /* LANDING PAGE */
 
 .header-logo {
@@ -88,14 +64,15 @@ th {
 
 .continue-button {
 	border: 3px solid #b08930;
-	padding: 3%;
-	font-size: 22px;
-	border-radius: 26px;
+	padding: 1%;
+	font-size: 18px;
+	border-radius: 22px;
 }
 
 .continue-button:hover {
 	cursor: pointer;
 }
+
 
 
 
@@ -107,13 +84,17 @@ th {
 
 .view-cart-button {
 	border: 3px solid #b08930;
-	padding: 2%;
+	padding: 1%;
 	font-size: 22px;
 	border-radius: 26px;
 }
 
 .view-cart-button:hover {
 	cursor: pointer;
+}
+
+.sorting {
+	text-decoration: underline;
 }
 
 
@@ -135,6 +116,34 @@ th {
 
 textarea {
 	width: 250px;
+}
+
+
+
+/* ORDER DETAIL PAGE */
+
+.customer-info{
+	width: 50%;
+	border: 1px solid black;
+}
+
+.customer-info {
+	display: inline-block;
+}
+
+.customer-info p {
+	width: 15%;
+}
+
+.back-button {
+	border: 3px solid #b08930;
+	padding: 10%;
+	font-size: 16px;
+	border-radius: 22px;
+}
+
+.back-button:hover {
+	cursor: pointer;
 }
 
 

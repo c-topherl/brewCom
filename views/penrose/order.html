@@ -124,56 +124,59 @@
 				<form action="cart.html" method="post">
 			   	<div id="order-div">
 				   	<table id="order-table"> 
-			   			<tr>
-				   			<th>Beer</th>
-			   				<th>Type</th>
-			   				<th>Keg Price</th>
-			   				<th>Kegs</th>
-			   				<th>Bottle Price (6)</th>
-			   				<th>Bottles (6)</th>
-			   				<th>Bottle Price (12)</th>
-			   				<th>Bottles (12)</th>
-			   			</tr>
-			   			<tr>
-				   			<td>Devoir</td>
-			   				<td>Saison Ale</td>
-			   				<td>$89.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$6.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$12.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   			</tr>
-			   			<tr>
-				   			<td>P·2</td>
-			   				<td>Belgian Pale Ale</td>
-			   				<td>$89.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$6.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$12.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   			</tr>
-			   			<tr>
-				   			<td>Desirous</td>
-			   				<td>White IPA</td>
-			   				<td>$89.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$6.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$12.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   			</tr>
-			   			<tr>
-				   			<td>Fractal</td>
-			   				<td>Belgian IPA</td>
-			   				<td>$89.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$6.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   				<td>$12.99</td>
-			   				<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-			   			</tr>
+				   		<thead>
+			   				<tr>
+					   			<th>Beer</th>
+			   					<th>Type</th>
+			   					<th>Unit</th>
+			   					<th>Price</th>
+			   					<th>Quantity</th>
+			   				</tr>
+			   			</thead>
+			   			<tbody>
+			   				<tr>
+					   			<td>Devoir</td>
+			   					<td>Saison Ale</td>
+			   					<td>Keg</td>
+			   					<td>$89.99</td>
+			   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text"/></td>
+			   				</tr>
+			   				<tr>
+					   			<td>Devoir</td>
+			   					<td>Saison Ale</td>
+			   					<td>Bottles (12)</td>
+			   					<td>$12.99</td>
+			   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
+			   				</tr>
+			   				<tr>
+					   			<td>P·2</td>
+			   					<td>Belgian Pale Ale</td>
+			   					<td>Keg</td>
+			   					<td>$89.99</td>
+			   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
+			   				</tr>
+			   				<tr>
+					   			<td>P·2</td>
+			   					<td>Belgian Pale Ale</td>
+			   					<td>Bottles (6)</td>
+			   					<td>$6.99</td>
+			   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
+			   				</tr>
+			   				<tr>
+					   			<td>Desirous</td>
+			   					<td>White IPA</td>
+				   				<td>Keg</td>
+			   					<td>$89.99</td>
+			   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
+			   				</tr>
+			   				<tr>
+					   			<td>Fractal</td>
+			   					<td>Belgian IPA</td>
+			   					<td>Keg</td>
+			   					<td>$89.99</td>
+			   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
+				   			</tr>
+				   		</tbody>
 			   		</table>
 			   	</div>
 
@@ -207,7 +210,7 @@
 
 <!-- JQUERY --> 
 
-<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery.min.js"></script>
 <script src="js/EasePack.min.js"></script>
 <script src="js/TweenMax.min.js"></script>
 <script src="js/ScrollToPlugin.min.js"></script>
@@ -231,12 +234,10 @@
 <script src="js/module.header-animation.js"></script>
 <script src="js/loader.js"></script>
 <script src="js/dataTables.min.js"></script>
-
-
-		<script src="js/module.grid-rollover.js"></script>
-		<script src="js/animation.beer.js"></script>
-		<script src="js/page.beer-landing.js"></script>
-
+<script src="js/module.grid-rollover.js"></script>
+<script src="js/animation.beer.js"></script>
+<script src="js/page.beer-landing.js"></script>
+<script src="js/site.js"></script>
 		 <script type="text/javascript">
             
             $(document).ready(function () {
@@ -244,7 +245,7 @@
                     anchorSelector: '.btn-more-alt',
                     addClass:'hover'
                 });
-                $('#order-table').dataTable();
+                $('#order-table').DataTable();
     		});
         </script>
 	</body>
