@@ -7,6 +7,19 @@ if (isset($_POST['function']))
 }
 switch($function)
 {
+    case "add_product":
+        include "add_product.php";
+        if(addProduct())
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "Successfully added product";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = "Failed to add product";
+        }
+        break;
     case "get_products":
         include "get_products.php";
         if($products = getProducts())
