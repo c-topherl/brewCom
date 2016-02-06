@@ -8,7 +8,7 @@ function getProducts()
     $sql .= "LEFT JOIN units u ON p.id = u.product_id ";
     $sql .= "LEFT JOIN product_types pt ON p.type = pt.id";
     $productArray = array();
-    if($result = mysqli_query($$dbConn,$sql))
+    if($result = mysqli_query($dbConn->getConn(),$sql))
     {
         while($row = mysqli_fetch_assoc($result))
         {
