@@ -2,8 +2,15 @@
 class DBConnection
 {
     private $connection;
-    function getConn(){return $this->$connection;}
-    function db_connect($servername="localhost",
+    public function get_con()
+    {
+        return $this->connection;
+    }
+    public function db_query($sql)
+    {
+        return mysqli_query($this->connection,$sql);
+    }
+    public function db_connect($servername="localhost",
             $username="joelmeis_brewery",
             $db_pass="brewcom9876",
             $dbname="joelmeis_brewCom"){
@@ -12,8 +19,9 @@ class DBConnection
         $con = new mysqli($servername, $username, $db_pass, $dbname);
         if (mysqli_connect_errno($con)){
             $this->output_error('could not connect to database');
+            return null;
         }
-        $this->$connection = $con;
+        $this->connection = $con;
         return $con;
     }
 

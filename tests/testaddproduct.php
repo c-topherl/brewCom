@@ -116,9 +116,19 @@
 						</form>
 					</div>
 					<div id="login-info">
-						<p>If you require assistance with login information,</p> 
-						<p>please contact customer service at (123) 456-7890.</p>
+						<p>Products:</p>
 					</div>
+<div>
+<?php 
+include "../controllers/get_products.php";
+$products = array();
+$products = (array)getProducts();
+foreach($products as $p)
+{
+    echo "<p>".$p['prod_desc']."</p>";
+}
+?>
+</div>
 				</div>
 					
 			</div>    
@@ -187,7 +197,7 @@ function submitCreateProduct(){
         data: fields,
         dataType: 'json',
         success: function(response) {
-            console.log("success: " + response);
+            console.log("success: " + response.message);
         },		  	
         error: function(jqXHR){
            var json=jqXHR.responseText;
