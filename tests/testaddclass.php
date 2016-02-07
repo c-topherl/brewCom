@@ -107,44 +107,34 @@
 
 				<div id="login-div">
 					<div id="something">
-						<form id="addproduct-form" onsubmit="return submitCreateProduct()" method="post">
+						<form id="addclass-form" onsubmit="return submitCreateClass()" method="post">
 							code: <input type="text" name="code" id="code"><br>
 							description: <input type="text" name="description" id="description">
-							price: <input type="number" name="price" id="price">
-							type: <input type="text" name="type" id="type">
 							<input type="submit" id="login-btn">
 						</form>
 					</div>
 					<div id="login-info">
-						<p>Products:</p>
+						<p>Classes:</p>
 					</div>
 <div>
 <?php 
-include "../controllers/get_products.php";
-$products = array();
-$products = (array)get_products();
+
+include "../controllers/get_product_classes.php";
+$classes = array();
+$classes = (array)get_product_classes();
 echo "<table border=\"1\">";
 echo "<tr>";
 echo "<th>Code</th>";
 echo "<th>Description</th>";
-echo "<th>Price</th>";
-echo "<th>Unit desc</th>";
-echo "<th>Unit abbrev</th>";
-echo "<th>Class</th>";
-echo "<th>Class desc</th>";
 echo "</tr>";
-foreach($products as $p)
+foreach($classes as $p)
 {
     echo "<tr>";
-    echo "<td>".$p['prod_code']."</td>";
-    echo "<td>".$p['prod_desc']."</td>";
-    echo "<td>".$p['price']."</td>";
-    echo "<td>".$p['unit_desc']."</td>";
-    echo "<td>".$p['unit_abbrev']."</td>";
-    echo "<td>".$p['class']."</td>";
-    echo "<td>".$p['class_desc']."</td>";
+    echo "<td>".$p['code']."</td>";
+    echo "<td>".$p['description']."</td>";
     echo "</tr>";
 }
+echo "</table>";
 ?>
 </div>
 				</div>
@@ -206,9 +196,9 @@ foreach($products as $p)
 
 <script type="text/javascript">
 
-function submitCreateProduct(){
-    var fields = $("#addproduct-form").serialize();
-    fields += "&function=add_product";
+function submitCreateClass(){
+    var fields = $("#addclass-form").serialize();
+    fields += "&function=add_product_class";
     $.ajax({
         type: "POST",
         url: "../controllers/product_controller.php",

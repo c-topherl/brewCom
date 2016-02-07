@@ -22,7 +22,7 @@ switch($function)
         break;
     case "get_products":
         include "get_products.php";
-        if($products = getProducts())
+        if($products = get_products())
         {
             $responseArray['status'] = 'success';
             $responseArray['message'] = "Products successfully read";
@@ -33,6 +33,19 @@ switch($function)
             $responseArray['status'] = 'failure';
             $responseArray['message'] = "Something went wrong reading from products";
             $responseArray['products'] = '';
+        }
+        break;
+    case "add_product_class":
+        include "add_product_class.php";
+        if($products = add_product_class())
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "Class successfully added";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = "Failed to add class";
         }
         break;
     default:
