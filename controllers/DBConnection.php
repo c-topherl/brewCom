@@ -31,6 +31,10 @@ class DBConnection
         $data = htmlspecialchars($data);
         return $data;
     }
+    function db_error()
+    {
+        return mysqli_error($this->connection);
+    }
 
     function output_error($errormessage){
         http_response_code(400);
