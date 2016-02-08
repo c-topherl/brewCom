@@ -8,8 +8,9 @@ if (isset($_POST['function']))
 }
 switch($function)
 {
-    case "create":
+    case "create_order":
         include "create_order.php";
+        create_order();
         break;
     default:
         $responseArray['status'] = 'failure';
