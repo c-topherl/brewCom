@@ -1,8 +1,8 @@
 <?php
-
+include "DBConnection.php";
 function create_order()
 {
-    $dbconn = new DBConnection();
+    $dbConn = new DBConnection();
     //pass in all order details in an array
     $user_id = $_POST['user_id'];
     $order_date = isset($_POST['order_date']) ? $_POST['order_date'] : date("Y m d");

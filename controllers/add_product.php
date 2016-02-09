@@ -1,6 +1,6 @@
 <?php
 require_once("DBConnection.php");
-function addProduct(&$error = null)
+function add_product(&$error = null)
 {
     $dbConn = new DBConnection();
     $dbConn->db_connect();

@@ -8,15 +8,17 @@ if (isset($_POST['function']))
 }
 switch($function)
 {
-    case "create_order":
+    case "add_order":
         include "create_order.php";
         create_order();
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = "Added order";
         break;
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";
-        echo json_encode($responseArray);
 }
 
+echo json_encode($responseArray);
 exit();
 ?>
