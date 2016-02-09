@@ -1,0 +1,17 @@
+.order-detail-link, .remove-link {
+	text-align: center;
+	text-decoration: underline;
+}
+
+.first-checkbox {
+	margin-left: 3%;
+}
+
+.amount {
+	text-align: right;
+	padding-right: 1%;
+}
+
+.back-button {
+	padding-left: 15px;
+}
