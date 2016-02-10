@@ -1,13 +1,13 @@
 <?php
 require_once("DBConnection.php");
-function add_product(&$error = null)
+function add_product($productArray, &$error = null)
 {
     $dbConn = new DBConnection();
     $dbConn->db_connect();
-    $code = $_POST['code'];
-    $description = $_POST['description'];
-    $price = $_POST['price'];
-    $class = $_POST['class'];
+    $code = $productArray['code'];
+    $description = $productArray['description'];
+    $price = $productArray['price'];
+    $class = $productArray['class'];
     if(check_product_exists($dbConn,$code))
     {
         $error = "Product code already exists!";

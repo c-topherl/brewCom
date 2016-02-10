@@ -1,11 +1,11 @@
 <?php
 require_once("DBConnection.php");
-function add_product_class()
+function add_product_class($classArray)
 {
     $dbConn = new DBConnection();
     $dbConn->db_connect();
-    $code = $_POST['code'];
-    $description = $_POST['description'];
+    $code = $classArray['code'];
+    $description = $classArray['description'];
     $sql = "SELECT code FROM product_classes where code = '".mysqli_real_escape_string($dbConn->get_con(), $code)."'";
     if($result = $dbConn->db_query($sql))
     {

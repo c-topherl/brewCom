@@ -10,7 +10,7 @@ switch($function)
 {
     case "add_user":
         include "add_user.php";
-        add_user();
+        add_user($_POST);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "User successfully added";
         echo json_encode($responseArray);
