@@ -111,7 +111,7 @@
             user id: <input type="text" name="user_id" id="user_id" value=123>
             type (ship/pickup): <input type="text" name="type" id="type" value="pickup">
             ship/pickup date: <input type="text" name="ship_date" id="ship_date" value="2016-02-10">
-            product code: <input type="text" name="product_code" id="product_code" value="palelager"><br>
+            product code: <input type="text" name="detail[0][product_code]" id="product_code" value="zoe"><br>
             <input type="submit" id="login-btn">
         </form>
     </div>
