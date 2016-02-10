@@ -1,6 +1,6 @@
 <?php
 require_once("DBConnection.php");
-function add_user($userArray&$error = null)
+function add_user($userArray, &$error = null)
 {
     $dbConn = new DBConnection();
     $dbConn->db_connect();
