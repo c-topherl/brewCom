@@ -1,11 +1,11 @@
 <?php
 require_once("DBConnection.php");
-function add_user(&$error = null)
+function add_user($userArray&$error = null)
 {
     $dbConn = new DBConnection();
     $dbConn->db_connect();
-    $username = $_POST['username'];
-    $email = $_POST['email'];
+    $username = $userArray['username'];
+    $email = $userArray['email'];
 //check exists
     $sql = "SELECT username,email FROM users WHERE username = '".mysqli_real_escape_string($dbConn,$username)."' OR email = '".mysqli_real_escape_string($dbConn,$email)."'";
     if($result = $dbConn->db_query($sql))
@@ -25,7 +25,7 @@ function add_user(&$error = null)
         }
     }
 //add some salt
-    $password = hash('sha256',hash('sha256',$_POST['password']).$username);
+    $password = hash('sha256',hash('sha256',$userArray['password']).$username);
     $sql = "INSERT INTO users(username,email,password) VALUES('$username','$email','$password')";
     if(!$dbConn->db_query($sql))
     {
