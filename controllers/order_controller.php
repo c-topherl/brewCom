@@ -10,15 +10,15 @@ switch($function)
 {
     case "add_cart_header":
         include "add_cart";
-        add_cart_header();
+        add_cart_header($_POST);
         break;
     case "add_cart_detail":
         include "add_cart";
-        add_cart_detail();
+        add_cart_detail($_POST);
         break;
     case "add_order":
         include "create_order.php";
-        create_order();
+        create_order($_POST);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Added order";
         break;

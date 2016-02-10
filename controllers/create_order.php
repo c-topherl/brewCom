@@ -1,16 +1,16 @@
 <?php
 include "DBConnection.php";
-function create_order()
+function create_order($orderArray)
 {
     $dbConn = new DBConnection();
     //pass in all order details in an array
-    $user_id = $_POST['user_id'];
-    $order_date = isset($_POST['order_date']) ? $_POST['order_date'] : date("Y m d");
-    $ship_date = $_POST['ship_date'];
-    $type = isset($_POST['type']) ? $_POST['type'] : 'pickup'; //pickup/delivery
-    $status = isset($_POST['status']) ? $_POST['status'] : "open";
-    $comments = isset($_POST['comments']) ? $_POST['comments']: '';
-    $shipping_commenta = isset($_POST['shipping_comments']) ? $_POST['shipping_comments'] : '';
+    $user_id = $orderArray['user_id'];
+    $order_date = isset($orderArray['order_date']) ? $orderArray['order_date'] : date("Y m d");
+    $ship_date = $orderArray['ship_date'];
+    $type = isset($orderArray['type']) ? $orderArray['type'] : 'pickup'; //pickup/delivery
+    $status = isset($orderArray['status']) ? $orderArray['status'] : "open";
+    $comments = isset($orderArray['comments']) ? $orderArray['comments']: '';
+    $shipping_commenta = isset($orderArray['shipping_comments']) ? $orderArray['shipping_comments'] : '';
 
     $sql = "INSERT INTO orders(user_id, order_date,ship_date,type,status,comments,shipping_comments) ";
     $sql .= "VALUES($user_id, '$order_date','$ship_date','$type','$status','$comments','$shipping_comments')";
@@ -21,9 +21,9 @@ function create_order()
         return false;
     }
 
-    if(isset($_POST['detail']))
+    if(isset($orderArray['detail']))
     {
-        create_order_detail($dbConn,mysqli_insert_id($dbConn),$_POST['detail']);
+        create_order_detail($dbConn,mysqli_insert_id($dbConn),$orderArray['detail']);
     }
     return true;
 }
