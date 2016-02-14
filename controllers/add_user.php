@@ -1,5 +1,6 @@
 <?php
 require_once("PDOConnection.php");
+require_once("common.inc");
 function add_user($userArray, &$error = null)
 {
     $dbh = new PDOConnection();
@@ -25,7 +26,7 @@ function add_user($userArray, &$error = null)
         }
     }
 //add some salt
-    $password = hash('sha256',hash('sha256',$userArray['password']).$username);
+    $password = hash_password($userArray['password'],$username);
     $query = "INSERT INTO users(username,email,password) VALUES(:username, :email, :password)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);

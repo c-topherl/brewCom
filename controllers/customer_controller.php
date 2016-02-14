@@ -21,6 +21,18 @@ switch($function)
             $responseArray['message'] = $error;
         }
         break;
+    case "verify_user"
+        include "verify_user";
+        if(verify_user($_POST,$error))
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "User verified";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = $error;
+        }
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";
