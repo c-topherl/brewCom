@@ -9,7 +9,7 @@ switch($function)
 {
     case "add_product":
         include "add_product.php";
-        if(add_product($_POST))
+        if(add_product($_POST,$error))
         {
             $responseArray['status'] = 'success';
             $responseArray['message'] = "Successfully added product";
@@ -17,7 +17,7 @@ switch($function)
         else
         {
             $responseArray['status'] = 'failure';
-            $responseArray['message'] = "Failed to add product";
+            $responseArray['message'] = $error;
         }
         break;
     case "get_products":
@@ -37,7 +37,7 @@ switch($function)
         break;
     case "add_product_class":
         include "add_product_class.php";
-        if($products = add_product_class($_POST))
+        if($products = add_product_class($_POST, $error))
         {
             $responseArray['status'] = 'success';
             $responseArray['message'] = "Class successfully added";
@@ -45,7 +45,7 @@ switch($function)
         else
         {
             $responseArray['status'] = 'failure';
-            $responseArray['message'] = "Failed to add class";
+            $responseArray['message'] = $error;
         }
         break;
     default:

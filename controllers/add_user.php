@@ -1,13 +1,18 @@
 <?php
 require_once("PDOConnection.php");
+require_once("common.inc");
 function add_user($userArray, &$error = null)
 {
     $dbh = new PDOConnection();
     $username = $userArray['username'];
     $email = $userArray['email'];
 //check exists
-    $query = "SELECT username,email FROM users WHERE username = '$username' OR email = '$email'";
-    foreach($dbh->query($query) as $row)
+    $query = "SELECT username,email FROM users WHERE username = :username OR email = :email";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':username',$username);
+    $sth->bindParam(':email',$email);
+    $sth->execute();
+    if($row = $sth->fetch(PDO::FETCH_ASSOC))
     {
         if($row['email'] === $email)
         {
@@ -21,8 +26,11 @@ function add_user($userArray, &$error = null)
         }
     }
 //add some salt
-    $password = hash('sha256',hash('sha256',$userArray['password']).$username);
-    $query = "INSERT INTO users(username,email,password) VALUES('$username','$email','$password')";
-    $dbh->query($query);
-    return true;
+    $password = hash_password($userArray['password'],$username);
+    $query = "INSERT INTO users(username,email,password) VALUES(:username, :email, :password)";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':username',$username);
+    $sth->bindParam(':email',$email);
+    $sth->bindParam(':password',$password);
+    return $sth->execute();
 }
