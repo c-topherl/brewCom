@@ -10,16 +10,22 @@ switch($function)
 {
     case "add_user":
         include "add_user.php";
-        add_user($_POST);
-        $responseArray['status'] = 'success';
-        $responseArray['message'] = "User successfully added";
-        echo json_encode($responseArray);
+        if(add_user($_POST,$error))
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "User successfully added";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = $error;
+        }
         break;
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";
-        echo json_encode($responseArray);
 }
 
+echo json_encode($responseArray);
 exit();
 ?>

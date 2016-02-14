@@ -24,18 +24,21 @@ function add_product($productArray, &$error = null)
 //true mean product exists
 function check_product_exists($dbh,$code)
 {
-    $query = "SELECT code FROM products WHERE code = '$code'";
-    foreach($dbh->query($query) as $row)
-    {
-        return true;
-    }
-    return false;
+    $query = "SELECT code FROM products WHERE code = :code";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':code', $code, PDO::PARAM_STR);
+    $sth->execute();
+    return ($sth->rowCount() > 0);
 }
 function check_class_exists($dbh,$class_code)
 {
-    $query = "SELECT class FROM product_classess WHERE code = '$class_code'";
-    foreach($dbh->query($query) as $row)
+    $query = "SELECT class FROM product_classess WHERE code = :class_code";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':class_code', $class_code);
+    $sth->execute();
+    if($sth->rowCount() > 0)
     {
+        $row = $sth->fetch();
         return $row['id'];;
     }
     return false;
