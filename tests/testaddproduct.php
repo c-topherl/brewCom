@@ -135,13 +135,14 @@ echo "<th>Class desc</th>";
 echo "</tr>";
 foreach($products as $p)
 {
+    echo "<script>console.log(".json_encode($p).")</script>";
     echo "<tr>";
     echo "<td>".$p['prod_code']."</td>";
     echo "<td>".$p['prod_desc']."</td>";
     echo "<td>".$p['price']."</td>";
     echo "<td>".$p['unit_desc']."</td>";
     echo "<td>".$p['unit_abbrev']."</td>";
-    echo "<td>".$p['class']."</td>";
+    echo "<td>".$p['class_code']."</td>";
     echo "<td>".$p['class_desc']."</td>";
     echo "</tr>";
 }
