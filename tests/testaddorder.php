@@ -137,12 +137,17 @@ foreach($orders as $o)
     echo "<td>".$o['user_id']."</td>";
     echo "<td>".$o['order_date']."</td>";
     echo "<td>".$o['ship_date']."</td>";
-    if(isset($o['detail']) && is_array($o['detail']))
+    if(isset($o['detail']) && is_array($o['detail']) && count($o['detail']) > 0)
     {
         foreach($o['detail'] as $d)
         {
-            echo "<td>".$d['product_id']."</td>";
+            echo "<td>".$d['product_code']."</td>";
         }
+    }
+    else
+    {
+        echo "<td>no details</td>";
+
     }
     echo "</tr>";
 }
