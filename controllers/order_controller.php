@@ -17,11 +17,14 @@ switch($function)
         add_cart_detail($_POST);
         break;
     case "add_order":
-        include "create_order.php";
-        create_order($_POST);
+        include "add_order.php";
+        $responseArray['response'] = add_order($_POST);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Added order";
         break;
+    case "get_orders":
+        include "get_orders.php"
+        $responseArray['response'] = get_orders($_POST);
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";

@@ -1,22 +1,15 @@
 <?php
-require_once("DBConnection.php");
+require_once("PDOConnection.php");
 function get_product_classes()
 {
-    $dbConn = new DBConnection();
-    $sql = "SELECT *";
-    $sql .= "FROM product_classes ";
+    $dbh = new PDOConnection();
+
+    $query = "SELECT * FROM product_classes ";
     $classArray = array();
-    $dbConn->db_connect();
-    if($result = $dbConn->db_query($sql))
+    foreach($dbh->query($query) as $row)
     {
-        while($row = mysqli_fetch_assoc($result))
-        {
-            $classArray[] = $row;
-        }
-    }
-    else
-    {
-        return false;
+        $classArray[] = $row;
     }
     return $classArray;
+
 }
