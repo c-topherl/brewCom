@@ -1,252 +1,59 @@
 
-
-
-
-<!DOCTYPE html>
-<!--[if lt IE 7 ]> <html class="ie ie6 lt-ie9 lt-ie8 lt-ie7 no-js"> <![endif]-->
-<!--[if IE 7 ]>    <html class="ie ie7 lt-ie9 lt-ie8 no-js"> <![endif]-->
-<!--[if IE 8 ]>    <html class="ie ie8 lt-ie9 no-js"> <![endif]-->
-<!--[if IE 9 ]>    <html class="ie ie9 no-js"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html class="notie no-js"> <!--<![endif]-->
-
-	<head>
-	   
-		<!-- META -->
-		<meta charset="utf-8"> 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Online Ordering</title>
-<meta name="description" content="We focus on belgian inspired session ales, oak barrel-aging, and alternative fermentation. Our pursuit of balance inspires effort to bring order to random.">
-<meta name="keywords" content="penrose brewing, craft beer, craft, belgian, session ales, oak barrel-aging, alternative fermentation">
-
-
-		
-		<!-- HTML HEADER -->
-		<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<link rel="shortcut icon" href="images/favicon.ico" />
-<link href='https://fonts.googleapis.com/css?family=Wire+One' rel='stylesheet' type='text/css'>
-
-<!-- CSS -->
-<!-- ////////////////////////////////////////// --> 
-
-<link rel="stylesheet" href="css/brewery.css">
-<link rel="stylesheet" href="css/styles.css">
-<link href="css/dataTables.min.css" rel="stylesheet" type="text/css">
-
-
-
-<!-- TYPEKIT -->
-<!-- ////////////////////////////////////////// --> 
-<script type="text/javascript" src="//use.typekit.net/xeh2zrw.js"></script>
-<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
-
-<!-- MODERNIZER -->
-<!-- ////////////////////////////////////////// --> 
-<script src="js/modernizr-2.6.1.min.js"></script>
-
-	</head>
-
-	<body class="beer beer-landing">
-		<script type="text/javascript">document.getElementsByTagName('body')[0].className+=' js'</script>
-
-		<!-- HEADER -->
-		<!-- ////////////////////////////////////////// --> 
-		<a id="top"></a>
-
-<header class="header-global">
-    <div class="wrapper">
-
-        <!-- Logo 
-    	<h1><a class="logo" href="/">Penrose Brewing Company</a></h1>
-        --> 
-
-        <!-- Main Nav --> 
-        <a href="#menu-main" class="nav-mobile-toggle menu-trigger">Menu</a>
-        <nav id="nav-main" class="nav-main nav-header">
-            <ul>
-                <!-- Hidden on desktop -->
-                <li class="home"><a href="/">Home</a></li>
-                
-                <li class="nav-link"><a href="home.html">Home</a></li>
-                <li class="nav-link"><a href="javascript:void(0)">Place Order</a></li>
-                <li class="nav-link"><a href="open_orders.html">View Orders</a></li>
-                <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
-         		<li class="header-logo"><h1><a class="logo" href="/">Penrose Brewing Company</a></h1></li>
-         		<li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
-				<li class="nav-link"><a href="update_info.html">Update Info</a></li>
-                <li class="nav-link"><a href="log_out.html">Log Out</a></li>
-                
-                <!-- Hidden on Desktop -->
-                <!-- <li class="nav-mobile"><a href="/where-to-buy">Where to Buy</a></li> -->
-                <li class="nav-mobile"><a href="/taproom#tap-list">Current Tap List</a></li>
-            </ul>
-        </nav>
-
-    </div>   
-</header>
-
-
-<!-- Main Nav -->
-<nav class="nav-main nav-header nav-short">
-    <ul>
-        <li class="nav-link"><a href="javascript:void(0)">Home</a></li>
-        <li class="nav-link"><a href="delivery_date.html">Place Order</a></li>
-        <li class="nav-link"><a href="open_orders.html">View Orders</a></li>
-        <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
-        <li class="header-logo"><h1><a class="logo" href="/">Penrose Brewing Company</a></h1></li>
-        <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
-		<li class="nav-link"><a href="update_info.html">Update Info</a></li>
-        <li class="nav-link"><a href="log_out.html">Log Out</a></li>
-    </ul>
-</nav>
-
-
-		<header class="header-simple">
-			<h2 class="header-fade fade-in">Online Ordering</h2>
-		</header>
-
-		<!-- BEER LISTING -->
-		<section class="section-holder section-light glyph glyph-dark">
-
-		<div class="glyph-holder glyph-holder-0">
-    		<div class="glyph-art glyph-art-1"></div>
-    		<div class="glyph-art glyph-art-2"></div>
-    		<div class="glyph-art glyph-art-3"></div>
-    		<div class="glyph-art glyph-art-4"></div>
-    		<div class="glyph-art glyph-art-5"></div>
-		</div>
-
-			<hr class="section-rule">
-
-			<div class="wrapper">
-
-					<div style="width: 10%; align:left;">
-			   			<a class="back-button" href="open_orders.html" align="left">&lt;&lt; Back</a>
-			   		</div>
-
-			   		<h4>Order 12345</h4><br>
-			   		<p>Delivery 01/18/2016</p>
-
-			   	<!--
-			   		<div class="customer-info">
-			   			<label for="ship-to">Ship to</label>
-			   			<p id="ship-to">Test Customer</p>
-			   			<label for="ship-to-add1">&nbsp;</label>
-			   			<p id="ship-to-add1">123 Cherry St</p>
-			   		</div>
-			   	-->
-				   	<table id="cart-table"> 
-			   			<tr>
-				   			<th>Beer</th>
-			   				<th>Type</th>
-			   				<th>Unit</th>
-			   				<th>Price</th>
-			   				<th>Quantity</th>
-			   			</tr>
-			   			<tr>
-				   			<td>Devoir</td>
-			   				<td>Saison Ale</td>
-			   				<td>Keg</td>
-			   				<td>$89.99</td>
-			   				<td>5</td>
-			   			</tr>
-			   			<tr>
-				   			<td>&nbsp;</td>
-			   				<td>&nbsp;</td>
-			   				<td>Bottles (6)</td>
-			   				<td>$6.99</td>
-			   				<td>20</td>
-			   			</tr>
-			   			<tr>
-				   			<td>&nbsp;</td>
-			   				<td>&nbsp;</td>
-			   				<td>Bottles (12)</td>
-			   				<td>$12.99</td>
-			   				<td>10</td>
-
-			   			</tr>
-			   			<tr>
-				   			<td>P·2</td>
-			   				<td>Belgian Pale Ale</td>
-			   				<td>Keg</td>
-			   				<td>$89.99</td>
-			   				<td>3</td>
-			   			</tr>
-			   		</table>
-
-			   		<div class="total" align="right">
-			   			<p>Subtotal: $500.00</p>
-			   			<p>Tax: $48.00</p>
-			   			<p><b>Total: $548.00</b><p>
-			   		</div>
-			   	</div>
-								
-			</div>    
-		</section>		 
-
-		
-
-		<!-- FOOTER -->
-		<!-- ////////////////////////////////////////// --> 
-		<footer class="footer-global">
-
-	<div class="wrapper">
-		<!--
-        <a class="link-top anchorSlide" href="#top">Top</a>
-		-->
-	    <p class="copyright">&copy; Penrose Brewing 2016<br>Design by <a href="http://www.mightyfew.com" target="_">Mighty Few</a> &amp; <a href="http://thisisstatic.com/" target="_">Static</a> <br>Site by Chris &amp; Joel</p>
-	    <a class="facebook social" href="https://www.facebook.com/pages/Penrose-Brewing/320419804738106" target="_blank">Facebook</a>
-		<a class="twitter social" href="https://twitter.com/PenroseBrewing" target="_blank">Twitter</a>
+	<div style="width: 10%; align:left;">
+		<a class="back-button" href="javascript:void(0)" onclick="getOpenOrders();" align="left">&lt;&lt; Back</a>
 	</div>
-    
-</footer>
 
-		<!-- JS : FOOTER -->
-		<!-- ////////////////////////////////////////// -->     
-		
+	<h4>Order {{orderNumber}}</h4><br>
+	<p>{{deliveryMethod}} {{deliveryDate}}</p>
 
-<!-- JQUERY --> 
+	<table id="order-table"> 
+		<thead>
+			<tr>
+				<th>Beer</th>
+				<th>Type</th>
+				<th>Unit</th>
+				<th>Price</th>
+				<th>Quantity</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Devoir</td>
+				<td>Saison Ale</td>
+				<td>Keg</td>
+				<td>$89.99</td>
+				<td>5</td>
+			</tr>
+			<tr>
+				<td>Devoir</td>
+				<td>Saison Ale</td>
+				<td>Bottles (6)</td>
+				<td>$6.99</td>
+				<td>20</td>
+			</tr>	
+			<tr>
+				<td>Devoir</td>
+				<td>Saison Ale</td>
+				<td>Bottles (12)</td>
+				<td>$12.99</td>
+				<td>10</td>
+			</tr>	
+			<tr>
+				<td>P·2</td>
+				<td>Belgian Pale Ale</td>
+				<td>Keg</td>
+				<td>$89.99</td>
+				<td>3</td>
+			</tr>
+		</tbody>
+	</table>
 
-<script src="js/jquery-1.9.1.min.js"></script>
-<script src="js/EasePack.min.js"></script>
-<script src="js/TweenMax.min.js"></script>
-<script src="js/ScrollToPlugin.min.js"></script>
-<script src="js/jquery.backstretch.min.js"></script>
-<script src="js/jquery.bigclick.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.fitvids.js"></script>
-<script src="js/imagesloaded.pkgd.min.js"></script>
-<script src="js/masonry.pkgd.min.js"></script>
-<script src="js/jquery.royalslider.min.js"></script>
-<script src="js/jquery.smooth-scroll.min.js"></script>
-<script src="js/jquery.jpanelmenu-transform-build.js"></script>
-<script src="js/jquery.slides.min.js"></script>
-<script src="js/jquery.ui.core.js"></script>
-<script src="js/jquery.ui.widget.js"></script>
-<script src="js/jquery.ui.position.js"></script>
-<script src="js/jquery.ui.selectmenu.js"></script>   
-<script src="js/jquery.magnific-popup.min.js"></script>
-<!--<script src="js/popup.magnific.js"></script>-->
-<script src="js/waypoints.js"></script>
-<script src="js/module.header-animation.js"></script>
-<script src="js/loader.js"></script>
-<script src="js/dataTables.min.js"></script>
-<script src="js/module.grid-rollover.js"></script>
-<script src="js/animation.beer.js"></script>
-<script src="js/page.beer-landing.js"></script>
-<script src="js/site.js"></script>
+	<div class="total" align="right">
+		<p>Subtotal: $500.00</p>
+		<p>Tax: $48.00</p>
+		<p><b>Total: $548.00</b><p>
+	</div>
 
-		 <script type="text/javascript">
-            
-            $(document).ready(function () {
-                $('.module-beer').bigClick({
-                    anchorSelector: '.btn-more-alt',
-                    addClass:'hover'
-                });
-                $('#cart-table').dataTable();
-    		});
-        </script>
-	</body>
-
-</html>
+	<script type="text/javascript">
+      displayTable("order-table");
+   </script>

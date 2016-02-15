@@ -45,3 +45,54 @@ var verifyLogin = function(){
 		return false;
 	}
 }
+
+var buildHttpRequest = function(method, url, callback, callbackParam){
+	var req = new XMLHttpRequest();
+    req.open(method, url, true);
+
+    req.onreadystatechange = function(){
+        if (req.readyState == 4 && req.status == 200){
+        	if (callback){
+        		callback(callbackParam);
+        	}
+        }
+    };
+
+    req.send();
+}
+
+var displayTable = function(tableName){
+	tableName = "#" + tableName;
+	$(tableName).dataTable();
+}
+
+//add "hidden" class to all navlinks
+var hideNavLinks = function(){
+	var navLinks = document.getElementsByClassName("nav-link");
+	var i;
+
+	for (i = 0; i < navLinks.length; i++){
+		navLinks[i].className = navLinks[i].className + " hidden";
+	}
+
+	return;
+}
+
+//remove "hidden" class from all navlinks
+var showNavLinks = function(){
+	var navLinks = document.getElementsByClassName("nav-link");
+	var i;
+	var classes;
+	var index;
+
+	for (i = 0; i < navLinks.length; i++){
+		classes = navLinks[i].className.split(" ");
+		index = classes.indexOf("hidden");
+		if (index > -1){
+			classes.splice(index, 1);
+		}
+		navLinks[i].className = classes.join(" ");
+	}
+
+	return;
+}
