@@ -1,27 +1,24 @@
 <?php
-require_once("DBConnection.php");
-function add_product_class($classArray)
+require_once("PDOConnection.php");
+function add_product_class($classArray, &$error=NULL)
 {
-    $dbConn = new DBConnection();
-    $dbConn->db_connect();
+    $dbh = new PDOConnection();
     $code = $classArray['code'];
     $description = $classArray['description'];
-    $sql = "SELECT code FROM product_classes where code = '".mysqli_real_escape_string($dbConn->get_con(), $code)."'";
-    if($result = $dbConn->db_query($sql))
+
+    $query = "SELECT code FROM product_classes where code = :code";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':code', $code, PDO::PARAM_STR);
+    $sth->execute();
+    if($sth->rowCount() > 0)
     {
-        if(mysqli_num_rows($result) > 0)
-        {
-            return false;
-        }
-        $sql = "INSERT INTO product_classes(description,code) VALUES('$description','$code')";
-        if(!($result = $dbConn->db_query($sql)))
-        {
-            echo mysqli_error($dbConn->get_con());
-        }
-        return $result;
-    }
-    else
-    {
+        $error = "Product code exists";
         return false;
     }
+
+    $query = "INSERT INTO product_classes(description,code) VALUES(:description,:code)";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':code', $code, PDO::PARAM_STR);
+    $sth->bindParam(':description', $description, PDO::PARAM_STR);
+    return $sth->execute();
 }

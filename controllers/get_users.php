@@ -1,10 +1,10 @@
 <?php
 require_once("PDOConnection.php");
-function get_product_classes()
+function get_users()
 {
     $dbh = new PDOConnection();
 
-    $query = "SELECT * FROM product_classes ";
+    $query = "SELECT username, email FROM users ";
     $classArray = array();
     foreach($dbh->query($query) as $row)
     {

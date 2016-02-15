@@ -1,9 +1,8 @@
 <?php
-include "DBConnection.php";
+include "PDOConnection.php";
 function add_cart_header($cartHeader)
 {
-    $dbConn = new DBConnection();
-    $dbConn->db_connect();
+    $dbh = new PDOConnection();
 
     $user_id = $cartHeader['user_id'];
     $ship_date = $cartHeader['ship_date'];
@@ -12,25 +11,26 @@ function add_cart_header($cartHeader)
     $comments = $cartHeader['comments'];
     $shipping_comments = $cartHeader['shipping_comments'];
 
-    if(check_cart_exists($dbConn,$user_id))
+    if(check_cart_exists($dbh,$user_id))
     {
         return false; //may only have 1 cart
     }
 
-    $sql = "INSERT INTO orders(user_id, ship_date, type, shipping_type, comments, shipping_comments) ";
-    $sql .= "VALUES($user_id, $ship_date, $type, $shipping_type, '$comments', '$shipping_comments')";
-    if(!($result = $dbConn->db_query($sql)))
-    {
-        $dbConn->db_error();
-        return false;
-    }
-    return true;
+    $query = "INSERT INTO orders(user_id, ship_date, type, shipping_type, comments, shipping_comments) ";
+    $query .= "VALUES(:user_id, :ship_date, :type, :shipping_type, :comments, :shipping_comments)";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':user_id', $user_id);
+    $sth->bindParam(':ship_date', $ship_date);
+    $sth->bindParam(':type', $type);
+    $sth->bindParam(':shipping_type', $shipping_type);
+    $sth->bindParam(':comments', $comments);
+    $sth->bindParam(':shipping_comments', $shipping_comments);
+    return $sth->execute();
 }
 
 function add_cart_detail($cartDetail)
 {
-    $dbConn = new DBConnection();
-    $dbConn->db_connect();
+    $dbh = new PDOConnection();
 
     $user_id = $cartDetail['user_id'];
     $product_id = $cartDetail['product_id'];
@@ -38,27 +38,27 @@ function add_cart_detail($cartDetail)
     $quantity = $cartDetail['quantity'];
     $unit_id = $cartDetail['unit_id'];
 
-    if(!check_cart_exists($dbConn,$user_id))
+    if(!check_cart_exists($dbh,$user_id))
     {
         return false; //must have cart
     }
 
-    $sql = "INSERT INTO orders(user_id, product_id, price, quantity, unit_id) ";
-    $sql .= "VALUES($user_id, $product_id, $price, $quantity, $unit_id)";
-    if(!($result = $dbConn->db_query($sql)))
-    {
-        $dbConn->db_error();
-        return false;
-    }
+    $query = "INSERT INTO orders(user_id, product_id, price, quantity, unit_id) ";
+    $query .= "VALUES(:user_id, :product_id, :price, :quantity, :unit_id)";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':user_id',$user_id);
+    $sth->bindParam(':product_id',$product_id);
+    $sth->bindParam(':price',$price);
+    $sth->bindParam(':quantity',$quantity);
+    $sth->bindParam(':unit_id',$unit_id);
+    $dbh->query($query);
     return true;
 }
-function check_cart_exists($dbConn,$user_id)
+function check_cart_exists($dbh,$user_id)
 {
-    $sql = "SELECT user_id FROM cart_header WHERE user_id = $user_id";
-    $result = $dbConn->db_query($sql);
-    if($result && (mysqli_num_rows($result) > 0))
-    {
-        return true;
-    }
-    return false;
+    $query = "SELECT user_id FROM cart_header WHERE user_id = :user_id";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':user_id',$user_id);
+    $sth->execute();
+    return ($sth->rowCount() > 0);
 }

@@ -1,38 +1,28 @@
 <?php
-require_once("DBConnection.php");
+require_once("PDOConnection.php");
 function get_orders()
 {
-    $dbConn = new DBConnection();
-    $dbConn->db_connect();
-    $sql = "SELECT * from orders";
+    $dbh = new PDOConnection();
+    $query = "SELECT order_id,user_id,total_price,order_date,ship_date,type,shipping_type,status,comments,shipping_comments,u.username FROM orders o LEFT JOIN users u ON o.user_id = u.id";
     $orderArray = array();
-    if($result = $dbConn->db_query($sql))
+    $idx = 0;
+    foreach($dbh->query($query) as $row)
     {
-        $idx = 0;
-        while($row = mysqli_fetch_assoc($result))
-        {
-            $orderArray[$idx] = $row;
-            $orderArray[$idx]['detail'] = get_order_details($dbConn,$row['order_id']);
-            $idx++;
-        }
-    }
-    else
-    {
-        echo $dbConn->db_error();
-        return false;
+        $orderArray[$idx] = $row;
+        $orderArray[$idx]['detail'] = get_order_details($dbh,$row['order_id']);
+        $idx++;
     }
     return $orderArray;
 }
-function get_order_details($dbConn, $order_id)
+function get_order_details($dbh, $order_id)
 {
     $detailArray = array();
-    $sql = "SELECT * FROM order_details WHERE order_id = $order_id";
-    if($result = $dbConn->db_query($sql))
+    $query = "SELECT od.price,quantity,unit_id,p.code product_code FROM order_details od ";
+    $query .= "LEFT JOIN products p ON od.product_id = p.id ";
+    $query .= "WHERE order_id = $order_id ";
+    foreach($dbh->query($query) as $row)
     {
-        while($row = mysqli_fetch_assoc($result))
-        {
-            $detailArray[] = $row;
-        }
+        $detailArray[] = $row;
     }
     return $detailArray;
 }

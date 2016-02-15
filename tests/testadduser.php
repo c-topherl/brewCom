@@ -107,45 +107,34 @@
 
 				<div id="login-div">
 					<div id="something">
-						<form id="addproduct-form" onsubmit="return submitCreateProduct()" method="post">
-							code: <input type="text" name="code" id="code"><br>
-							description: <input type="text" name="description" id="description">
-							price: <input type="number" name="price" id="price">
-							type: <input type="text" name="type" id="type">
+						<form id="addclass-form" onsubmit="return submitCreateClass()" method="post">
+							username: <input type="text" name="username" id="username"><br>
+							email: <input type="text" name="email" id="email">
+							password: <input type="password" name="password" id="password">
 							<input type="submit" id="login-btn">
 						</form>
 					</div>
 					<div id="login-info">
-						<p>Products:</p>
+						<p>Classes:</p>
 					</div>
 <div>
 <?php 
-include "../controllers/get_products.php";
-$products = array();
-$products = (array)get_products();
+
+include "../controllers/get_users.php";
+$users = (array)get_users();
 echo "<table border=\"1\">";
 echo "<tr>";
-echo "<th>Code</th>";
-echo "<th>Description</th>";
-echo "<th>Price</th>";
-echo "<th>Unit desc</th>";
-echo "<th>Unit abbrev</th>";
-echo "<th>Class</th>";
-echo "<th>Class desc</th>";
+echo "<th>username</th>";
+echo "<th>email</th>";
 echo "</tr>";
-foreach($products as $p)
+foreach($users as $u)
 {
-    echo "<script>console.log(".json_encode($p).")</script>";
     echo "<tr>";
-    echo "<td>".$p['prod_code']."</td>";
-    echo "<td>".$p['prod_desc']."</td>";
-    echo "<td>".$p['price']."</td>";
-    echo "<td>".$p['unit_desc']."</td>";
-    echo "<td>".$p['unit_abbrev']."</td>";
-    echo "<td>".$p['class_code']."</td>";
-    echo "<td>".$p['class_desc']."</td>";
+    echo "<td>".$u['username']."</td>";
+    echo "<td>".$u['email']."</td>";
     echo "</tr>";
 }
+echo "</table>";
 ?>
 </div>
 				</div>
@@ -207,12 +196,12 @@ foreach($products as $p)
 
 <script type="text/javascript">
 
-function submitCreateProduct(){
-    var fields = $("#addproduct-form").serialize();
-    fields += "&function=add_product";
+function submitCreateClass(){
+    var fields = $("#addclass-form").serialize();
+    fields += "&function=add_user";
     $.ajax({
         type: "POST",
-        url: "../controllers/product_controller.php",
+        url: "../controllers/customer_controller.php",
         data: fields,
         dataType: 'json',
         success: function(response) {
