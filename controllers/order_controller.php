@@ -23,8 +23,23 @@ switch($function)
         $responseArray['message'] = "Added order";
         break;
     case "get_orders":
-        include "get_orders.php"
-        $responseArray['response'] = get_orders($_POST);
+        include "get_orders.php";
+        $responseArray['response'] = get_orders($_POST,$error);
+        if($responseArray['response'] !== NULL)
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "Orders successfully read";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = $error;
+        }
+    case "get_delivery_options.php"
+        include "get_delivery_options.php";
+        $responseArray['status'] = "success";
+        $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";
+        $responseArray['response'] =  get_delivery_options($_POST);
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";

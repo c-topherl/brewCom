@@ -31,7 +31,7 @@ switch($function)
         else
         {
             $responseArray['status'] = 'failure';
-            $responseArray['message'] = $error;
+            $responseArray['message'] = "Invalid username or password";
         }
     default:
         $responseArray['status'] = 'failure';
