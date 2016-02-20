@@ -5,8 +5,8 @@ function verify_user($userArray, &$error=NULL)
 {
     $dbh = new PDOConnection();
     $username = $userArray['username'];
-    $email = $userArray['username'];
-    $password = hash_password($userArray['username']);
+    $email = $userArray['email'];
+    $password = hash_password($userArray['password'],$userArray['username']);
 
     $query = "SELECT username, email, password FROM users WHERE (username = :username OR email = :email) AND password = :password";
     $sth = $dbh->prepare($query);

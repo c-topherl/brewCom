@@ -17,7 +17,7 @@ function add_order($orderArray)
 
     if(isset($orderArray['detail']))
     {
-        add_order_detail($dbh,$dbh->lastInsertId(),$orderArray['detail'])
+        add_order_detail($dbh,$dbh->lastInsertId(),$orderArray['detail']);
     }
     return true;
 }
@@ -31,7 +31,7 @@ function add_order_detail($dbh, $order_id, $detailArray)
             $detail['product_id'] = $row['id'];
             $detail['price'] = isset($detail['price']) ? $detail['price'] : $row['price'];
         }
-        if(!(isset($detail['product_id']) && (isset($detail['price']) && (isset($detail['quantity'])&& (isset($detail['unit_id']))
+        if(!(isset($detail['product_id']) && isset($detail['price']) && isset($detail['quantity'])&& isset($detail['unit_id'])))
         {
             //something is missing
             return false;
@@ -42,6 +42,6 @@ function add_order_detail($dbh, $order_id, $detailArray)
         $unit_id = $detail['unit_id'];
         $query = "INSERT INTO order_details(order_id,product_id,price,quantity,unit_id) ";
         $query .= "VALUES($order_id,$product_id,$price,$quantity,$unit_id)";
-        $dbh->query($query)
+        $dbh->query($query);
     }
 }
