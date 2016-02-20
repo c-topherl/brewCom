@@ -25,7 +25,7 @@ function add_user($userArray, &$error = null)
             return false;
         }
     }
-//add some salt
+//salty.  in common.inc
     $password = hash_password($userArray['password'],$username);
     $query = "INSERT INTO users(username,email,password) VALUES(:username, :email, :password)";
     $sth = $dbh->prepare($query);

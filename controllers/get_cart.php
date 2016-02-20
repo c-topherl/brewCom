@@ -1,48 +1,33 @@
 <?php
 require_once("PDOConnection.php");
-TODO: THIS WHOLE THING
-//This function is to get the shopping cart given a number of parameters
-function get_cart($orderInfo = NULL, &$error = NULL)
+function get_cart($cartInfo = NULL, &$error = NULL)
 {
     $dbh = new PDOConnection();
-    $query = "SELECT user_id,total_price,order_date,ship_date,type,shipping_type,status,comments,shipping_comments,u.username FROM orders o LEFT JOIN users u ON o.user_id = u.id ";
+    $query = "SELECT email, ship_date,type,shipping_type,comments,shipping_comments,h.last_updated header_last_updated ";
+    $query .= "FROM cart_header LEFT JOIN users u ON u.id = h.user_id WHERE user_id = :user_id ";
     $optionalParams = '';
-    if(isset($orderInfo['email']))
-    {
-        $email  = $orderInfo['email'];
-        $query2 = "SELECT id,username,email FROM users WHERE email = '$email'";
-        $sth2 = $dbh->prepare($query2);
-        $sth2->execute();
-        $row = $sth2->fetch();
-        if(!isset($row['email']))
-        {
-            $error = "Customer email does not exist";
-            return NULL;
-        }
-        $optionalParams .= "u.email = '{$row['email']}' ";
-    }
     if($optionalParams !== '')
     {
         $query .= "WHERE ".$optionalParams;
     }
-    $orderArray = array();
-    foreach($dbh->query($query) as $row)
-    {
-        $orderArray[$row['order_id']] = $row;
-        $orderArray[$row['order_id']]['detail'] = get_order_details($dbh,$row['order_id']);
-        $idx++;
-    }
-    return $orderArray;
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':user_id',$user_id;
+    $sth->execute();
+    $cartArray = $sth->fetch();
+    $cartArray['details'] = get_cart_details($dbh, $user_id);
+    return $cartArray;
 }
-function get_order_details($dbh, $order_id)
+function get_cart_details($dbh, $user_id)
 {
     $detailArray = array();
-    $query = "SELECT od.price,quantity,unit_id,p.code product_code FROM order_details od ";
-    $query .= "LEFT JOIN products p ON od.product_id = p.id ";
-    $query .= "WHERE order_id = $order_id ";
-    foreach($dbh->query($query) as $row)
+    $query = "SELECT product_id,price,quantity,unit_id,last_updated FROM cart_detail WHERE user_id = :user_id ";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':user_id',$user_id);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach($result as $row)
     {
-        $detailArray[$row['id']] = $row;
+        $detailArray[] = $row;
     }
     return $detailArray;
 }

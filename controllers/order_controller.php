@@ -9,13 +9,18 @@ if (isset($_POST['function']))
 switch($function)
 {
     case "add_cart_header":
-        include "add_cart";
+        include "add_cart.php";
         add_cart_header($_POST);
         break;
     case "add_cart_detail":
-        include "add_cart";
+        include "add_cart.php";
         add_cart_detail($_POST);
         break;
+    case "get_cart":
+        include "get_cart.php";
+        $responseArray['response'] = get_cart($_POST);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'Here is your cart';
     case "add_order":
         include "add_order.php";
         $responseArray['response'] = add_order($_POST);
