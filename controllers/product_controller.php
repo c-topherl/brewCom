@@ -35,6 +35,18 @@ switch($function)
             $responseArray['products'] = '';
         }
         break;
+    case "update_product":
+        include "update_product.php";
+        if($products = update_product($_POST, $error))
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "Product successfully updated";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = $error;
+        }
     case "add_product_class":
         include "add_product_class.php";
         if($products = add_product_class($_POST, $error))
@@ -48,6 +60,31 @@ switch($function)
             $responseArray['message'] = $error;
         }
         break;
+    case "update_product_class":
+        include "update_product_class.php";
+        if($products = update_product_class($_POST, $error))
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "Product class successfully updated";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = $error;
+        }
+    case "add_unit":
+        include "add_unit.php";
+        if($products = add_unit($_POST, $error))
+        {
+            $responseArray['status'] = 'success';
+            $responseArray['message'] = "Product/Unit successfully added";
+        }
+        else
+        {
+            $responseArray['status'] = 'failure';
+            $responseArray['message'] = $error;
+        }
+        
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";
