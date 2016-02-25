@@ -11,7 +11,7 @@ function get_cart($cartInfo = NULL, &$error = NULL)
         $query .= "WHERE ".$optionalParams;
     }
     $sth = $dbh->prepare($query);
-    $sth->bindParam(':user_id',$user_id;
+    $sth->bindParam(':user_id',$user_id);
     $sth->execute();
     $cartArray = $sth->fetch();
     $cartArray['details'] = get_cart_details($dbh, $user_id);

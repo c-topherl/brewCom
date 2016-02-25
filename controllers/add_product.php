@@ -1,6 +1,6 @@
 <?php
 require_once("PDOConnection.php");
-function add_product($productArray, &$error = null)
+function add_product($productArray)
 {
     $dbh = new PDOConnection();
     $code = $productArray['code'];
@@ -9,14 +9,12 @@ function add_product($productArray, &$error = null)
     $class_code = $productArray['class'];
     if(check_product_exists($dbh,$code))
     {
-        $error = "Product code already exists!";
-        return false;
+        throw new Exception("Product code already exists");
     }
     $class_id = check_class_exists($dbh,$class_code);
     if($class_id === false)
     {
-        $error = "Product class does not exist!";
-        return false;
+        throw new Exception("Product class does not exist");
     }
     $query = "INSERT INTO products(description,code,price,class_id) VALUES('$description','$code',$price,'$class_id')";
     return $dbh->query($query);

@@ -13,7 +13,7 @@ function add_cart_header($cartHeader)
 
     if(check_cart_exists($dbh,$user_id))
     {
-        return false; //may only have 1 cart
+        throw new Exception("User cart already exists");
     }
 
     $query = "INSERT INTO orders(user_id, ship_date, type, shipping_type, comments, shipping_comments) ";
@@ -40,7 +40,7 @@ function add_cart_detail($cartDetail)
 
     if(!check_cart_exists($dbh,$user_id))
     {
-        return false; //must have cart
+        throw new Exception("Cannot find cart for user");
     }
 
     $query = "INSERT INTO orders(user_id, product_id, price, quantity, unit_id) ";

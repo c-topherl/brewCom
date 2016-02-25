@@ -2,7 +2,7 @@
 include "PDOConnection.php";
 //At least needs ID passed in.  If you don't know it, get it from the get_products() routine
 // This is so we can update a product code (since we store id on everything, don't change that)
-function update_product($productArray,&$error = NULL)
+function update_product($productArray)
 {
     $dbh = new PDOConnection();
     $query = "SELECT id,code,description,active,last_updated FROM products WHERE id = :id";
@@ -12,8 +12,7 @@ function update_product($productArray,&$error = NULL)
     $sth->execute();
     if(!($oldValues = $sth->fetch()))
     {
-        $error = "Product id: '".$id."' not found!";
-        return false;
+        throw new Exception("Product id: '".$id."' not found!");
     }
 
     $query = "UPDATE products SET code = :code, description = :description, price = :price, class = :class, active = :active WHERE id = :id";

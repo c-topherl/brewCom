@@ -1,10 +1,25 @@
 <?php
+function exception_handler($e)
+{
+    $responseArray['status'] = 'failure';
+    $responseArray['message'] = $e->getMessage();
+    echo json_encode($responseArray);
+}
+set_exception_handler('exception_handler');
 
 // This file will have all the functions to interact with orders (creation, read, etc)
+//You are allowed to pass values in either by POST or GET.  Please HTTP responsibly
 $function = 'unknown';
+$values = array();
 if (isset($_POST['function']))
 {
     $function = $_POST['function'];
+    $values = $_POST;
+}
+elseif (isset($_GET['function']))
+{
+    $function = $_GET['function'];
+    $values = $_GET;
 }
 switch($function)
 {
@@ -40,7 +55,7 @@ switch($function)
             $responseArray['status'] = 'failure';
             $responseArray['message'] = $error;
         }
-    case "get_delivery_options.php"
+    case "get_delivery_options.php":
         include "get_delivery_options.php";
         $responseArray['status'] = "success";
         $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";

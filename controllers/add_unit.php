@@ -1,6 +1,6 @@
 <?php
 require_once("PDOConnection.php");
-function add_unit($unitArray, &$error=NULL)
+function add_unit($unitArray)
 {
     $dbh = new PDOConnection();
     $product_id = $unitArray['product_id'];
@@ -14,8 +14,7 @@ function add_unit($unitArray, &$error=NULL)
     $sth->execute();
     if($sth->rowCount() > 0)
     {
-        $error = "Product/Unit code exists";
-        return false;
+        throw new Exception("Product/Unit code exists");
     }
 
     $query = "INSERT INTO units(product_id,description,code) VALUES(:product_id,:description,:code)";
