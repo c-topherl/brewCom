@@ -14,5 +14,9 @@ function verify_user($userArray, &$error=NULL)
     $sth->bindParam(':email',$email);
     $sth->bindParam(':password',$password);
     $sth->execute();
-    return ($sth->rowCount() > 0);
+    if($sth->rowCount() <= 0)
+    {
+        throw new Exception("Invalid username or password");
+    }
+    return true;
 }

@@ -1,7 +1,7 @@
 <?php
 require_once("PDOConnection.php");
 require_once("common.inc");
-function add_user($userArray, &$error = null)
+function add_user($userArray)
 {
     $dbh = new PDOConnection();
     $username = $userArray['username'];
@@ -16,13 +16,11 @@ function add_user($userArray, &$error = null)
     {
         if($row['email'] === $email)
         {
-            $error = "Email already exists";
-            return false;
+            throw new Exception("Email already exists");
         }
         elseif($row['username'] === $username)
         {
-            $error = "Username already exists";
-            return false;
+            throw new Exception("Username already exists");
         }
     }
 //salty.  in common.inc

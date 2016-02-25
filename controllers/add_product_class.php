@@ -1,6 +1,6 @@
 <?php
 require_once("PDOConnection.php");
-function add_product_class($classArray, &$error=NULL)
+function add_product_class($classArray)
 {
     $dbh = new PDOConnection();
     $code = $classArray['code'];
@@ -12,8 +12,7 @@ function add_product_class($classArray, &$error=NULL)
     $sth->execute();
     if($sth->rowCount() > 0)
     {
-        $error = "Product code exists";
-        return false;
+        throw new Exception("Product code exists");
     }
 
     $query = "INSERT INTO product_classes(description,code) VALUES(:description,:code)";
