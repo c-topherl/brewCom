@@ -1,5 +1,5 @@
 <?php
-include "PDOConnection.php";
+require_once "PDOConnection.php";
 function add_order($orderArray)
 {
     $dbh = new PDOConnection();

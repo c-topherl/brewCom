@@ -1,22 +1,25 @@
 <?php
 require_once("PDOConnection.php");
 require_once("common.inc");
-function verify_user($userArray, &$error=NULL)
+function verify_user($userArray)
 {
     $dbh = new PDOConnection();
-    $username = $userArray['username'];
-    $email = $userArray['email'];
-    $password = hash_password($userArray['password'],$userArray['username']);
+    $username = isset($userArray['username']) ? $userArray['username'] : '';
+    $email = isset($userArray['email']) ? $userArray['email'] : '';
 
-    $query = "SELECT username, email, password FROM users WHERE (username = :username OR email = :email) AND password = :password";
+    $query = "SELECT username, email, password FROM users WHERE username = :username OR email = :email";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
-    $sth->bindParam(':password',$password);
     $sth->execute();
     if($sth->rowCount() <= 0)
     {
-        throw new Exception("Invalid username or password");
+        throw new Exception("Invalid username");
+    }
+    $row = $sth->fetch();
+    if($row['password'] !== hash_password($userArray['password'],$row['username']))
+    {
+        throw new Exception("Invalid password");
     }
     return true;
 }

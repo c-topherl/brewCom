@@ -21,7 +21,7 @@ switch($function)
         $responseArray['message'] = "User successfully added";
         break;
     case "verify_user":
-        include "verify_user";
+        include "verify_user.php";
         verify_user($_POST);
         $responseArray['message'] = "User verified";
         break;
