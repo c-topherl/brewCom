@@ -17,7 +17,6 @@ function update_product($productArray)
     {
         throw new Exception("Product id: '".$id."' not found!");
     }
-    print_r($oldValues);
     $query = "UPDATE products SET code = :code, description = :description, price = :price, class = :class, active = :active WHERE id = :id";
     $sth = $dbh->prepare($query);
 
