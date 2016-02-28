@@ -30,5 +30,14 @@ function add_user($userArray)
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
     $sth->bindParam(':password',$password);
-    return $sth->execute();
+    if($sth->execute())
+    {
+        require("verification_email.php");
+        verification_email($email);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }

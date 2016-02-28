@@ -7,10 +7,12 @@ function get_product_classes($classFilters = NULL)
     $dbh = new PDOConnection();
     $query = "SELECT * FROM product_classes ";
     $classArray = array();
-    foreach($dbh->query($query) as $row)
+    $sth = $dbh->prepare($query);
+    $sth->execute();
+    $result = $sth->fetchAll();
+    foreach($result as $row)
     {
         $classArray[] = $row;
     }
     return $classArray;
-
 }

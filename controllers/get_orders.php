@@ -60,9 +60,9 @@ function get_order_detail($order_id)
 function get_order_details($dbh, $order_id)
 {
     $detailArray = array();
-    $query = "SELECT od.price,quantity,unit_id,p.code product_code FROM order_details od ";
-    $query .= "LEFT JOIN products p ON od.product_id = p.id ";
-    $query .= "WHERE order_id = :order_id ";
+    $query = "SELECT od.price,quantity,unit_id,p.code product_code FROM order_details od 
+        LEFT JOIN products p ON od.product_id = p.id 
+        WHERE order_id = :order_id ";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':order_id',$order_id);
     $sth->execute();

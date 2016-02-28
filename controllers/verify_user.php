@@ -1,22 +1,37 @@
 <?php
 require_once("PDOConnection.php");
 require_once("common.inc");
-function verify_user($userArray, &$error=NULL)
+include("get_cart.php");
+include("get_product_units.php");
+function verify_user($userArray)
 {
     $dbh = new PDOConnection();
-    $username = $userArray['username'];
-    $email = $userArray['email'];
-    $password = hash_password($userArray['password'],$userArray['username']);
+    $username = isset($userArray['username']) ? $userArray['username'] : '';
+    $email = isset($userArray['email']) ? $userArray['email'] : '';
 
-    $query = "SELECT username, email, password FROM users WHERE (username = :username OR email = :email) AND password = :password";
+    $query = "SELECT id,username, email, password FROM users WHERE username = :username OR email = :email";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
-    $sth->bindParam(':password',$password);
     $sth->execute();
     if($sth->rowCount() <= 0)
     {
-        throw new Exception("Invalid username or password");
+        throw new Exception("Invalid username");
     }
-    return true;
+    $row = $sth->fetch();
+    if($row['password'] !== hash_password($userArray['password'],$row['username']))
+    {
+        throw new Exception("Invalid password");
+    }
+
+    //user verified, return proper landing page content
+    $user_id= $row['id'];
+    $query = "SELECT COUNT(*) FROM cart_details where user_id = :user_id";
+    $sth = $dbh->prepare($query);
+    $sth->execute(array(":user_id" => $user_id));
+    if($sth->rowCount() > 0)
+    {
+        return get_cart(array('user_id' => $user_id));
+    }
+    return get_product_units();
 }

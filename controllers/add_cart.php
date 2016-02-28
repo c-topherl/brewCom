@@ -1,5 +1,5 @@
 <?php
-include "PDOConnection.php";
+require_once "PDOConnection.php";
 function add_cart_header($cartHeader)
 {
     $dbh = new PDOConnection();
