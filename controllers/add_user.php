@@ -32,12 +32,12 @@ function add_user($userArray)
     $sth->bindParam(':password',$password);
     if($sth->execute())
     {
-        require("verification_email.php");
+        require("verification_email.inc");
         verification_email($email);
         return true;
     }
     else
     {
-        return false;
+        throw new Exception(json_encode($sth->errorInfo()));
     }
 }

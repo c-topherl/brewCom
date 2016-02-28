@@ -12,7 +12,7 @@ function add_product_class($classArray)
     $sth->execute();
     if($sth->rowCount() > 0)
     {
-        throw new Exception("Product code exists");
+        throw new Exception("Class code exists");
     }
 
     $query = "INSERT INTO product_classes(description,code) VALUES(:description,:code)";

@@ -55,7 +55,12 @@ switch($function)
     case "add_unit":
         include "add_unit.php";
         add_unit($values);
-        $responseArray['message'] = "Product/Unit successfully added";
+        $responseArray['message'] = "Unit successfully added";
+        break;
+    case "get_units":
+        include "get_units.php";
+        $responseArray['response'] = get_units($values);
+        $responseArray['message'] = "Units successfully read";
         break;
     case "get_product_units":
         include "get_product_units.php";

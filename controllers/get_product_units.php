@@ -20,7 +20,6 @@ function get_product_units($info = NULL)
     {
         $query .= "WHERE ".$optionalParams;
     }
-    echo $query;
     $productArray = array();
     foreach($dbh->query($query) as $row)
     {
