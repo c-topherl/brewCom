@@ -1,13 +1,15 @@
 <?php
 require_once("PDOConnection.php");
 require_once("common.inc");
+include("get_cart.php");
+include("get_product_units.php");
 function verify_user($userArray)
 {
     $dbh = new PDOConnection();
     $username = isset($userArray['username']) ? $userArray['username'] : '';
     $email = isset($userArray['email']) ? $userArray['email'] : '';
 
-    $query = "SELECT username, email, password FROM users WHERE username = :username OR email = :email";
+    $query = "SELECT id,username, email, password FROM users WHERE username = :username OR email = :email";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
@@ -21,5 +23,15 @@ function verify_user($userArray)
     {
         throw new Exception("Invalid password");
     }
-    return true;
+
+    //user verified, return proper landing page content
+    $user_id= $row['id'];
+    $query = "SELECT COUNT(*) FROM cart_details where user_id = :user_id";
+    $sth = $dbh->prepare($query);
+    $sth->execute(array(":user_id" => $user_id));
+    if($sth->rowCount() > 0)
+    {
+        return get_cart(array('user_id' => $user_id));
+    }
+    return get_product_units();
 }

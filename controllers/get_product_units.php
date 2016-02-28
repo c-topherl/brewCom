@@ -2,7 +2,7 @@
 require_once("PDOConnection.php");
 //optional product info to read info by code
 //TODO finish optional parameters and binding paramters
-function get_product_units($info = NULL, &$error = NULL)
+function get_product_units($info = NULL)
 {
     $dbh = new PDOConnection();
     $query = "SELECT p.code prod_code, p.description prod_desc, p.price, pc.code class_code, pc.description class_desc, u.code unit_code, u.description unit_desc 
