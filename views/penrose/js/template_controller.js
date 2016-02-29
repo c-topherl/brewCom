@@ -198,17 +198,6 @@ var getOrderPage = function(){
 }
 
 var buildCart = function(){
-	/*
-	REQUEST TO GET CART CONTENTS
-	
-	var method = "get";
-	var url = "get_cart.php?";
-	var templatePath = "http://localhost/brewCom/views/penrose/cart.html";
-
-	buildHttpRequest(method, url, loadTemplate, templatePath);
-	*/
-
-	//temporary - this will go away
 	var url = "http://localhost/brewCom/views/penrose/cart.html";
 
 	var productCounter = 0;
@@ -247,6 +236,8 @@ var buildCart = function(){
 
 	data.totalPrice = totalPrice;
     loadTemplate(url, data);
+
+    //submit this data object containing lines to back end to be added to cart-overwrite all existing lines
     
     return;
 }
@@ -263,7 +254,7 @@ var submitOrder = function(){
 	REQUEST TO GET CART CONTENTS
 	
 	var method = "post";
-	var url = "submit_order.php";
+	var url = "submit_order.php?customer=CUST_CODE";
 	var templatePath = "http://localhost/brewCom/views/penrose/confirmation.html";
 	var successMessage = "Your information has been updated successfully!";
 
