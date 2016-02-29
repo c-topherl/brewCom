@@ -1,32 +1,33 @@
 <div id="login-forms">
+	<label for="delivery-date">Delivery Date</label>
+	<select dropdown name="delivery-date" id="delivery-date">
+    	{{#each deliveryDates}}
+       	<option value="{{value}}">{{title}}</option>
+    	{{/each}}
+	</select>
 
-			<label for="delivery-date">Delivery Date</label>
-			<select id="delivery-date">
-				<option value="20160105">01/05/16</option>
-				<option value="20160106">01/06/16</option>
-				<option value="20160107">01/07/16</option>
-				<option value="20160108">01/08/16</option>
-				<option value="20160109">01/09/16</option>
-				<option value="20160110">01/10/16</option>
-			</select>
+	<br><br><br>
 		
-			<br><br><br>
+	<label for="delivery-method">Method</label>
+	<select dropdown name="delivery-method" id="delivery-method">
+    	{{#each deliveryMethods}}
+       	<option value="{{value}}">{{title}}</option>
+    	{{/each}}
+	</select>
+
+	<br><br><br>
 		
-			<label for="delivery-method">Method</label>
-			<select id="delivery-method">
-				<option value="pickup">Pickup</option>
-				<option value="delivery">Delivery</option>
-			</select>
+	<label for="location">Location</label>
+	<select dropdown id="location" name="location">
+		{{#each warehouses}}
+		<option value="{{value}}">{{title}}</option>
+		{{/each}}
+	</select>
 		
-			<br><br><br>
+	<br><br><br><br><br>
 		
-			<label for="location">Location</label>
-			<select id="location">
-				<option value="0">Brewhouse A</option>
-				<option value="1">Brewhouse B</option>
-			</select>
-		
-			<br><br><br><br><br>
-		
-			<a class="continue-button" href="javascript:void(0)" onclick="getOrderPage();">Continue >></a>
-	</div>
+	<a class="continue-button" href="javascript:void(0)" onclick="getOrderPage();">Continue >></a>
+</div>
+
+
+

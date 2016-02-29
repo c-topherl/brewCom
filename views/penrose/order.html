@@ -1,37 +1,32 @@
-	   	<div id="order-div">
-		   	<table id="order-table"> 
-		   		<thead>
-	   				<tr>
-			   			<th>Beer</th>
-	   					<th>Type</th>
-	   					<th>Unit</th>
-	   					<th>Price</th>
-	   					<th>Quantity</th>
-	   				</tr>
-	   			</thead>
-	   			<tbody>
-	   				<tr>
-			   			<td>Devoir</td>
-	   					<td>Saison Ale</td>
-	   					<td>Keg</td>
-	   					<td>$89.99</td>
-	   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text"/></td>
-	   				</tr>
-	   				<tr>
-			   			<td>Devoir</td>
-	   					<td>Saison Ale</td>
-	   					<td>Bottles (12)</td>
-	   					<td>$12.99</td>
-	   					<td><input class="order-quantity" onblur="validateQuantity(this)" type="text" /></td>
-	   				</tr>
-				</tbody>
-			</table>
-		</div>
+<div id="order-div">
+	<table id="order-table"> 
+		<thead>
+	   		<tr>
+			   	<th>Beer</th>
+	   			<th>Type</th>
+	   			<th>Unit</th>
+	   			<th>Price</th>
+	   			<th>Quantity</th>
+	   		</tr>
+	   	</thead>
+	   	<tbody>
+	   		{{#products}}
+	   		<tr>
+				<td id="product_{{id}}">{{product}}</td>
+	   			<td id="desc_{{id}}">{{desc}}</td>
+	   			<td id="unit_{{id}}">{{unit}}</td>
+	   			<td id="price_{{id}}">{{price}}</td>
+	   			<td><input class="order-quantity" id="order_{{id}}" onblur="validateQuantity(this)" type="text"/></td>
+	   		</tr>
+	   		{{/products}}
+		</tbody>
+	</table>
+</div>
 
-		<br><br><br><br>
+<br><br><br><br>
 		
-		<a class="view-cart-button" href="javascript:void(0)" onclick="buildCart();">View Cart >></a>
+<a class="view-cart-button" href="javascript:void(0)" onclick="buildCart();">View Cart >></a>
 
-		<script type="text/javascript">
-      		displayTable("order-table");
-  		</script>
+<script type="text/javascript">
+	displayTable("order-table");
+</script>

@@ -9,24 +9,14 @@
    				</tr>
    			</thead>
    			<tbody>
+               {{#orders}}
    				<tr>
-		   			<td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">12345</a></td>
-   					<td>01/18/2016</td>
-   					<td>Delivery</td>
-   					<td>$189.23</td>
+		   			<td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">{{orderNumber}}</a></td>
+   					<td>{{deliveryDate}}</td>
+   					<td>{{deliveryMethod}}</td>
+   					<td>${{totalAmount}}</td>
    				</tr>
-   				<tr>
-		   			<td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">54321</a></td>
-   					<td>01/19/2016</td>
-   					<td>Delivery</td>
-   					<td>$56.88</td>
-   				</tr>
-   				<tr>
-		   			<td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">24680</a></td>
-				      <td>01/20/2016</td>
-					   <td>Pickup</td>
-					   <td>$125.15</td>
-				   </tr>
+               {{/orders}}
 	  		   </tbody>
 		   </table>
 	</div>

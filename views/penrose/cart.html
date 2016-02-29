@@ -9,40 +9,19 @@
 					<th>Price</th>
 					<th>Quantity</th>
 				</tr>
+				{{#lines}}
 				<tr>
-		  			<td>Devoir</td>
-					<td>Saison Ale</td>
-					<td>Keg</td>
-					<td>$89.99</td>
-					<td>5</td>
+		  			<td>{{product}}</td>
+					<td>{{desc}}</td>
+					<td>{{unit}}</td>
+					<td>{{price}}</td>
+					<td>{{quantity}}</td>
 				</tr>
-				<tr>
-		 			<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>Bottles (6)</td>
-					<td>$6.99</td>
-					<td>20</td>
-				</tr>
-				<tr>
-		 			<td>&nbsp;</td>
-					<td>&nbsp;</td>
-					<td>Bottles (12)</td>
-					<td>$12.99</td>
-					<td>10</td>
-	   			</tr>
-	   			<tr>
-		   			<td>P·2</td>
-	   				<td>Belgian Pale Ale</td>
-	   				<td>Keg</td>
-	   				<td>$89.99</td>
-	   				<td>3</td>
-	   			</tr>
+				{{/lines}}
 	   		</table>
 
 	   		<div class="total" align="right">
-	   			<p>Subtotal: $500.00</p>
-	   			<p>Tax: $48.00</p>
-	   			<p><b>Total: $548.00</b><p>
+	   			<p><b>Total: ${{totalPrice}}</b><p>
 	   		</div>
 	   	</div>
 
