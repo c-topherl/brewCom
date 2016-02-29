@@ -1,25 +1,27 @@
 <?php
 require_once("PDOConnection.php");
-function add_product($productArray, &$error = null)
+function add_product($productArray)
 {
     $dbh = new PDOConnection();
     $code = $productArray['code'];
     $description = $productArray['description'];
     $price = $productArray['price'];
-    $class_code = $productArray['class'];
-    if(check_product_exists($dbh,$code))
+    $class_id = $productArray['class'];
+    if(check_product_exists($dbh,$class_id))
     {
-        $error = "Product code already exists!";
-        return false;
+        throw new Exception("Product code already exists");
     }
-    $class_id = check_class_exists($dbh,$class_code);
-    if($class_id === false)
+    $class_id = get_class_id($dbh,$class_id);
+    $query = "INSERT INTO products(description,code,price,class) VALUES(:description,:code,:price,:class_id)";
+    $sth = $dbh->prepare($query);
+    $parameters = array(':description' => $description, 
+        ':code' => $code, 
+        ':price' => $price, 
+        ':class_id' => $class_id);
+    if(!$sth->execute($parameters))
     {
-        $error = "Product class does not exist!";
-        return false;
+        throw new Exception($sth->errorInfo()[2]);
     }
-    $query = "INSERT INTO products(description,code,price,class_id) VALUES('$description','$code',$price,'$class_id')";
-    return $dbh->query($query);
 }
 //true mean product exists
 function check_product_exists($dbh,$code)
@@ -30,16 +32,16 @@ function check_product_exists($dbh,$code)
     $sth->execute();
     return ($sth->rowCount() > 0);
 }
-function check_class_exists($dbh,$class_code)
+function get_class_id($dbh,$class_id)
 {
-    $query = "SELECT class FROM product_classess WHERE code = :class_code";
+    $query = "SELECT id FROM product_classes WHERE id = :class_id";
     $sth = $dbh->prepare($query);
-    $sth->bindParam(':class_code', $class_code);
+    $sth->bindParam(':class_id', $class_id);
     $sth->execute();
-    if($sth->rowCount() > 0)
+    if($sth->rowCount() <= 0)
     {
-        $row = $sth->fetch();
-        return $row['id'];;
-    }
-    return false;
+        throw new Exception("Product class id: ".$class_id." does not exist!");
+    } 
+    $row = $sth->fetch();
+    return $row['id'];;
 }

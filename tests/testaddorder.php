@@ -121,11 +121,14 @@
 <div>
 <?php 
 include "../controllers/get_orders.php";
-$orders = (array)get_orders();
+$getUser['email'] = "joelmeister1209@gmail.com";
+$orders = (array)get_orders($getUser,$error);
+echo "<script>console.log('$error');</script>";
 echo "<table border=\"1\">";
 echo "<tr>";
 echo "<th>order_id</th>";
 echo "<th>user_id</th>";
+echo "<th>status</th>";
 echo "<th>order_date</th>";
 echo "<th>ship_date</th>";
 echo "<th>products</th>";
@@ -135,6 +138,7 @@ foreach($orders as $o)
     echo "<tr>";
     echo "<td>".$o['order_id']."</td>";
     echo "<td>".$o['user_id']."</td>";
+    echo "<td>".$o['status']."</td>";
     echo "<td>".$o['order_date']."</td>";
     echo "<td>".$o['ship_date']."</td>";
     if(isset($o['detail']) && is_array($o['detail']) && count($o['detail']) > 0)

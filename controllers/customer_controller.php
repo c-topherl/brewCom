@@ -1,4 +1,11 @@
 <?php
+function exception_handler($e)
+{
+    $responseArray['status'] = 'failure';
+    $responseArray['message'] = $e->getMessage();
+    echo json_encode($responseArray);
+}
+set_exception_handler('exception_handler');
 
 // This file will have all the functions to interact with orders (creation, read, etc)
 $function = 'unknown';
@@ -10,34 +17,19 @@ switch($function)
 {
     case "add_user":
         include "add_user.php";
-        if(add_user($_POST,$error))
-        {
-            $responseArray['status'] = 'success';
-            $responseArray['message'] = "User successfully added";
-        }
-        else
-        {
-            $responseArray['status'] = 'failure';
-            $responseArray['message'] = $error;
-        }
+        add_user($_POST);
+        $responseArray['message'] = "User successfully added";
         break;
-    case "verify_user"
-        include "verify_user";
-        if(verify_user($_POST,$error))
-        {
-            $responseArray['status'] = 'success';
-            $responseArray['message'] = "User verified";
-        }
-        else
-        {
-            $responseArray['status'] = 'failure';
-            $responseArray['message'] = $error;
-        }
+    case "verify_user":
+        include "verify_user.php";
+        $responseArray['response'] = verify_user($_POST);
+        $responseArray['message'] = "User verified";
+        break;
     default:
-        $responseArray['status'] = 'failure';
-        $responseArray['message'] = "Unknown function: $function";
+        throw new Exception("Unknown function: $function");
 }
 
+$responseArray['status'] = 'success';
 echo json_encode($responseArray);
 exit();
 ?>

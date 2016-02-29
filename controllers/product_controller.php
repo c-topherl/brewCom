@@ -1,58 +1,80 @@
 <?php
+function exception_handler($e)
+{
+    $responseArray['status'] = 'failure';
+    $responseArray['message'] = $e->getMessage();
+    echo json_encode($responseArray);
+}
+set_exception_handler('exception_handler');
 
+//You are allowed to pass values in either by POST or GET.  Please HTTP responsibly
 $function = 'unknown';
+$values = array();
 if (isset($_POST['function']))
 {
     $function = $_POST['function'];
+    $values = $_POST;
+}
+elseif (isset($_GET['function']))
+{
+    $function = $_GET['function'];
+    $values = $_GET;
 }
 switch($function)
 {
     case "add_product":
         include "add_product.php";
-        if(add_product($_POST,$error))
-        {
-            $responseArray['status'] = 'success';
-            $responseArray['message'] = "Successfully added product";
-        }
-        else
-        {
-            $responseArray['status'] = 'failure';
-            $responseArray['message'] = $error;
-        }
+        add_product($values);
+        $responseArray['message'] = "Successfully added product";
         break;
     case "get_products":
         include "get_products.php";
-        if($products = get_products())
-        {
-            $responseArray['status'] = 'success';
-            $responseArray['message'] = "Products successfully read";
-            $responseArray['products'] = $products;
-        }
-        else
-        {
-            $responseArray['status'] = 'failure';
-            $responseArray['message'] = "Something went wrong reading from products";
-            $responseArray['products'] = '';
-        }
+        $responseArray['products'] = get_products($values);
+        $responseArray['message'] = "Products successfully read";
+        break;
+    case "update_product":
+        include "update_product.php";
+        update_product($values);
+        $responseArray['message'] = "Product successfully updated";
         break;
     case "add_product_class":
         include "add_product_class.php";
-        if($products = add_product_class($_POST, $error))
-        {
-            $responseArray['status'] = 'success';
-            $responseArray['message'] = "Class successfully added";
-        }
-        else
-        {
-            $responseArray['status'] = 'failure';
-            $responseArray['message'] = $error;
-        }
+        add_product_class($values);
+        $responseArray['message'] = "Class successfully added";
+        break;
+    case "get_product_classes":
+        include "get_product_classes.php";
+        $responseArray['classes'] = get_product_classes($values);
+        $responseArray['message'] = "Classes successfully read";
+        break;
+    case "update_product_class":
+        include "update_product_class.php";
+        update_product_class($values);
+        $responseArray['message'] = "Product class successfully updated";
+        break;
+    case "add_unit":
+        include "add_unit.php";
+        add_unit($values);
+        $responseArray['message'] = "Unit successfully added";
+        break;
+    case "get_units":
+        include "get_units.php";
+        $responseArray['response'] = get_units($values);
+        $responseArray['message'] = "Units successfully read";
+        break;
+    case "get_product_units":
+        include "get_product_units.php";
+        $responseArray['product_units'] = get_product_units($values);
+        $responseArray['message'] = "Product/Unit successfully read";
         break;
     default:
-        $responseArray['status'] = 'failure';
-        $responseArray['message'] = "Unknown function: $function";
+        throw new Exception("Unknown function: $function.");
 }
-
+$responseArray['status'] = 'success';
+if($_SERVER['SCRIPT_NAME'] === 'testproductcontroller.php')
+{
+    return $responseArray;
+}
 echo json_encode($responseArray);
 exit();
 ?>

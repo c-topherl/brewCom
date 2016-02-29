@@ -1,7 +1,7 @@
 <?php
 require_once("PDOConnection.php");
 require_once("common.inc");
-function add_user($userArray, &$error = null)
+function add_user($userArray)
 {
     $dbh = new PDOConnection();
     $username = $userArray['username'];
@@ -16,21 +16,28 @@ function add_user($userArray, &$error = null)
     {
         if($row['email'] === $email)
         {
-            $error = "Email already exists";
-            return false;
+            throw new Exception("Email already exists");
         }
         elseif($row['username'] === $username)
         {
-            $error = "Username already exists";
-            return false;
+            throw new Exception("Username already exists");
         }
     }
-//add some salt
+//salty.  in common.inc
     $password = hash_password($userArray['password'],$username);
     $query = "INSERT INTO users(username,email,password) VALUES(:username, :email, :password)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
     $sth->bindParam(':password',$password);
-    return $sth->execute();
+    if($sth->execute())
+    {
+        require("verification_email.inc");
+        verification_email($email);
+        return true;
+    }
+    else
+    {
+        throw new Exception(json_encode($sth->errorInfo()));
+    }
 }
