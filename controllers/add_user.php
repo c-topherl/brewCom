@@ -38,7 +38,7 @@ function add_user($userArray)
     $sth->bindParam(':password',$password);
     if($sth->execute())
     {
-        require("verification_email.inc");
+        require("mail.inc");
         verification_email($email);
         return true;
     }

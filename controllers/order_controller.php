@@ -34,27 +34,33 @@ switch($function)
         break;
     case "get_cart":
         include "get_cart.php";
-        $responseArray['response'] = get_cart($_POST);
+        $responseArray['response'] = get_cart($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Here is your cart';
         break;
     case "add_order":
         include "add_order.php";
-        $responseArray['response'] = add_order($_POST);
+        $responseArray['response'] = add_order($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Added order";
         break;
     case "get_orders":
         include "get_orders.php";
-        $responseArray['response'] = get_orders($_POST,$error);
+        $responseArray['response'] = get_orders($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Orders successfully read";
+        break;
+    case "get_order_detail":
+        include "get_orders.php";
+        $responseArray['response'] = get_order_detail($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = "Order details successfully read";
         break;
     case "get_delivery_options.php":
         include "get_delivery_options.php";
         $responseArray['status'] = "success";
         $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";
-        $responseArray['response'] =  get_delivery_options($_POST);
+        $responseArray['response'] =  get_delivery_options($values);
         break;
     default:
         $responseArray['status'] = 'failure';

@@ -25,7 +25,7 @@ function get_products($info = NULL, &$error = NULL)
     );
     $sth->execute($paramArray);
     $productArray = array();
-    $result = $sth->fetchAll();
+    $result = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach($result as $row)
     {
         $productArray[] = $row;

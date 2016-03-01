@@ -8,7 +8,7 @@ function add_cart_header($cartHeader)
     $ship_date = $cartHeader['ship_date'];
     $type = $cartHeader['type'];
     $shipping_type = $cartHeader['shipping_type'];
-    $comments = isset($cartHeader['comments']) ? $cartHeader['comments'] : ''
+    $comments = isset($cartHeader['comments']) ? $cartHeader['comments'] : '';
     $shipping_comments = isset($cartHeader['shipping_comments']) ? $cartHeader['shipping_comments'] : '';
 
     if(check_cart_exists($dbh,$user_id))
