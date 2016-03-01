@@ -1,6 +1,6 @@
 <?php
 require_once("PDOConnection.php");
-//optional product info to read info by code
+//optional product info to read info by product code
 //TODO finish optional parameters and binding paramters
 function get_product_units($info = NULL)
 {
@@ -11,9 +11,9 @@ function get_product_units($info = NULL)
         LEFT JOIN products p ON pu.product_id = p.id 
         LEFT JOIN product_classes pc ON p.class = pc.id ";
     $optionalParams = array();
-    if(isset($info['code']))
+    if(isset($info['product_code']))
     {
-        $optionalParams[] = 'p.code = :prod_code ';
+        $optionalParams[] = 'p.code = :product_code ';
         $product_code = $info['product_code'];
     }
     if(count($optionalParams) > 0)
@@ -21,10 +21,13 @@ function get_product_units($info = NULL)
         $query .= "WHERE ";
         $query .= implode("AND ",$optionalParams);
     }
+    $sth = $dbh->prepare($query);
     if(isset($product_code))
-        $product_code = $info['product_code'];
+        $sth->bindParam(':product_code',$product_code);
+
+    $sth->execute();
     $productArray = array();
-    foreach($dbh->query($query,PDO::FETCH_ASSOC) as $row)
+    foreach($sth->fetchAll(PDO::FETCH_ASSOC) as $row)
     {
         $productArray[] = $row;
     }

@@ -20,7 +20,7 @@ function get_cart_details($dbh, $user_id)
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id',$user_id);
     $sth->execute();
-    $result = $sth->fetchAll();
+    $result = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach($result as $row)
     {
         $detailArray[] = $row;
