@@ -1,4 +1,14 @@
 <?php
+/*
+INPUTS:
+user_id
+order_date
+ship_date
+type?
+status?
+comments?
+shipping_comments?
+*/
 require_once "PDOConnection.php";
 function add_order($orderArray)
 {

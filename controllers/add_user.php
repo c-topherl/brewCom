@@ -1,4 +1,10 @@
 <?php
+/*
+INPUTS:
+username
+email
+password
+*/
 require_once("PDOConnection.php");
 require_once("common.inc");
 function add_user($userArray)

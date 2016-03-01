@@ -1,6 +1,12 @@
 <?php
+/*
+INPUTS:
+order_id
+status
+email
+*/
 require_once("PDOConnection.php");
-function get_orders($orderInfo = NULL, &$error = NULL)
+function get_orders($orderInfo = NULL)
 {
     $dbh = new PDOConnection();
     $query = "SELECT order_id,user_id,total_price,order_date,ship_date,type,shipping_type,status,comments,shipping_comments,u.username FROM orders o LEFT JOIN users u ON o.user_id = u.id ";

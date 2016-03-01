@@ -21,6 +21,7 @@ elseif (isset($_GET['function']))
     $function = $_GET['function'];
     $values = $_GET;
 }
+//TODO convert all of these to safe queries
 switch($function)
 {
     case "add_cart_header":
@@ -36,6 +37,7 @@ switch($function)
         $responseArray['response'] = get_cart($_POST);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Here is your cart';
+        break;
     case "add_order":
         include "add_order.php";
         $responseArray['response'] = add_order($_POST);
@@ -45,21 +47,15 @@ switch($function)
     case "get_orders":
         include "get_orders.php";
         $responseArray['response'] = get_orders($_POST,$error);
-        if($responseArray['response'] !== NULL)
-        {
-            $responseArray['status'] = 'success';
-            $responseArray['message'] = "Orders successfully read";
-        }
-        else
-        {
-            $responseArray['status'] = 'failure';
-            $responseArray['message'] = $error;
-        }
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = "Orders successfully read";
+        break;
     case "get_delivery_options.php":
         include "get_delivery_options.php";
         $responseArray['status'] = "success";
         $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";
         $responseArray['response'] =  get_delivery_options($_POST);
+        break;
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";

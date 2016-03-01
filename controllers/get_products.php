@@ -5,7 +5,7 @@ require_once("PDOConnection.php");
 function get_products($info = NULL, &$error = NULL)
 {
     $dbh = new PDOConnection();
-    $query = "SELECT p.code prod_code, p.description prod_desc, price, pc.code class_code, pc.description class_desc 
+    $query = "SELECT p.id product_id, p.code product_code, p.description product_desc, p.price, pc.id class_id, pc.code class_code, pc.description class_desc 
         FROM products p 
         LEFT JOIN product_classes pc ON p.class = pc.id ";
     $optionalParams = '';
@@ -23,7 +23,6 @@ function get_products($info = NULL, &$error = NULL)
     $paramArray = array(
         ':prod_code' => $code
     );
-    echo $query."\n";
     $sth->execute($paramArray);
     $productArray = array();
     $result = $sth->fetchAll();
@@ -31,5 +30,5 @@ function get_products($info = NULL, &$error = NULL)
     {
         $productArray[] = $row;
     }
-    return $productArray;
+    return array('products' => $productArray);
 }

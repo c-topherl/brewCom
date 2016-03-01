@@ -1,4 +1,11 @@
 <?php
+/*
+INPUTS :
+code
+description
+price
+class
+*/
 require_once("PDOConnection.php");
 function add_product($productArray)
 {

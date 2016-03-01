@@ -14,10 +14,10 @@ function verification_email($email)
         </body></html>";
     if(mail($email,$subject,$body,$headers))
     {
-        //do something for success
+        echo 'success';
     }
     else
     {
-        //alert the company/us of some registration mishap
+        echo 'failure';
     }
 }
