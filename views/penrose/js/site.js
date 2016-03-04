@@ -46,15 +46,13 @@ var verifyLogin = function(){
 	}
 }
 
-var buildHttpRequest = function(method, url, callback, callbackParam){
+var buildHttpRequestForTemplate = function(method, url, templatePath){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
 
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
-        	if (callback){
-        		callback(callbackParam);
-        	}
+        	loadTemplate(templatePath, req.responseText);
         }
     };
 

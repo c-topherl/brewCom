@@ -166,23 +166,11 @@ var getDeliveryOptions = function(){
 }
 
 var getOrderPage = function(){
-	/*
-	REQUEST TO GET ORDER PAGE CONTENTS (PRODUCTS FOR NOW)
-	
-	var method = "get";
-	var url = "order_detail.php?";
-	url += "deliveryMethod=" + deliveryMethod;
-	url += "&deliveryDate=" + deliveryDate;
-	url += "&warehouse=" + warehouse;
+
 	var templatePath = "http://localhost/brewCom/views/penrose/order.html";
+	var url = "http://joelmeister.net/brewCom/controllers/product_controller.php?function=get_products";
 
-	name, type, unit, price
-	buildHttpRequest(method, url, loadTemplate, templatePath);
-	*/
-
-	//temporary - this will go away
-	var url = "http://localhost/brewCom/views/penrose/order.html";
-
+	/*
 	var data = {
     	products: [
         	{id:0,product:"Devoir",desc:"Saison Ale",unit:"Keg",price:"$89.99"},
@@ -192,8 +180,9 @@ var getOrderPage = function(){
         	{id:4,product:"Fractal",desc:"Belgian IPA",unit:"Keg",price:"$89.99"}
     	]
 	};
+	*/
 
-    loadTemplate(url, data);
+    buildHttpRequestForTemplate("post", url, templatePath);
     return;
 }
 
