@@ -1,259 +1,129 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SB Admin - Bootstrap Admin Template</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="css/sb-admin.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="css/plugins/morris.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <link href="css/dataTables.min.css" rel="stylesheet" type="text/css">
-
-    <link href="css/styles.css" rel="stylesheet" type="text/css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">brewCom</a>
-            </div>
-           
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="open_orders.html"><i class="fa fa-fw"></i>Orders</a>
-                    </li>
-                    <li>
-                        <a href="customers.html"><i class="fa fa-fw"></i>Customer Info</a>
-                    </li>
-                    <li>
-                        <a href="products.html"><i class="fa fa-fw"></i>Product Info</a>
-                    </li>
-                    <li>
-                        <a href="settings.html"><i class="fa fa-fw"></i>Settings</a>
-                    </li>
-                    
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </nav>
-
-        <div id="page-wrapper">
-
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Order 12345
-                        </h1>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="text-left">
-                        <a href="order_search.html">Search Orders</a>
-                        <br><br>
-                        <a href="open_orders.html">Open Orders</a>
-                    </div>
-                </div>
-                    
-                    <br><br>
-
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label>Bill To</label>
-                            <p class="form-control-static">Fred's Bar &amp; Grill</p>
-                            <p class="form-control-static">123 Cherry Lane</p>
-                            <p class="form-control-static">Chicago, IL 12345</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label>Ship To</label>
-                            <p class="form-control-static">Fred's Bar &amp; Grill</p>
-                            <p class="form-control-static">123 Cherry Lane</p>
-                            <p class="form-control-static">Chicago, IL 12345</p>
-                        </div>
-                    </div>
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                                <label>Status</label>
-                                <select class="form-control">
-                                    <option>Open</option>
-                                    <option>Shipped</option>
-                                    <option>Void</option>
-                                </select>
-                            <br><br>
-                                <label>Delivery Date</label>
-                                <input class="form-control" value="03/10/2016">
-                                <p class="help-block">Format MM/DD/YYYY. Example: 03/24/2016.</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label>Delivery Method</label>
-                            <select class="form-control">
-                                <option>Delivery</option>
-                                <option>Pickup</option>
-                            </select>
-                            <br>
-                            <label>Total Amount</label>
-                            <p class="form-control-static">$482.25</p>
-                        </div>
-                    </div>
-
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label>Shipping Comments</label>
-                            <textarea class="form-control" rows="5">Test comment 1.</textarea>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="form-group">
-                            <label>General Comments</label>
-                            <textarea class="form-control" rows="5">Test comment 2.</textarea>
-                        </div>
-                    </div>
-                </div>
-                <br><br>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Order Lines</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table id="orders-table" class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Product</th>
-                                                <th>Unit</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
-                                                <th>Remove</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Devoir</td>
-                                                <td>Bottles (12)</td>
-                                                <td class="amount"><input class="amount" type="text" value="4" size="4"/></td>
-                                                <td class="amount">$<input class="amount" type="text" value="10.00" size="5"/></td>
-                                                <td class="amount">$40.00</td>
-                                                <td class="remove-link"><a href="#" onclick="removeLine(0)">Remove</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Devoir</td>
-                                                <td>Bottles (6)</td>
-                                                <td class="amount"><input class="amount" type="text" value="4" size="4"/></td>
-                                                <td class="amount">$<input class="amount" type="text" value="7.00" size="5"/></td>
-                                                <td class="amount">$28.00</td>
-                                                <td class="remove-link"><a href="#" onclick="removeLine(1)">Remove</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Desirous</td>
-                                                <td>Bottles (12)</td>
-                                                <td class="amount"><input class="amount" type="text" value="5" size="4"/></td>
-                                                <td class="amount">$<input class="amount" type="text" value="10.00" size="5"/></td>
-                                                <td class="amount">$50.00</td>
-                                                <td class="remove-link"><a href="#" onclick="removeLine(2)">Remove</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Devoir</td>
-                                                <td>Bottles (6)</td>
-                                                <td class="amount"><input class="amount" type="text" value="10" size="4"/></td>
-                                                <td class="amount">$<input class="amount" type="text" value="7.00" size="5"/></td>
-                                                <td class="amount">$70.00</td>
-                                                <td class="remove-link"><a href="#" onclick="removeLine(3)">Remove</a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Fractal</td>
-                                                <td>Keg</td>
-                                                <td class="amount"><input class="amount" type="text" value="2" size="4"/></td>
-                                                <td class="amount">$<input class="amount" type="text" value="90.00" size="5"/></td>
-                                                <td class="amount">$180.00</td>
-                                                <td class="remove-link"><a href="#" onclick="removeLine(4)">Remove</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <br><br>
-                                    <button class="btn btn-default" onclick="javascript:void(0)">Update Quantities</button>
-                                    <button type="reset" class="btn btn-default" onclick="javascript:void(0)">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
+<!-- Page Heading -->
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Order {{orderNumber}}
+        </h1>
     </div>
+</div>
+<!-- /.row -->
 
+<div class="row">
+    <div class="text-left">
+        <a href="javascript:void(0)" onclick="loadOrderSearch()">Search Orders</a>
+        <br><br>
+        <a href="javascript:void(0)" onclick="getOpenOrders()">Open Orders</a>
+    </div>
+</div>
+                    
+    <br><br>
 
+<div class="row">
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label>Bill To</label>
+            <p class="form-control-static">{{billToName}}</p>
+            <p class="form-control-static">{{billToAddressOne}}</p>
+            <p class="form-control-static">{{billToAddressTwo}}</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label>Ship To</label>
+            <p class="form-control-static">{{shipToName}}</p>
+            <p class="form-control-static">{{shipToAddressOne}}</p>
+            <p class="form-control-static">{{shipToAddressTwo}}</p>
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="form-group">
+                <label>Status</label>
+                <select class="form-control">
+                    <option>Open</option>
+                    <option>Shipped</option>
+                    <option>Void</option>
+                </select>
+                <br><br>
+                <label>Delivery Date</label>
+                <input class="form-control" value="{{deliveryDate}}">
+                <p class="help-block">Format MM/DD/YYYY. Example: 03/24/2016.</p>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label>Delivery Method</label>
+            <select class="form-control">
+                <option>Delivery</option>
+                <option>Pickup</option>
+            </select>
+            <br>
+            <label>Total Amount</label>
+            <p class="form-control-static">${{orderTotal}}</p>
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label>Shipping Comments</label>
+            <textarea class="form-control" rows="5">{{shippingComments}}</textarea>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label>General Comments</label>
+            <textarea class="form-control" rows="5">{{generalComments}}</textarea>
+        </div>
+    </div>
+</div>
+<br><br>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Order Lines</h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table id="orders-table" class="table table-bordered table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product Code</th>
+                                <th>Product Description</th>
+                                <th>Unit</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#lines}}
+                            <tr id="productline_{{id}}">
+                                <td>{{product}}</td>
+                                <td>{{desc}}</td>
+                                <td>{{unit}}</td>
+                                <td class="amount"><input id="quantity_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{orderQuantity}}" size="4"/></td>
+                                <td class="amount">$<input id="price_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{unitPrice}}" size="5"/></td>
+                                <td class="amount" id="total_{{id}}">$&nbsp;{{totalLineAmount}}</td>
+                                <td class="remove-link"><a href="#" onclick="removeLine({{id}})">Remove</a></td>
+                            </tr>
+                            {{/lines}}
+                        </tbody>
+                    </table>
+                    <br><br>
+                    <button class="btn btn-default" onclick="javascript:void(0)">Update Quantities</button>
+                    <button type="reset" class="btn btn-default" onclick="javascript:void(0)">Reset Fields</button>
+                </div>
+            </div>
+        </div>                    
+    </div>
+</div>
+<script>
+    displayTable("orders-table");
+</script>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <script src="js/dataTables.min.js"></script>
-
-    <script>
-        window.onload = function(){
-            $("#orders-table").dataTable();
-        }
-    </script>
-
-</body>
-
-</html>
