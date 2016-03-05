@@ -1,4 +1,9 @@
 <?php
+/*
+INPUTS:
+code
+description
+*/
 require_once("PDOConnection.php");
 function add_product_class($classArray)
 {

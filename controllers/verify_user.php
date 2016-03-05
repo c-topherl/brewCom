@@ -16,12 +16,12 @@ function verify_user($userArray)
     $sth->execute();
     if($sth->rowCount() <= 0)
     {
-        throw new Exception("Invalid username");
+        throw new Exception("Invalid username or email address.");
     }
     $row = $sth->fetch();
     if($row['password'] !== hash_password($userArray['password'],$row['username']))
     {
-        throw new Exception("Invalid password");
+        throw new Exception("Invalid password.");
     }
 
     //user verified, return proper landing page content
@@ -31,7 +31,7 @@ function verify_user($userArray)
     $sth->execute(array(":user_id" => $user_id));
     if($sth->rowCount() > 0)
     {
-        return get_cart(array('user_id' => $user_id));
+        return array('cart' => get_cart(array('user_id' => $user_id)));
     }
-    return get_product_units();
+    return array('product_unit' => get_product_units());
 }

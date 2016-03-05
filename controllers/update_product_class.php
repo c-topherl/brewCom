@@ -1,5 +1,11 @@
 <?php
 require_once "PDOConnection.php";
+/*
+INPUTS:
+id
+code
+description
+*/
 //At least needs ID passed in.  If you don't know it, get it from the get_product_classes() routine
 // This is so we can update a product code (since we store id on everything, don't change that)
 function update_product_class($classArray)
@@ -9,7 +15,10 @@ function update_product_class($classArray)
     $sth = $dbh->prepare($query);
     $id = $classArray['id'];
     $sth->bindParam(':id', $id, PDO::PARAM_INT);
-    $sth->execute();
+    if(!$sth->execute())
+    {
+        throw new Exception($sth->errorInfo()[2]);
+    }
     if(!($oldValues = $sth->fetch()))
     {
         throw new Exception("Class id: '".$id."' not found!");

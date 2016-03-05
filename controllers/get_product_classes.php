@@ -9,7 +9,7 @@ function get_product_classes($classFilters = NULL)
     $classArray = array();
     $sth = $dbh->prepare($query);
     $sth->execute();
-    $result = $sth->fetchAll();
+    $result = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach($result as $row)
     {
         $classArray[] = $row;

@@ -13,12 +13,21 @@ if (isset($_POST['function']))
 {
     $function = $_POST['function'];
 }
+if (isset($_GET['function']))
+{
+    $function = $_GET['function'];
+}
 switch($function)
 {
     case "add_user":
         include "add_user.php";
         add_user($_POST);
         $responseArray['message'] = "User successfully added";
+        break;
+    case "get_users":
+        include "get_users.php";
+        $responseArray['response'] = get_users();
+        $responseArray['message'] = "Users successfully read";
         break;
     case "verify_user":
         include "verify_user.php";
