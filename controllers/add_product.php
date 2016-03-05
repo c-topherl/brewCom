@@ -13,7 +13,7 @@ function add_product($productArray)
     $code = $productArray['code'];
     $description = $productArray['description'];
     $price = $productArray['price'];
-    $class_id = $productArray['class'];
+    $class_id = $productArray['class_id'];
     if(check_product_exists($dbh,$class_id))
     {
         throw new Exception("Product code already exists");
@@ -29,6 +29,7 @@ function add_product($productArray)
     {
         throw new Exception($sth->errorInfo()[2]);
     }
+    return array('id' => $dbh->lastInsertId());
 }
 //true mean product exists
 function check_product_exists($dbh,$code)
