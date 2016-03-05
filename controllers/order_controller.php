@@ -26,11 +26,15 @@ switch($function)
 {
     case "add_cart_header":
         include "add_cart.php";
-        add_cart_header($_POST);
+        add_cart_header($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'Cart header created successfully.';
         break;
     case "add_cart_detail":
         include "add_cart.php";
-        add_cart_detail($_POST);
+        add_cart_detail($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'Cart detail added successfully.';
         break;
     case "get_cart":
         include "get_cart.php";
@@ -56,7 +60,7 @@ switch($function)
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Order details successfully read";
         break;
-    case "get_delivery_options.php":
+    case "get_delivery_options":
         include "get_delivery_options.php";
         $responseArray['status'] = "success";
         $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";

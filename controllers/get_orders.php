@@ -72,7 +72,9 @@ function get_order_detail($values)
 function get_order_details($dbh, $order_id)
 {
     $detailArray = array();
-    $query = "SELECT od.price, quantity, p.id product_id, p.code product_code, p.description product_description, unit_id, u.code unit_code, u.description unit_description 
+    $query = "SELECT od.id, od.price, quantity, 
+            p.id product_id, p.code product_code, p.description product_description, 
+            unit_id, u.code unit_code, u.description unit_description 
         FROM order_details od 
         LEFT JOIN products p ON od.product_id = p.id 
         LEFT JOIN units u ON unit_id = u.id 

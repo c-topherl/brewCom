@@ -1,5 +1,6 @@
 <?php
 require_once "PDOConnection.php";
+//TODO warehouse
 function add_cart_header($cartHeader)
 {
     $dbh = new PDOConnection();
@@ -10,13 +11,14 @@ function add_cart_header($cartHeader)
     $shipping_type = $cartHeader['shipping_type'];
     $comments = isset($cartHeader['comments']) ? $cartHeader['comments'] : '';
     $shipping_comments = isset($cartHeader['shipping_comments']) ? $cartHeader['shipping_comments'] : '';
+    $warehouse = isset($cartHeader['warehouse']) ? $cartHeader['warehouse'] : ''; //TODO this
 
     if(check_cart_exists($dbh,$user_id))
     {
         throw new Exception("User cart already exists");
     }
 
-    $query = "INSERT INTO orders(user_id, ship_date, type, shipping_type, comments, shipping_comments) ";
+    $query = "INSERT INTO cart_header(user_id, ship_date, type, shipping_type, comments, shipping_comments) ";
     $query .= "VALUES(:user_id, :ship_date, :type, :shipping_type, :comments, :shipping_comments)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
@@ -25,7 +27,11 @@ function add_cart_header($cartHeader)
     $sth->bindParam(':shipping_type', $shipping_type);
     $sth->bindParam(':comments', $comments);
     $sth->bindParam(':shipping_comments', $shipping_comments);
-    return $sth->execute();
+    if(!$sth->execute())
+    {
+        throw new Exception($sth->errorInfo()[2]);
+    }
+    return true;
 }
 
 function add_cart_detail($cartDetail)
@@ -43,7 +49,7 @@ function add_cart_detail($cartDetail)
         throw new Exception("Cannot find cart for user");
     }
 
-    $query = "INSERT INTO orders(user_id, product_id, price, quantity, unit_id) ";
+    $query = "INSERT INTO cart_detail(user_id, product_id, price, quantity, unit_id) ";
     $query .= "VALUES(:user_id, :product_id, :price, :quantity, :unit_id)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id',$user_id);
@@ -51,7 +57,10 @@ function add_cart_detail($cartDetail)
     $sth->bindParam(':price',$price);
     $sth->bindParam(':quantity',$quantity);
     $sth->bindParam(':unit_id',$unit_id);
-    $dbh->query($query);
+    if(!$sth->execute())
+    {
+        throw new Exception($sth->errorInfo()[2]);
+    }
     return true;
 }
 function check_cart_exists($dbh,$user_id)
