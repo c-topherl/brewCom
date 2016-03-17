@@ -6,9 +6,11 @@ function get_users()
 
     $query = "SELECT username, email FROM users ";
     $userArray = array();
-    foreach($dbh->query($query) as $row)
+    $sth = $dbh->prepare($query);
+    $sth->execute();
+    foreach($sth->fetchAll(PDO::FETCH_ASSOC) as $row)
     {
         $userArray[] = $row;
     }
-    return $userArray;
+    return array('users' => $userArray);
 }

@@ -29,7 +29,7 @@ switch($function)
         break;
     case "get_products":
         include "get_products.php";
-        $responseArray['products'] = get_products($values);
+        $responseArray['response'] = get_products($values);
         $responseArray['message'] = "Products successfully read";
         break;
     case "update_product":
@@ -44,7 +44,7 @@ switch($function)
         break;
     case "get_product_classes":
         include "get_product_classes.php";
-        $responseArray['classes'] = get_product_classes($values);
+        $responseArray['response'] = get_product_classes($values);
         $responseArray['message'] = "Classes successfully read";
         break;
     case "update_product_class":
@@ -64,7 +64,7 @@ switch($function)
         break;
     case "get_product_units":
         include "get_product_units.php";
-        $responseArray['product_units'] = get_product_units($values);
+        $responseArray['response'] = get_product_units($values);
         $responseArray['message'] = "Product/Unit successfully read";
         break;
     default:

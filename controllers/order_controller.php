@@ -21,45 +21,51 @@ elseif (isset($_GET['function']))
     $function = $_GET['function'];
     $values = $_GET;
 }
+//TODO convert all of these to safe queries
 switch($function)
 {
     case "add_cart_header":
         include "add_cart.php";
-        add_cart_header($_POST);
+        add_cart_header($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'Cart header created successfully.';
         break;
     case "add_cart_detail":
         include "add_cart.php";
-        add_cart_detail($_POST);
+        add_cart_detail($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'Cart detail added successfully.';
         break;
     case "get_cart":
         include "get_cart.php";
-        $responseArray['response'] = get_cart($_POST);
+        $responseArray['response'] = get_cart($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Here is your cart';
+        break;
     case "add_order":
         include "add_order.php";
-        $responseArray['response'] = add_order($_POST);
+        $responseArray['response'] = add_order($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Added order";
         break;
     case "get_orders":
         include "get_orders.php";
-        $responseArray['response'] = get_orders($_POST,$error);
-        if($responseArray['response'] !== NULL)
-        {
-            $responseArray['status'] = 'success';
-            $responseArray['message'] = "Orders successfully read";
-        }
-        else
-        {
-            $responseArray['status'] = 'failure';
-            $responseArray['message'] = $error;
-        }
-    case "get_delivery_options.php":
+        $responseArray['response'] = get_orders($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = "Orders successfully read";
+        break;
+    case "get_order_detail":
+        include "get_orders.php";
+        $responseArray['response'] = get_order_detail($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = "Order details successfully read";
+        break;
+    case "get_delivery_options":
         include "get_delivery_options.php";
         $responseArray['status'] = "success";
         $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";
-        $responseArray['response'] =  get_delivery_options($_POST);
+        $responseArray['response'] =  get_delivery_options($values);
+        break;
     default:
         $responseArray['status'] = 'failure';
         $responseArray['message'] = "Unknown function: $function";
