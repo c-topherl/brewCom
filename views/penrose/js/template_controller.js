@@ -28,7 +28,7 @@ var verifyLogin = function(){
 		return;
 	}
 
-	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php?function=verify_user&username=" + user.value + "&password=" + pass.value;
+	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
 
 	var req = new XMLHttpRequest();
     req.open("post", url, true);

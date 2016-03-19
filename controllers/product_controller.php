@@ -20,6 +20,11 @@ elseif (isset($_GET['function']))
     $function = $_GET['function'];
     $values = $_GET;
 }
+else
+{
+    $values = (array)json_decode(file_get_contents('php://input'));
+    $function = $values['function'];
+}
 switch($function)
 {
     case "add_product":

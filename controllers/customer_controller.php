@@ -12,16 +12,23 @@ $function = 'unknown';
 if (isset($_POST['function']))
 {
     $function = $_POST['function'];
+    $values = $_POST;
 }
-if (isset($_GET['function']))
+elseif (isset($_GET['function']))
 {
     $function = $_GET['function'];
+    $values = $_GET;
+}
+else
+{
+    $values = (array)json_decode(file_get_contents('php://input'));
+    $function = $values['function'];
 }
 switch($function)
 {
     case "add_user":
         include "add_user.php";
-        add_user($_POST);
+        add_user($values);
         $responseArray['message'] = "User successfully added";
         break;
     case "get_users":
@@ -31,12 +38,12 @@ switch($function)
         break;
     case "update_user":
         include "update_user.php";
-        $responseArray['response'] = update_user($_POST);
+        $responseArray['response'] = update_user($values);
         $responseArray['message'] = "User updated.";
         break;
     case "verify_user":
         include "verify_user.php";
-        $responseArray['response'] = verify_user($_POST);
+        $responseArray['response'] = verify_user($values);
         $responseArray['message'] = "User verified";
         break;
     default:

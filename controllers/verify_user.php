@@ -5,6 +5,7 @@ include("get_cart.php");
 include("get_product_units.php");
 function verify_user($userArray)
 {
+    
     if(!(isset($userArray['username']) || isset($userArray['email'])))
     {
         //fail gracefully-ish

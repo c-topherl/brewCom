@@ -21,6 +21,11 @@ elseif (isset($_GET['function']))
     $function = $_GET['function'];
     $values = $_GET;
 }
+else
+{
+    $values = (array)json_decode(file_get_contents('php://input'));
+    $function = $values['function'];
+}
 //TODO convert all of these to safe queries
 switch($function)
 {
