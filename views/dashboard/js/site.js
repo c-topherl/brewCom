@@ -94,3 +94,16 @@ var showNavLinks = function(){
 
 	return;
 }
+
+var removeLine = function(lineNumber) {
+	alert("This doesn't work yet!");
+}
+
+var updateLine = function(lineNumber) {
+	var qty = document.getElementById("quantity_" + lineNumber).value;
+	var price = document.getElementById("price_" + lineNumber).value;
+	var newTotal = qty * price;
+	newTotal = parseFloat(Math.round(newTotal * 100) / 100).toFixed(2);
+	document.getElementById("total_" + lineNumber).innerHTML = "$" + newTotal;
+	return;
+}

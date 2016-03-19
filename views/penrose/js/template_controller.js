@@ -22,27 +22,48 @@ var loadTemplate = function(templateName, content){
 var verifyLogin = function(){
 	var user = document.getElementById("username");
 	var pass = document.getElementById("password");
-	var url = "login.php?username=" + user.value + "&password=" + pass.value;
 
 	if (!user.value || !pass.value){
-		alert("You must enter a username and password!");
+		showError("You must enter a username and password!");
 		return;
 	}
 
-	/*
-	LOGIN LOGIC
+	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php?function=verify_user&username=" + user.value + "&password=" + pass.value;
 
-	var method = "post";
-	var templatePath = "http://localhost/brewCom/views/penrose/home.html";
+	var req = new XMLHttpRequest();
+    req.open("post", url, true);
+    var requestData = {
+    	"function": "verify_user",
+    	"username": user.value,
+    	"password": pass.value
+    };
 
-	buildHttpRequest(method, url, loadTemplate, templatePath);
-	*/
+    var template;
 
-	//temporary
-	showLandingPage();
-    showNavLinks();
+    req.onreadystatechange = function(){
+        if (req.readyState == 4 && req.status == 200){
+        	var responseObj = JSON.parse(req.responseText);
+        	if (responseObj.status === "success"){
+        		data = responseObj.response.cart;
+        		if (!data || data.length === 0){
+        			//data = responseArr[0].response.product_unit;
+        			//template = "http://localhost/brewCom/views/penrose/delivery_date.html";
+        			getDeliveryOptions();
+        		} else {
+        			data = responseObj.response.cart;
+        			template = "http://localhost/brewCom/views/penrose/cart.html";
+        			loadTemplate(template, data);
+        		}
 
-    document.getElementById("customer-code").innerHTML = "Customer: Test";
+        		//loadTemplate(template, data);
+        		showNavLinks();
+        	} else {
+        		showError(responseObj.message);
+        	}
+        }
+    };
+
+    req.send(JSON.stringify(requestData));
 
     return;
 } 
@@ -67,133 +88,60 @@ var showLandingPage = function(){
 
 
 var getOpenOrders = function(){
-	/*
-	REQUEST TO GET OPEN ORDERS
-	
-	var method = "get";
-	var url = "get_open_orders.php";
+	var customerCode = document.getElementById("customer-code").innerHTML;
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=get_orders&customer_code="
+		+ customerCode + "&status=open";
 	var templatePath = "http://localhost/brewCom/views/penrose/open_orders.html";
 
-	buildHttpRequest(method, url, loadTemplate, templatePath);
-	*/
-
-	//temporary - this will go away
-	var url = "http://localhost/brewCom/views/penrose/open_orders.html";
-
-
-	var data = {
-    	orders: [
-        	{orderNumber:1234,deliveryDate:"03/06/16",deliveryMethod:"Delivery",totalAmount:189.99},
-        	{orderNumber:1286,deliveryDate:"03/08/16",deliveryMethod:"Delivery",totalAmount:18.98},
-        	{orderNumber:1225,deliveryDate:"03/04/16",deliveryMethod:"Pickup",totalAmount:94.99},
-        	{orderNumber:1235,deliveryDate:"04/06/16",deliveryMethod:"Delivery",totalAmount:243.96},
-    	]
-	};
-
-    loadTemplate(url, data);
+    buildHttpRequestForTemplate("post", url, templatePath);
     
     displayTable("order-table");
     return;
 }
 
-var getOrderDetail = function(orderNumber){
-	/*
-	REQUEST TO GET OPEN ORDERS
-	
-	var method = "get";
-	var url = "order_detail.php?orderNumber=" + orderNumber;
+var getOrderDetail = function(orderNumber){	
+	var method = "post";
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=get_order_detail&order_id=" + orderNumber;
 	var templatePath = "http://localhost/brewCom/views/penrose/order_detail.html";
 
-	buildHttpRequest(method, url, loadTemplate, templatePath);
-	*/
-
-	//temporary - this will go away
-	var url = "http://localhost/brewCom/views/penrose/order_detail.html";
-
-	var data = {
-		orderNumber: "1234",
-		deliveryMethod: "Delivery",
-		deliveryDate: "03/06/2016",
-		orderTotal: "846.28",
-    	lines: [
-        	{product:"Devoir",desc:"Saison Ale",unit:"Keg",price:"89.99",quantity:10},
-        	{product:"Devoir",desc:"Saison Ale",unit:"Bottles (12)",price:"12.99",quantity:15},
-        	{product:"Desirous",desc:"White IPA",unit:"Bottles (6)",price:"6.99",quantity:35},
-        	{product:"Fractal",desc:"Belgian IPA",unit:"Bottles (12)",price:"12.99",quantity:20},
-        	{product:"Fractal",desc:"Belgian IPA",unit:"Keg",price:"89.99",quantity:10}
-    	]
-	};
-
-    loadTemplate(url, data);
+	buildHttpRequestForTemplate(method, url, templatePath);
     
+    displayTable("order-table");
     return;
 }
 
 var getDeliveryOptions = function(){
-	/*
-	REQUEST TO GET DELIVERY OPTIONS
-	
-	var method = "get";
-	var url = "get_delivery_options.php";
+	var customerCode = document.getElementById("customer-code").innerHTML;
+	var method = "post";
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=get_delivery_options&customer_code=" 
+		+ customerCode;
 	var templatePath = "http://localhost/brewCom/views/penrose/delivery_date.html";
 
-	buildHttpRequest(method, url, loadTemplate, templatePath);
-	*/
-
-	//temporary - this will go away
-	var templatePath = "http://localhost/brewCom/views/penrose/delivery_date.html";
-
-	var data = {
-    	deliveryDates: [
-        	{value:"20160106",title:"01/06/16"},
-        	{value:"20160107",title:"01/07/16"},
-        	{value:"20160108",title:"01/08/16"}
-    	],
-    	deliveryMethods: [
-    		{value:0,title:"Delivery"},
-    		{value:1,title:"Pickup"}
-    	],
-    	//value can be warehouse code/id if that's a thing?
-    	warehouses: [
-    		{value:0,title:"Warehouse A"},
-    		{value:1,title:"Warehouse B"}
-    	]
-	};
-
-	loadTemplate(templatePath, data);
+	buildHttpRequestForTemplate(method, url, templatePath);
 
     return;
 }
 
 var getOrderPage = function(){
-	/*
-	REQUEST TO GET ORDER PAGE CONTENTS (PRODUCTS FOR NOW)
+	var method = "post";
+	var customer = document.getElementById("customer-code").innerHTML;
+	var shipDate = document.getElementById("delivery-date").value;
+	var deliveryMethod = document.getElementById("delivery-method").value;
+	var func = "add_cart_header";
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?"
+	url += "function=" + func;
+	url += "&customer=" + customer;
+	url += "&ship_date=" + shipDate;
+	url += "&deliveryMethod=" + deliveryMethod;
+
+	buildHttpRequest(method, url, null, null);
+
 	
-	var method = "get";
-	var url = "order_detail.php?";
-	url += "deliveryMethod=" + deliveryMethod;
-	url += "&deliveryDate=" + deliveryDate;
-	url += "&warehouse=" + warehouse;
 	var templatePath = "http://localhost/brewCom/views/penrose/order.html";
+	url = "http://joelmeister.net/brewCom/controllers/product_controller.php?function=get_product_units"
+		+ "&customer_code=" + customer;
 
-	name, type, unit, price
-	buildHttpRequest(method, url, loadTemplate, templatePath);
-	*/
-
-	//temporary - this will go away
-	var url = "http://localhost/brewCom/views/penrose/order.html";
-
-	var data = {
-    	products: [
-        	{id:0,product:"Devoir",desc:"Saison Ale",unit:"Keg",price:"$89.99"},
-        	{id:1,product:"Devoir",desc:"Saison Ale",unit:"Bottles (12)",price:"$12.99"},
-        	{id:2,product:"Desirous",desc:"White IPA",unit:"Bottles (6)",price:"$6.99"},
-        	{id:3,product:"Fractal",desc:"Belgian IPA",unit:"Bottles (12)",price:"$12.99"},
-        	{id:4,product:"Fractal",desc:"Belgian IPA",unit:"Keg",price:"$89.99"}
-    	]
-	};
-
-    loadTemplate(url, data);
+    buildHttpRequestForTemplate(method, url, templatePath);
     return;
 }
 
@@ -237,7 +185,7 @@ var buildCart = function(){
 	data.totalPrice = totalPrice;
     loadTemplate(url, data);
 
-    //submit this data object containing lines to back end to be added to cart-overwrite all existing lines
+    buildHttpRequest(data);
     
     return;
 }
@@ -250,16 +198,14 @@ var buildCheckoutPage = function(){
 }
 
 var submitOrder = function(){
-	/*
-	REQUEST TO GET CART CONTENTS
-	
 	var method = "post";
-	var url = "submit_order.php?customer=CUST_CODE";
+	var customer = document.getElementById("customer-code").innerHTML;
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=submitOrder&customer_code=" + customer;
 	var templatePath = "http://localhost/brewCom/views/penrose/confirmation.html";
 	var successMessage = "Your information has been updated successfully!";
 
 	buildHttpRequest(method, url, showConfirmation, successMessage);
-	*/
+	
 
 	//temporary - this will go away
 	var message = "Your order has been submitted successfully!";
@@ -304,7 +250,7 @@ var showConfirmation = function(message){
 
 var showError = function(message){
 	alert(message);
-
 	return;
 }
+
 
