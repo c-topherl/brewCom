@@ -29,6 +29,11 @@ switch($function)
         $responseArray['response'] = get_users();
         $responseArray['message'] = "Users successfully read";
         break;
+    case "update_user":
+        include "update_user.php";
+        $responseArray['response'] = update_user($_POST);
+        $responseArray['message'] = "User updated.";
+        break;
     case "verify_user":
         include "verify_user.php";
         $responseArray['response'] = verify_user($_POST);
