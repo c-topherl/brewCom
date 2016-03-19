@@ -5,6 +5,12 @@ include("get_cart.php");
 include("get_product_units.php");
 function verify_user($userArray)
 {
+    
+    if(!(isset($userArray['username']) || isset($userArray['email'])))
+    {
+        //fail gracefully-ish
+        throw new Exception("Must provide username or email via POST.");
+    }
     $dbh = new PDOConnection();
     $username = isset($userArray['username']) ? $userArray['username'] : '';
     $email = isset($userArray['email']) ? $userArray['email'] : '';

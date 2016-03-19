@@ -21,37 +21,51 @@ function add_order($orderArray)
     $status = isset($orderArray['status']) ? $orderArray['status'] : "open";
     $comments = isset($orderArray['comments']) ? $orderArray['comments']: '';
     $shipping_commenta = isset($orderArray['shipping_comments']) ? $orderArray['shipping_comments'] : '';
-    $query = "INSERT INTO orders(user_id, order_date,ship_date,type,status,comments,shipping_comments) ";
-    $query .= "VALUES($user_id, '$order_date','$ship_date','$type','$status','$comments','$shipping_comments')";
-    $dbh->query($query);
-
+    $query = "INSERT INTO orders(user_id, order_date,ship_date,type,status,comments,shipping_comments) 
+        VALUES(:user_id, :order_date, :ship_date, :type, :status, :comments, :shipping_comments)";
+    $sth = $dbh->prepare($query);
+    $orderArr = array(':user_id' => $user_id, ':order_date' => $order_date, 
+        ':ship_date' => $ship_date, ':type' => $type, ':status'=> $status, 
+        ':comments' => $comments, ':shipping_comments' => $shipping_comments);
+    if(!$sth->execute($orderArr))
+    {
+        throw new Exception($sth->errorInfo()[2]);
+    }
+    $order_id = $dbh->lastInsertId();
     if(isset($orderArray['detail']))
     {
-        add_order_detail($dbh,$dbh->lastInsertId(),$orderArray['detail']);
+        add_order_detail($dbh,$order_id,$orderArray['detail']);
     }
-    return true;
+    return array('id' => $order_id);
 }
 function add_order_detail($dbh, $order_id, $detailArray)
 {
     foreach($detailArray as $detail)
     {
-        $query = "SELECT id,price FROM products WHERE code = '{$detail['product_code']}'";
-        foreach($dbh->query($query) as $row)
-        {
-            $detail['product_id'] = $row['id'];
-            $detail['price'] = isset($detail['price']) ? $detail['price'] : $row['price'];
-        }
+        $query = "SELECT id,price FROM products WHERE code = :prod_code";
+        $sth = $dbh->prepare($query);
+        $sth->bindParam(':prod_code', $detail['product_code']);
+        $sth->execute();
+        $row = $sth->fetch();
+        $detail['product_id'] = $row['id'];
+        $detail['price'] = isset($detail['price']) ? $detail['price'] : $row['price'];
         if(!(isset($detail['product_id']) && isset($detail['price']) && isset($detail['quantity'])&& isset($detail['unit_id'])))
         {
             //something is missing
-            return false;
+            throw new Exception("Product_id, price, quantity, unit_id required");
         }
         $product_id = $detail['product_id'];
         $price = $detail['price'];
         $quantity = $detail['quantity'];
         $unit_id = $detail['unit_id'];
-        $query = "INSERT INTO order_details(order_id,product_id,price,quantity,unit_id) ";
-        $query .= "VALUES($order_id,$product_id,$price,$quantity,$unit_id)";
-        $dbh->query($query);
+        $query = "INSERT INTO order_details(order_id,product_id,price,quantity,unit_id) 
+            VALUES(:order_id, :product_id, :price, :quantity, :unit_id)";
+        $sth = $dbh->prepare($query);
+        $details = array(':order_id' => $order_id, ':product_id' => $product_id, 
+            ':price' => $price, ':quantity' => $quantity, ':unit_id' => $unit_id);
+        if(!$sth->execute($details))
+        {
+            throw new Exception($sth->errorInfo()[2]);
+        }
     }
 }
