@@ -59,6 +59,23 @@ var buildHttpRequestForTemplate = function(method, url, templatePath){
     req.send();
 }
 
+var buildHttpRequest = function(method, url, data, callback){
+	var req = new XMLHttpRequest();
+	req.open(method, url, true);
+	req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	req.onreadystatechange = function(){
+        if (req.readyState == 4 && req.status == 200 && callback){
+        	callback();
+        }
+    };
+    if (data){
+		req.send(JSON.stringify(data));
+	} else {
+		req.send();
+	}
+	return;
+}
+
 var displayTable = function(tableName){
 	tableName = "#" + tableName;
 	$(tableName).dataTable();
@@ -91,6 +108,8 @@ var showNavLinks = function(){
 		}
 		navLinks[i].className = classes.join(" ");
 	}
+
+	document.getElementById("customer-code").innerHTML = "Customer: Test";
 
 	return;
 }

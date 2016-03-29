@@ -46,7 +46,7 @@ var verifyLogin = function(){
 	}
 }
 
-var buildHttpRequestForTemplate = function(method, url, templatePath){
+var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
 
@@ -56,7 +56,21 @@ var buildHttpRequestForTemplate = function(method, url, templatePath){
         }
     };
 
-    req.send();
+    req.send(JSON.stringify(data));
+}
+
+var buildHttpRequest = function(method, url, data, callback, callbackParam){
+	var req = new XMLHttpRequest();
+    req.open(method, url, true);
+
+    req.onreadystatechange = function(){
+    	if (req.readyState == 4 && req.status == 200){
+    		if (callback){
+    			callback(callbackParam);
+    		}
+    	}
+    }
+    req.send(JSON.stringify(data));
 }
 
 var displayTable = function(tableName){

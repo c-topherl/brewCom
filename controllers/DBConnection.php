@@ -11,9 +11,9 @@ class DBConnection
         return mysqli_query($this->connection,$sql);
     }
     public function db_connect($servername="localhost",
-            $username="joelmeis_brewery",
-            $db_pass="brewcom9876",
-            $dbname="joelmeis_brewCom"){
+            $username="root",
+            $db_pass="",
+            $dbname="brewCom"){
 
         // create connection
         $con = new mysqli($servername, $username, $db_pass, $dbname);

@@ -10,9 +10,8 @@ function submit_order($values)
     $dbh = new PDOConnection();
     $cart = get_cart(array('user_id'=>$user_id))['cart'];
     $details = get_cart_details($dbh, $user_id);
-    print_r($cart);
-    print_r($details);
     $order = $cart;
     $order['detail'] = $details;
+    return $order;
 }
 ?>

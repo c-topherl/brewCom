@@ -88,12 +88,18 @@ var showLandingPage = function(){
 
 
 var getOpenOrders = function(){
+	var method = "post";
 	var customerCode = document.getElementById("customer-code").innerHTML;
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=get_orders&customer_code="
-		+ customerCode + "&status=open";
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/open_orders.html";
 
-    buildHttpRequestForTemplate("post", url, templatePath);
+	var requestData = {
+    	"function": "get_orders",
+    	"customer_code": customerCode,
+    	"status": "open"
+    };
+
+    buildHttpRequestForTemplate(method, url, templatePath, requestData);
     
     displayTable("order-table");
     return;
@@ -101,10 +107,15 @@ var getOpenOrders = function(){
 
 var getOrderDetail = function(orderNumber){	
 	var method = "post";
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=get_order_detail&order_id=" + orderNumber;
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/order_detail.html";
 
-	buildHttpRequestForTemplate(method, url, templatePath);
+	var requestData = {
+    	"function": "get_order_detail",
+    	"order_id": orderNumber
+    };
+
+	buildHttpRequestForTemplate(method, url, templatePath, requestData);
     
     displayTable("order-table");
     return;
@@ -113,40 +124,53 @@ var getOrderDetail = function(orderNumber){
 var getDeliveryOptions = function(){
 	var customerCode = document.getElementById("customer-code").innerHTML;
 	var method = "post";
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=get_delivery_options&customer_code=" 
-		+ customerCode;
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/delivery_date.html";
 
-	buildHttpRequestForTemplate(method, url, templatePath);
+	var requestData = {
+    	"function": "get_delivery_options",
+    	"customer_code": customerCode
+    };
+
+	buildHttpRequestForTemplate(method, url, templatePath, requestData);
 
     return;
 }
 
 var getOrderPage = function(){
 	var method = "post";
-	var customer = document.getElementById("customer-code").innerHTML;
+	var customerCode = document.getElementById("customer-code").innerHTML;
 	var shipDate = document.getElementById("delivery-date").value;
 	var deliveryMethod = document.getElementById("delivery-method").value;
-	var func = "add_cart_header";
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?"
-	url += "function=" + func;
-	url += "&customer=" + customer;
-	url += "&ship_date=" + shipDate;
-	url += "&deliveryMethod=" + deliveryMethod;
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 
-	buildHttpRequest(method, url, null, null);
+	var requestData = {
+    	"function": "add_cart_header",
+    	"customer": customerCode,
+    	"ship_date": shipDate,
+    	"type": deliveryMethod,
+    	"user_id": "test",
+    	"shipping_type": "standard"
+    };
+
+	buildHttpRequest(method, url, data);
 
 	
 	var templatePath = "http://localhost/brewCom/views/penrose/order.html";
-	url = "http://joelmeister.net/brewCom/controllers/product_controller.php?function=get_product_units"
-		+ "&customer_code=" + customer;
+	url = "http://joelmeister.net/brewCom/controllers/product_controller.php";
 
-    buildHttpRequestForTemplate(method, url, templatePath);
+	requestData = {
+    	"function": "get_product_units",
+    	"customer_code": customerCode
+    };
+
+    buildHttpRequestForTemplate(method, url, templatePath, requestData);
     return;
 }
 
 var buildCart = function(){
 	var url = "http://localhost/brewCom/views/penrose/cart.html";
+	var method = "post";
 
 	var productCounter = 0;
 	var lineCounter = 0;
@@ -185,7 +209,7 @@ var buildCart = function(){
 	data.totalPrice = totalPrice;
     loadTemplate(url, data);
 
-    buildHttpRequest(data);
+    buildHttpRequest(method, url, data);
     
     return;
 }
@@ -199,9 +223,15 @@ var buildCheckoutPage = function(){
 
 var submitOrder = function(){
 	var method = "post";
-	var customer = document.getElementById("customer-code").innerHTML;
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php?function=submitOrder&customer_code=" + customer;
+	var customerCode = document.getElementById("customer-code").innerHTML;
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/confirmation.html";
+
+	var requestData = {
+    	"function": "submit_order",
+    	"customer_code": customerCode
+    };
+
 	var successMessage = "Your information has been updated successfully!";
 
 	buildHttpRequest(method, url, showConfirmation, successMessage);

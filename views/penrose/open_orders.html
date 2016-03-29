@@ -11,10 +11,10 @@
    			<tbody>
                {{#orders}}
    				<tr>
-		   			<td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">{{orderNumber}}</a></td>
-   					<td>{{deliveryDate}}</td>
-   					<td>{{deliveryMethod}}</td>
-   					<td>${{totalAmount}}</td>
+		   			<td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">{{order_id}}</a></td>
+   					<td>{{order_date}}</td>
+   					<td>{{type}}</td>
+   					<td>${{total_price}}</td>
    				</tr>
                {{/orders}}
 	  		   </tbody>
