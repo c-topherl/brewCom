@@ -9,7 +9,17 @@ require_once("PDOConnection.php");
 function get_orders($filters = NULL)
 {
     $dbh = new PDOConnection();
-    $query = "SELECT order_id, user_id, total_price, order_date,ship_date,type,shipping_type,status,comments,shipping_comments,u.username 
+    $query = "SELECT order_id, 
+            user_id, 
+            total_price, 
+            order_date,
+            ship_date,
+            delivery_method,
+            shipping_type,
+            status,
+            comments,
+            shipping_comments,
+            u.username 
         FROM orders o 
         LEFT JOIN users u ON o.user_id = u.id ";
     $optionalParams = array();;
@@ -18,22 +28,22 @@ function get_orders($filters = NULL)
         $optionalParams[] = "o.order_id = :order_id ";
         $order_id = $filters['order_id'];
     }
-    if(isset($status))
+    if(isset($filters['status']))
     {
         $optionalParams[] = "o.status = :status ";
         $status = $filters['status'];
     }
-    if(isset($user_id))
+    if(isset($filters['user_id']))
     {
         $optionalParams[] = "u.id = :user_id ";
         $user_id  = $filters['user_id'];
     }
-    if(isset($start_date))
+    if(isset($filters['start_date']))
     {
         $optionalParams[] = "o.ship_date >= :start_ship_date ";
         $start_date = $filters['start_date'];
     }
-    if(isset($end_date))
+    if(isset($filters['end_date']))
     {
         $optionalParams[] = "o.ship_date <= :end_ship_date ";
         $end_date = $filters['end_date'];
@@ -63,11 +73,12 @@ function get_orders($filters = NULL)
         $orderArray[$row['order_id']] = $row;
         $idx++;
     }
+
     return array('orders' => $orderArray);
 }
 function get_order_detail($values)
 {
-    return array('order_details' => get_order_details(new PDOConnection(),$values['order_id']));
+    return array('order_details' => get_order_details(new PDOConnection(), $values['order_id']));
 }
 function get_order_details($dbh, $order_id)
 {

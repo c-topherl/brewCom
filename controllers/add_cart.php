@@ -7,7 +7,7 @@ function add_cart_header($cartHeader)
 
     $user_id = $cartHeader['user_id'];
     $ship_date = $cartHeader['ship_date'];
-    $type = $cartHeader['type'];
+    $delivery_method = $cartHeader['delivery_method'];
     $shipping_type = $cartHeader['shipping_type'];
     $comments = isset($cartHeader['comments']) ? $cartHeader['comments'] : '';
     $shipping_comments = isset($cartHeader['shipping_comments']) ? $cartHeader['shipping_comments'] : '';
@@ -18,12 +18,12 @@ function add_cart_header($cartHeader)
         throw new Exception("User cart already exists");
     }
 
-    $query = "INSERT INTO cart_header(user_id, ship_date, type, shipping_type, comments, shipping_comments) ";
-    $query .= "VALUES(:user_id, :ship_date, :type, :shipping_type, :comments, :shipping_comments)";
+    $query = "INSERT INTO cart_header(user_id, ship_date, delivery_method, shipping_type, comments, shipping_comments) ";
+    $query .= "VALUES(:user_id, :ship_date, :delivery_method, :shipping_type, :comments, :shipping_comments)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
     $sth->bindParam(':ship_date', $ship_date);
-    $sth->bindParam(':type', $type);
+    $sth->bindParam(':delivery_method', $delivery_method);
     $sth->bindParam(':shipping_type', $shipping_type);
     $sth->bindParam(':comments', $comments);
     $sth->bindParam(':shipping_comments', $shipping_comments);

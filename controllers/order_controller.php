@@ -27,6 +27,8 @@ else
     $function = $values['function'];
 }
 //TODO convert all of these to safe queries
+//print_r($values);
+
 switch($function)
 {
     case "add_cart_header":
