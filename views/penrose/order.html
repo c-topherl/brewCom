@@ -10,15 +10,15 @@
 	   		</tr>
 	   	</thead>
 	   	<tbody>
-	   		{{#products}}
+	   		{{#product_units}}
 	   		<tr>
-				<td id="product_{{id}}">{{prod_code}}</td>
-	   			<td id="desc_{{id}}">{{prod_desc}}</td>
-	   			<td id="unit_{{id}}">{{unit}}</td>
-	   			<td id="price_{{id}}">{{price}}</td>
-	   			<td><input class="order-quantity" id="order_{{id}}" onblur="validateQuantity(this)" type="text"/></td>
+				<td id="product_{{product_id}}">{{product_code}}</td>
+	   			<td id="desc_{{product_id}}">{{product_description}}</td>
+	   			<td id="unit_{{product_id}}">{{unit_description}}</td>
+	   			<td id="price_{{product_id}}">${{price}}</td>
+	   			<td><input class="order-quantity" id="order_{{product_id}}" onblur="validateQuantity(this)" type="text"/></td>
 	   		</tr>
-	   		{{/products}}
+	   		{{/product_units}}
 		</tbody>
 	</table>
 </div>

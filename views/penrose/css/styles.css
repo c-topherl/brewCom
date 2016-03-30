@@ -17,7 +17,16 @@ th {
 	margin-top: 5%;
 }
 
+.hidden {
+	display: none;
+	visibility: hidden;
+}
 
+#customer-code {
+	text-align: right;
+	margin-right: 10%;
+	font-size: 24px;
+}
 
 /* LOGIN PAGE */
 
@@ -171,3 +180,6 @@ textarea {
 .back-button:hover {
 	cursor: pointer;
 }
+
+
+

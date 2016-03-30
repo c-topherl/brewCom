@@ -1,4 +1,5 @@
 var targetDiv = "#main-content";
+var method = "post";
 
 var loadTemplate = function(templateName, content){
 
@@ -31,7 +32,7 @@ var verifyLogin = function(){
 	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
 
 	var req = new XMLHttpRequest();
-    req.open("post", url, true);
+    req.open(method, url, true);
     var requestData = {
     	"function": "verify_user",
     	"username": user.value,
@@ -39,6 +40,7 @@ var verifyLogin = function(){
     };
 
     var template;
+    var data;
 
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
@@ -46,17 +48,16 @@ var verifyLogin = function(){
         	if (responseObj.status === "success"){
         		data = responseObj.response.cart;
         		if (!data || data.length === 0){
-        			//data = responseArr[0].response.product_unit;
-        			//template = "http://localhost/brewCom/views/penrose/delivery_date.html";
-        			getDeliveryOptions();
+        			data = responseObj.response.delivery_options;
+        			template = "http://localhost/brewCom/views/penrose/delivery_date.html";
+        			loadTemplate(template, data);
         		} else {
         			data = responseObj.response.cart;
         			template = "http://localhost/brewCom/views/penrose/cart.html";
         			loadTemplate(template, data);
         		}
 
-        		//loadTemplate(template, data);
-        		showNavLinks();
+        		showNavLinks("Test");
         	} else {
         		showError(responseObj.message);
         	}
@@ -88,7 +89,6 @@ var showLandingPage = function(){
 
 
 var getOpenOrders = function(){
-	var method = "post";
 	var customerCode = document.getElementById("customer-code").innerHTML;
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/open_orders.html";
@@ -106,7 +106,6 @@ var getOpenOrders = function(){
 }
 
 var getOrderDetail = function(orderNumber){	
-	var method = "post";
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/order_detail.html";
 
@@ -123,7 +122,6 @@ var getOrderDetail = function(orderNumber){
 
 var getDeliveryOptions = function(){
 	var customerCode = document.getElementById("customer-code").innerHTML;
-	var method = "post";
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/delivery_date.html";
 
@@ -137,11 +135,12 @@ var getDeliveryOptions = function(){
     return;
 }
 
-var getOrderPage = function(){
-	var method = "post";
+var buildCartHeader = function(){
 	var customerCode = document.getElementById("customer-code").innerHTML;
-	var shipDate = document.getElementById("delivery-date").value;
-	var deliveryMethod = document.getElementById("delivery-method").value;
+	var shipDate = document.getElementById("delivery-date");
+	shipDate = shipDate.options[shipDate.selectedIndex].text;
+	var deliveryMethod = document.getElementById("delivery-method");
+	deliveryMethod = deliveryMethod.options[deliveryMethod.selectedIndex].text;
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 
 	var requestData = {
@@ -153,9 +152,14 @@ var getOrderPage = function(){
     	"shipping_type": "standard"
     };
 
-	buildHttpRequest(method, url, data);
+	buildHttpRequest(method, url, requestData);
 
-	
+	getOrderPage();
+    return;
+}
+
+var getOrderPage = function(){
+	var customerCode = document.getElementById("customer-code").innerHTML;
 	var templatePath = "http://localhost/brewCom/views/penrose/order.html";
 	url = "http://joelmeister.net/brewCom/controllers/product_controller.php";
 
@@ -165,17 +169,15 @@ var getOrderPage = function(){
     };
 
     buildHttpRequestForTemplate(method, url, templatePath, requestData);
-    return;
 }
 
 var buildCart = function(){
 	var url = "http://localhost/brewCom/views/penrose/cart.html";
-	var method = "post";
 
-	var productCounter = 0;
+	var productId;
+	var quantityId;
 	var lineCounter = 0;
-	var orderId = "order_";
-	var currentQtyField = document.getElementById(orderId + productCounter);
+	var currentQtyField;
 	var currentQty;
 	var data = {lines:[]};
 	var lineObj = {};
@@ -183,14 +185,19 @@ var buildCart = function(){
 	var currPrice;
 	var currQty;
 
-	while (currentQtyField != null){
+	var quantityFields = document.getElementsByClassName("order-quantity");
+
+	for (var i=0; i < quantityFields.length; i++){
+		currentQtyField = quantityFields[i];
 		currentQty = currentQtyField.value;
 		if (currentQty !== "" && currentQty > 0){
+			quantityId = currentQtyField.id;
+			productId = quantityId.substr(quantityId.length - 1);
 			lineObj = {};
-			lineObj.product = document.getElementById("product_" + productCounter).innerHTML;
-			lineObj.desc = document.getElementById("desc_" + productCounter).innerHTML;
-			lineObj.unit = document.getElementById("unit_" + productCounter).innerHTML;
-			lineObj.price = document.getElementById("price_" + productCounter).innerHTML;
+			lineObj.product = document.getElementById("product_" + productId).innerHTML;
+			lineObj.desc = document.getElementById("desc_" + productId).innerHTML;
+			lineObj.unit = document.getElementById("unit_" + productId).innerHTML;
+			lineObj.price = document.getElementById("price_" + productId).innerHTML;
 			lineObj.quantity = currentQty;
 
 			data.lines[lineCounter] = lineObj;
@@ -201,9 +208,6 @@ var buildCart = function(){
 			totalPrice = Math.round(totalPrice * 100) / 100;
 			lineCounter++;
 		}
-
-		productCounter++;
-		currentQtyField = document.getElementById(orderId + productCounter);
 	}
 
 	data.totalPrice = totalPrice;
@@ -222,7 +226,6 @@ var buildCheckoutPage = function(){
 }
 
 var submitOrder = function(){
-	var method = "post";
 	var customerCode = document.getElementById("customer-code").innerHTML;
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var templatePath = "http://localhost/brewCom/views/penrose/confirmation.html";
