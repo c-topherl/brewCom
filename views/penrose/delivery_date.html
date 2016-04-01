@@ -1,7 +1,7 @@
 <div id="login-forms">
 	<label for="delivery-date">Delivery Date</label>
 	<select dropdown name="delivery-date" id="delivery-date">
-    	{{#each deliveryDates}}
+    	{{#each delivery_dates}}
        	<option value="{{value}}">{{title}}</option>
     	{{/each}}
 	</select>
@@ -10,7 +10,7 @@
 		
 	<label for="delivery-method">Method</label>
 	<select dropdown name="delivery-method" id="delivery-method">
-    	{{#each deliveryMethods}}
+    	{{#each delivery_methods}}
        	<option value="{{value}}">{{title}}</option>
     	{{/each}}
 	</select>
@@ -26,7 +26,7 @@
 		
 	<br><br><br><br><br>
 		
-	<a class="continue-button" href="javascript:void(0)" onclick="getOrderPage();">Continue >></a>
+	<a class="continue-button" href="javascript:void(0)" onclick="buildCartHeader();">Continue >></a>
 </div>
 
 
