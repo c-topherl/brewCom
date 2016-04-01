@@ -23,13 +23,14 @@ function get_cart($cartInfo)
         throw new Exception('No cart found for user_id: '.$user_id);
     }
     $cartArray = $sth->fetch(PDO::FETCH_ASSOC);
+
     $details = get_cart_details($dbh, $user_id);
     //calculate total price
     $cartArray['total_price'] = array_sum(array_map(function($row){
-            return $row['price'];
+            return $row['quantity'] * $row['price'];
         }, $details));
     //uncomment if you want details passed in the main get_cart function
-    //$cartArray['details'] = get_cart_details($dbh, $user_id);
+    $cartArray['details'] = $details;
     return array('cart' => $cartArray);
 }
 function get_cart_details($dbh, $user_id)
@@ -42,6 +43,7 @@ function get_cart_details($dbh, $user_id)
         LEFT JOIN products p ON p.id = cd.product_id 
         LEFT JOIN units u ON u.id = cd.unit_id
         WHERE cd.user_id = :user_id ";
+
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id',$user_id);
     $sth->execute();

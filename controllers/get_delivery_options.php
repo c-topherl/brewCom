@@ -5,9 +5,11 @@ function get_delivery_options($optionsArray = NULL)
     //not supported yet
     $dbh = new PDOConnection();
     $customer_id = isset($optionsArray['customer_id']) ? $optionsArray['customer_id'] : '';
+
     $dates = GetAvailableDates();
     $deliveryMethods = GetDeliveryMethods($dbh);
     $warehouses = GetWarehouses($dbh);
+
     $deliveryOptions = array(
         'delivery_dates' => $dates, 
         'delivery_methods' => $deliveryMethods,

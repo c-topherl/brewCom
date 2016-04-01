@@ -49,6 +49,12 @@ switch($function)
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Here is your cart';
         break;
+    case "update_cart":
+        include "update_cart.php";
+        $responseArray['response'] = update_cart($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'Cart successfully updated';
+        break;
     case "submit_order":
         include "submit_order.php";
         $responseArray['response'] = submit_order($values);
