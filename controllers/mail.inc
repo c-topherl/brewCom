@@ -2,6 +2,15 @@
 //send email confirming registration, eventually will be sending a verification email
 define('DEFAULT_EMAIL','joelmeister1209@gmail.com');
 define('NOREPLY_EMAIL','noreply@joelmeister.net');
+function order_confirmation_email($information)
+{
+    $body = "<html><body>
+        Order received!
+        order id: ".$information['order_id']."
+        </body></html>";
+    $subject = 'order received';
+    return send_mail($information['email'], $subject, $body);
+}
 function verification_email($email)
 {
     $subject = "Thank you for registering!";

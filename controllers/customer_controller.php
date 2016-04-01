@@ -33,7 +33,7 @@ switch($function)
         break;
     case "get_users":
         include "get_users.php";
-        $responseArray['response'] = get_users();
+        $responseArray['response'] = get_users($values);
         $responseArray['message'] = "Users successfully read";
         break;
     case "update_user":
