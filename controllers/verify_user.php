@@ -2,14 +2,14 @@
 require_once("PDOConnection.php");
 require_once("common.inc");
 include("get_cart.php");
-include("get_product_units.php");
+include("get_delivery_options.php");
 function verify_user($userArray)
 {
     
-    if(!(isset($userArray['username']) || isset($userArray['email'])))
+    if(!((isset($userArray['username']) || isset($userArray['email'])) && isset($userArray['password'])))
     {
         //fail gracefully-ish
-        throw new Exception("Must provide username or email via POST.");
+        throw new Exception("Must provide (username or email) and password.");
     }
     $dbh = new PDOConnection();
     $username = isset($userArray['username']) ? $userArray['username'] : '';
@@ -39,5 +39,5 @@ function verify_user($userArray)
     {
         return array('cart' => get_cart(array('user_id' => $user_id)));
     }
-    return array('product_unit' => get_product_units());
+    return array('delivery_options' => get_delivery_options());
 }

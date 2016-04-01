@@ -15,14 +15,16 @@ function add_order($orderArray)
     $dbh = new PDOConnection();
     //pass in all order details in an array
     $user_id = $orderArray['user_id'];
-    $order_date = isset($orderArray['order_date']) ? $orderArray['order_date'] : date("Y m d");
+    $order_date = isset($orderArray['order_date']) ? $orderArray['order_date'] : date("Y-m-d");
     $ship_date = $orderArray['ship_date'];
     $delivery_method = isset($orderArray['delivery_method']) ? $orderArray['delivery_method'] : 'pickup'; //pickup/delivery
     $status = isset($orderArray['status']) ? $orderArray['status'] : "open";
     $comments = isset($orderArray['comments']) ? $orderArray['comments']: '';
-    $shipping_commenta = isset($orderArray['shipping_comments']) ? $orderArray['shipping_comments'] : '';
+    $shipping_comments = isset($orderArray['shipping_comments']) ? $orderArray['shipping_comments'] : '';
+
     $query = "INSERT INTO orders(user_id, order_date,ship_date,delivery_method,status,comments,shipping_comments) 
         VALUES(:user_id, :order_date, :ship_date, :delivery_method, :status, :comments, :shipping_comments)";
+
     $sth = $dbh->prepare($query);
     $orderArr = array(':user_id' => $user_id, ':order_date' => $order_date, 
         ':ship_date' => $ship_date, ':delivery_method' => $delivery_method, ':status'=> $status, 

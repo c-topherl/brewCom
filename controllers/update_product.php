@@ -2,12 +2,16 @@
 require_once "PDOConnection.php";
 //At least needs ID passed in.  If you don't know it, get it from the get_products() routine
 // This is so we can update a product code (since we store id on everything, don't change that)
-function update_product($productArray)
+function update_product($prodInfo)
 {
+    if(!isset($prodInfo['id']))
+    {
+        throw new Exception("Product id required.");
+    }
     $dbh = new PDOConnection();
     $query = "SELECT id,code,description,price,active,last_updated FROM products WHERE id = :id";
     $sth = $dbh->prepare($query);
-    $id = $productArray['id'];
+    $id = $prodInfo['id'];
     $sth->bindParam(':id', $id, PDO::PARAM_INT);
     if(!($sth->execute()))
     {
@@ -17,14 +21,20 @@ function update_product($productArray)
     {
         throw new Exception("Product id: '".$id."' not found!");
     }
-    $query = "UPDATE products SET code = :code, description = :description, price = :price, class = :class, active = :active WHERE id = :id";
+    $query = "UPDATE products 
+        SET code = :code, 
+            description = :description, 
+            price = :price, 
+            class = :class, 
+            active = :active 
+        WHERE id = :id";
     $sth = $dbh->prepare($query);
 
-    $code = isset($productArray['code'])? $productArray['code'] : $oldValues['code'];
-    $description = isset($productArray['description'])? $productArray['description'] : $oldValues['description'];
-    $price = isset($productArray['price'])? $productArray['price'] : $oldValues['price'];
-    $class = isset($productArray['class'])? $productArray['class'] : $oldValues['class'];
-    $active = isset($productArray['active'])? $productArray['active'] : $oldValues['active'];
+    $code = isset($prodInfo['code'])? $prodInfo['code'] : $oldValues['code'];
+    $description = isset($prodInfo['description'])? $prodInfo['description'] : $oldValues['description'];
+    $price = isset($prodInfo['price'])? $prodInfo['price'] : $oldValues['price'];
+    $class = isset($prodInfo['class'])? $prodInfo['class'] : $oldValues['class'];
+    $active = isset($prodInfo['active'])? $prodInfo['active'] : $oldValues['active'];
 
     $sth->bindParam(':id', $id, PDO::PARAM_INT);
     $sth->bindParam(':code', $code);
