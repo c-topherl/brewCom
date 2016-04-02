@@ -77,8 +77,10 @@ function GetAvailableDates()
     $datetime = new DateTime('tomorrow');
     for($i=0;$i<6;++$i)
     {
-        $dates[] = array("title" => date('Y-m-d', strtotime('tomorrow + '.$i.' day')), 
-            "value" => date('m/d/Y', strtotime('tomorrow + '.$i.' day')));
+        $dates[] = array(
+            "value" => date('Y-m-d', strtotime('tomorrow + '.$i.' day')), 
+            "title" => date('m/d/Y', strtotime('tomorrow + '.$i.' day'))
+            );
     }
     return $dates;
 }

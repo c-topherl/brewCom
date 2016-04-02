@@ -100,6 +100,7 @@ function get_order_detail($values)
     {
         throw new Exception("Must provide order_id");
     }
+    $dbh = new PDOConnection();
     $query = "SELECT od.id, od.price, quantity, 
             p.id product_id, p.code product_code, p.description product_description, 
             unit_id, u.code unit_code, u.description unit_description 
