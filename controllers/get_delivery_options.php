@@ -2,12 +2,15 @@
 include_once('PDOConnection.php');
 function get_delivery_options($optionsArray = NULL)
 {
-    //not supported yet
     $dbh = new PDOConnection();
+
+    //not supported yet
     $customer_id = isset($optionsArray['customer_id']) ? $optionsArray['customer_id'] : '';
 
     $dates = GetAvailableDates();
     $deliveryMethods = GetDeliveryMethods($dbh);
+
+    //not supported yet
     $warehouses = GetWarehouses($dbh);
 
     $deliveryOptions = array(
