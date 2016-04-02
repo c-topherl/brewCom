@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            Order {{orderNumber}}
+            Order #{{id}}
         </h1>
     </div>
 </div>
@@ -22,17 +22,17 @@
     <div class="col-lg-3">
         <div class="form-group">
             <label>Bill To</label>
-            <p class="form-control-static">{{billToName}}</p>
-            <p class="form-control-static">{{billToAddressOne}}</p>
-            <p class="form-control-static">{{billToAddressTwo}}</p>
+            <p class="form-control-static">{{bill_to_name}}</p>
+            <p class="form-control-static">{{bill_to_address_one}}</p>
+            <p class="form-control-static">{{bill_to_address_two}}</p>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="form-group">
             <label>Ship To</label>
-            <p class="form-control-static">{{shipToName}}</p>
-            <p class="form-control-static">{{shipToAddressOne}}</p>
-            <p class="form-control-static">{{shipToAddressTwo}}</p>
+            <p class="form-control-static">{{ship_to_name}}</p>
+            <p class="form-control-static">{{ship_to_address_one}}</p>
+            <p class="form-control-static">{{ship_to_address_two}}</p>
         </div>
     </div>
 </div>
@@ -48,7 +48,7 @@
                 </select>
                 <br><br>
                 <label>Delivery Date</label>
-                <input class="form-control" value="{{deliveryDate}}">
+                <input class="form-control" value="{{delivery_date}}">
                 <p class="help-block">Format MM/DD/YYYY. Example: 03/24/2016.</p>
         </div>
     </div>
@@ -61,7 +61,7 @@
             </select>
             <br>
             <label>Total Amount</label>
-            <p class="form-control-static">${{orderTotal}}</p>
+            <p class="form-control-static">${{total_amount}}</p>
         </div>
     </div>
 </div>
@@ -70,13 +70,13 @@
     <div class="col-lg-3">
         <div class="form-group">
             <label>Shipping Comments</label>
-            <textarea class="form-control" rows="5">{{shippingComments}}</textarea>
+            <textarea class="form-control" rows="5">{{shipping_comments}}</textarea>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="form-group">
             <label>General Comments</label>
-            <textarea class="form-control" rows="5">{{generalComments}}</textarea>
+            <textarea class="form-control" rows="5">{{general_comments}}</textarea>
         </div>
     </div>
 </div>
@@ -102,17 +102,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#lines}}
-                            <tr id="productline_{{id}}">
-                                <td>{{product}}</td>
-                                <td>{{desc}}</td>
-                                <td>{{unit}}</td>
-                                <td class="amount"><input id="quantity_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{orderQuantity}}" size="4"/></td>
-                                <td class="amount">$<input id="price_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{unitPrice}}" size="5"/></td>
-                                <td class="amount" id="total_{{id}}">$&nbsp;{{totalLineAmount}}</td>
+                            {{#order_details}}
+                            <tr id="{{id}}">
+                                <td>{{product_code}}</td>
+                                <td>{{product_description}}</td>
+                                <td>{{unit_code}}</td>
+                                <td class="amount"><input id="quantity_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{quantity}}" size="4"/></td>
+                                <td class="amount">$<input id="price_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{unit_price}}" size="5"/></td>
+                                <td class="amount" id="total_{{id}}">$&nbsp;{{line_amount}}</td>
                                 <td class="remove-link"><a href="#" onclick="removeLine({{id}})">Remove</a></td>
                             </tr>
-                            {{/lines}}
+                            {{/order_details}}
                         </tbody>
                     </table>
                     <br><br>

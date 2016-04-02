@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>B2B Dashboard</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -56,8 +56,8 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="javascript:void(0)" onclick="getOpenOrders()"><i class="fa fa-fw"></i>Orders</a>
+                    <li>
+                        <a href="javascript:void(0)"><i class="fa fa-fw"></i>Orders</a>
                     </li>
                     <li>
                         <a href="javascript:void(0)"><i class="fa fa-fw"></i>Customer Info</a>
@@ -75,11 +75,23 @@
         </nav>
 
         <div id="page-wrapper">
-            <div id="customer" class="hidden">
-                <p id="customer-code"></p>
-            </div>
+
             <div class="container-fluid">
                 <div id="main-content">
+                    <div id="login-div">
+                        <div id="login-forms">
+                            Username: <input type="text" id="username"><br><br>
+                            Password: &nbsp;&nbsp;<input type="password" id="password">
+                            
+                            <br><br>
+                            
+                            <a id="forgot-pass-link" href="#">Forgot password</a>
+                                
+                            <br><br>
+                                
+                            <input type="button" id="login-btn" onclick="verifyLogin();" value="Submit">
+                        </div>
+                </div>
                 </div>
 
             </div>
@@ -91,25 +103,13 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
+
     <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
     <script src="js/dataTables.min.js"></script>
-
     <script src="js/handlebars.min.js"></script>
-
     <script src="js/template_controller.js"></script>
-
     <script src="js/site.js"></script>
-
-    <script>
-        window.onload = function(){
-            getOpenOrders();
-        }
-    </script>
 
 </body>
 

@@ -32,48 +32,32 @@ var comparePasswords = function(password2){
 	return;
 }
 
-var verifyLogin = function(){
-	var username = document.getElementById("username").value;
-	if (!username){
-		alert("A username is required!");
-		return false;
-	}
-	
-	var password = document.getElementById("password").value;
-	if (!password){
-		alert("A password is required!");
-		return false;
-	}
-}
-
-var buildHttpRequestForTemplate = function(method, url, templatePath){
+var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
 
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
-        	loadTemplate(templatePath, req.responseText);
+        	var resp = JSON.parse(req.responseText);
+        	loadTemplate(templatePath, resp.response);
         }
     };
 
-    req.send();
+    req.send(JSON.stringify(data));
 }
 
-var buildHttpRequest = function(method, url, data, callback){
+var buildHttpRequest = function(method, url, data, callback, callbackParam){
 	var req = new XMLHttpRequest();
-	req.open(method, url, true);
-	req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	req.onreadystatechange = function(){
-        if (req.readyState == 4 && req.status == 200 && callback){
-        	callback();
-        }
-    };
-    if (data){
-		req.send(JSON.stringify(data));
-	} else {
-		req.send();
-	}
-	return;
+    req.open(method, url, true);
+
+    req.onreadystatechange = function(){
+    	if (req.readyState == 4 && req.status == 200){
+    		if (callback){
+    			callback(callbackParam);
+    		}
+    	}
+    }
+    req.send(JSON.stringify(data));
 }
 
 var displayTable = function(tableName){
@@ -109,8 +93,6 @@ var showNavLinks = function(){
 		navLinks[i].className = classes.join(" ");
 	}
 
-	document.getElementById("customer-code").innerHTML = "Customer: Test";
-
 	return;
 }
 
@@ -123,6 +105,19 @@ var updateLine = function(lineNumber) {
 	var price = document.getElementById("price_" + lineNumber).value;
 	var newTotal = qty * price;
 	newTotal = parseFloat(Math.round(newTotal * 100) / 100).toFixed(2);
+
+	/*
+	var pattern = /[0-9]*(?![.]+)/;
+	if (pattern.test(newTotal)){
+		newTotal += ".00";
+	} else {
+		pattern = /[0-9]*[.][0-9](?![0-9])/;
+		if (pattern.test(newTotal)){
+			newTotal += "0";
+		}
+	}
+	*/
+
 	document.getElementById("total_" + lineNumber).innerHTML = "$" + newTotal;
 	return;
 }
