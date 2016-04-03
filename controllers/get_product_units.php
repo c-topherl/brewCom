@@ -8,7 +8,7 @@ function get_product_units($info = NULL)
     $query = "SELECT p.id product_id, 
                 p.code product_code, 
                 p.description product_description, 
-                p.price, 
+                pu.price, 
                 pc.id class_id, 
                 pc.code class_code, 
                 pc.description class_description, 
