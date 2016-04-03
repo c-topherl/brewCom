@@ -1,0 +1,32 @@
+<div id="order-div">
+	<table id="order-table"> 
+		<thead>
+	   		<tr>
+			   	<th>Beer</th>
+	   			<th>Type</th>
+	   			<th>Unit</th>
+	   			<th>Price</th>
+	   			<th>Quantity</th>
+	   		</tr>
+	   	</thead>
+	   	<tbody>
+	   		{{#product_units}}
+	   		<tr>
+				<td id="product_{{product_id}}">{{product_code}}</td>
+	   			<td id="desc_{{product_id}}">{{product_description}}</td>
+	   			<td id="unit_{{product_id}}">{{unit_description}}</td>
+	   			<td id="price_{{product_id}}">${{price}}</td>
+	   			<td><input class="order-quantity" id="order_{{product_id}}" onblur="validateQuantity(this)" type="text"/></td>
+	   		</tr>
+	   		{{/product_units}}
+		</tbody>
+	</table>
+</div>
+
+<br><br><br><br>
+		
+<a class="view-cart-button" href="javascript:void(0)" onclick="buildCart();">View Cart >></a>
+
+<script type="text/javascript">
+	displayTable("order-table");
+</script>

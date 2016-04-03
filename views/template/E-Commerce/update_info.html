@@ -1,0 +1,22 @@
+
+		<label for="username" >Username</label>
+		<input type="text" id="username" />
+		
+		<br>
+						
+		<label for="password" >Password</label>
+		<input type="password" id="password" />
+		
+		<br>
+
+		<label for="password2" style="margin-right:1%;">Re-type</label>
+		<input type="password" id="password2" onblur="comparePasswords(this)"/>
+		
+		<br>
+
+		<label for="email" style="margin-right:2%;">Email</label>
+		<input type="text" id="email" onblur="validateEmail(this)"/>
+
+		<br><br><br><br>
+		
+		<a class="view-cart-button" href="javascript:void(0)" onclick="updateCustomerInfo();">Submit</a>

@@ -1,4 +1,5 @@
 var targetDiv = "#main-content";
+var method="post";
 
 var loadTemplate = function(templateName, content){
 
@@ -19,67 +20,72 @@ var loadTemplate = function(templateName, content){
     return;
 }
 
-var getOpenOrders = function(){
-    /*
-    REQUEST TO GET OPEN ORDERS
-    
-    var method = "get";
-    var url = "get_open_orders.php";
-    var templatePath = "http://localhost/brewCom/views/penrose/open_orders.html";
+var verifyLogin = function(){
+    var user = document.getElementById("username");
+    var pass = document.getElementById("password");
 
-    buildHttpRequest(method, url, loadTemplate, templatePath);
-    */
+    if (!user.value || !pass.value){
+        showError("You must enter a username and password!");
+        return;
+    }
 
-    //temporary - this will go away
-    var url = "http://localhost/brewCom/views/dashboard/order_headers.html";
+    var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
 
-
-    var data = {
-        orders: [
-            {orderNumber:1234,orderStatus:"Open",createDate:"03/04/16",deliveryDate:"03/06/16",deliveryMethod:"Delivery",totalAmount:189.99},
-            {orderNumber:1286,orderStatus:"Open",createDate:"03/07/16",deliveryDate:"03/08/16",deliveryMethod:"Delivery",totalAmount:18.98},
-            {orderNumber:1225,orderStatus:"Shipped",createDate:"03/03/16",deliveryDate:"03/04/16",deliveryMethod:"Pickup",totalAmount:94.99},
-            {orderNumber:1235,orderStatus:"Open",createDate:"04/01/16",deliveryDate:"04/06/16",deliveryMethod:"Delivery",totalAmount:243.96}
-        ]
+    var req = new XMLHttpRequest();
+    req.open(method, url, true);
+    var requestData = {
+        "function": "verify_user",
+        "username": user.value,
+        "password": pass.value
     };
 
-    loadTemplate(url, data);
+    var template;
+    var data;
+
+    req.onreadystatechange = function(){
+        if (req.readyState == 4 && req.status == 200){
+            var responseObj = JSON.parse(req.responseText);
+            if (responseObj.status === "success"){
+                getOpenOrders();
+            } else {
+                showError(responseObj.message);
+            }
+        }
+    };
+
+    req.send(JSON.stringify(requestData));
+
+    return;
+} 
+
+
+var getOpenOrders = function(){
+    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var templatePath = "http://localhost/brewCom/views/dashboard/order_headers.html";
+
+    var requestData = {
+        "function": "get_orders",
+        "status": "open"
+    };
+
+    buildHttpRequestForTemplate(method, url, templatePath, requestData);
     
     displayTable("order-table");
     return;
 }
 
 var getOrderDetail = function(orderNumber){
-    /*
-    REQUEST TO GET ORDER DETAIL
-    */
-    var url = "http://localhost/brewCom/views/dashboard/order_detail.html";
+    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var templatePath = "http://localhost/brewCom/views/dashboard/order_detail.html";
 
-    var data = {
-        orderNumber: "1234",
-        billToName: "Frank's Bar",
-        billToAddressOne: "999 West St.",
-        billToAddressTwo: "Chicago, IL",
-        shipToName: "Frank's Bar",
-        shipToAddressOne: "999 West St.",
-        shipToAddressTwo: "Chicago, IL",
-        orderStatus: "Open",
-        deliveryMethod: "Delivery",
-        deliveryDate: "03/06/2016",
-        orderTotal: "846.28",
-        shippingComments: "Arrive by 9am",
-        generalComments: "Stop in for a beer!",
-        lines: [
-            {product:"Devoir",desc:"Saison Ale",unit:"Keg",unitPrice:"89.99",orderQuantity:10,totalLineAmount:"900.00",id:0},
-            {product:"Devoir",desc:"Saison Ale",unit:"Bottles (12)",unitPrice:"12.99",orderQuantity:15,totalLineAmount:"220.00",id:1},
-            {product:"Desirous",desc:"White IPA",unit:"Bottles (6)",unitPrice:"6.99",orderQuantity:35,totalLineAmount:"240.00",id:2},
-            {product:"Fractal",desc:"Belgian IPA",unit:"Bottles (12)",unitPrice:"12.99",orderQuantity:20,totalLineAmount:"260.00",id:3},
-            {product:"Fractal",desc:"Belgian IPA",unit:"Keg",unitPrice:"89.99",orderQuantity:10,totalLineAmount:"900.00",id:4}
-        ]
+    var requestData = {
+        "function": "get_order_detail",
+        "order_id": orderNumber
     };
 
-    loadTemplate(url, data);
+    buildHttpRequestForTemplate(method, url, templatePath, requestData);
     
+    displayTable("order-table");
     return;
 }
 
@@ -91,5 +97,18 @@ var loadOrderSearch = function(){
 
 var searchOrders = function(){
     alert("Not implemented yet.");
+}
+
+var showConfirmation = function(message){
+    var templatePath = "http://localhost/brewCom/views/penrose/confirmation.html";
+    var content = {"message": message};
+    loadTemplate(templatePath, content);
+
+    return;
+}
+
+var showError = function(message){
+    alert(message);
+    return;
 }
 

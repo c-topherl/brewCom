@@ -1,0 +1,40 @@
+
+	<div style="width: 10%; align:left;">
+		<a class="back-button" href="javascript:void(0)" onclick="getOpenOrders();" align="left">&lt;&lt; Back</a>
+	</div>
+
+	<h4>Order #{{id}}</h4><br>
+	<p>{{delivery_method}} {{delivery_date}}</p>
+
+	<table id="order-table"> 
+		<thead>
+			<tr>
+				<th>Beer</th>
+				<th>Type</th>
+				<th>Unit</th>
+				<th>Price</th>
+				<th>Quantity</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#order_details}}
+			<tr>
+				<td>{{product_code}}</td>
+				<td>{{product_description}}</td>
+				<td>{{unit_code}}</td>
+				<td>${{price}}</td>
+				<td>{{quantity}}</td>
+			</tr>
+			{{/order_details}}
+		</tbody>
+	</table>
+
+	<div class="total" align="right">
+		<p><b>Total: ${{order_total}}</b><p>
+	</div>
+
+	<script type="text/javascript">
+      displayTable("order-table");
+   </script>
+
+

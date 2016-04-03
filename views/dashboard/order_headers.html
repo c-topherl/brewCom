@@ -1,47 +1,44 @@
+<!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Open Orders
+            </h1>
+        </div>
+        </div>
+        <!-- /.row -->
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Open Orders
-                        </h1>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="orders-table" class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Order #</th>
+                                    <th>Order Status</th>
+                                    <th>Delivery Date</th>
+                                    <th>Delivery Method</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#orders}}
+                                <tr>
+                                    <td class="order-detail-link"><a href="javascript:void(0)" onclick="getOrderDetail({{order_id}})">{{order_id}}</a></td>
+                                    <td>{{status}}</td>
+                                    <td>{{order_date}}</td>
+                                    <td>{{delivery_method}}</td>
+                                    <td class="amount">${{total_price}}</td>
+                                </tr>
+                                {{/orders}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-right">
+                        <a href="javascript:void(0)" onclick="loadOrderSearch()">Search Orders <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="col-lg-12">
-                            <div class="panel-body">
-                                <div class="table-responsive">
-                                    <table id="orders-table" class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Order #</th>
-                                                <th>Order Status</th>
-                                                <th>Order Date</th>
-                                                <th>Delivery Date</th>
-                                                <th>Delivery Method</th>
-                                                <th>Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{#orders}}
-                                            <tr>
-                                                <td class="order-detail-link"><a href="javascript:void(0)" onclick="getOrderDetail({{orderNumber}})">{{orderNumber}}</a></td>
-                                                <td>{{orderStatus}}</td>
-                                                <td>{{createDate}}</td>
-                                                <td>{{deliveryDate}}</td>
-                                                <td>{{deliveryMethod}}</td>
-                                                <td class="amount">${{totalAmount}}</td>
-                                            </tr>
-                                            {{/orders}}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="text-right">
-                                    <a href="javascript:void(0)" onclick="loadOrderSearch()">Search Orders <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <!-- /.row -->
+            </div>
+        </div>
+        <!-- /.row -->

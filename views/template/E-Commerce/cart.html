@@ -1,0 +1,38 @@
+
+		<div id="cart-div">
+			<h4>Shopping Cart</h4><br>
+		   	<table id="cart-table"> 
+				<tr>
+		  			<th>Beer</th>
+					<th>Type</th>
+					<th>Unit</th>
+					<th>Price</th>
+					<th>Quantity</th>
+				</tr>
+				{{#lines}}
+				<tr>
+		  			<td>{{product}}</td>
+					<td>{{desc}}</td>
+					<td>{{unit}}</td>
+					<td>{{price}}</td>
+					<td>{{quantity}}</td>
+				</tr>
+				{{/lines}}
+	   		</table>
+
+	   		<div class="total" align="right">
+	   			<p><b>Total: ${{totalPrice}}</b><p>
+	   		</div>
+	   	</div>
+
+		<br><br><br><br>
+		<a class="view-cart-button" href="javascript:void(0)" onclick="getOrderPage();">&lt;&lt;Back</a> &nbsp;&nbsp;&nbsp;
+		<a class="view-cart-button" href="javascript:void(0)" onclick="buildCheckoutPage();">Check Out >></a>
+
+		<script type="text/javascript">
+      		displayTable("cart-table");
+  		</script>
+
+
+								
+   

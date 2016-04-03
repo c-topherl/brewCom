@@ -1,0 +1,185 @@
+/* GENERAL */
+
+table {
+	border: 1px solid black;
+}
+
+th {
+	border-bottom: 1px solid black;
+}
+
+.detail-link {
+	color: #b08930;
+	text-decoration: underline;
+}
+
+.main-div {
+	margin-top: 5%;
+}
+
+.hidden {
+	display: none;
+	visibility: hidden;
+}
+
+#customer-code {
+	text-align: right;
+	margin-right: 10%;
+	font-size: 24px;
+}
+
+/* LOGIN PAGE */
+
+#login-div {
+	width: 60%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#login-forms, #login-info {
+	display: inline-block;
+}
+
+#forgot-pass-link {
+	font-weight: italics;
+	font-size: 12px;
+	text-decoration: underline;
+}
+
+#login-info {
+	vertical-align: top;
+	margin-left: 3%;
+}
+
+
+
+/* LANDING PAGE */
+
+.header-logo {
+	margin-top: 8%;
+}
+
+.left-links {
+	margin-right: 15%;
+}
+
+.right-links {
+	margin-left: 15%;
+}
+
+.nav-link {
+	margin-right: 2%;
+	margin-left: 2%;
+	margin-bottom: 10%;
+	vertical-align: middle;
+}
+
+.order-button {
+	border: 3px solid #b08930;
+	padding: 1%;
+	font-size: 26px;
+	border-radius: 20px;
+}
+
+.order-button:hover {
+	cursor: pointer;
+}
+
+
+
+/* DELIVERY DATE PAGE */
+
+#delivery-table  {
+	border: none;
+}
+
+#delivery-table td p {
+	vertical-align: middle;
+}
+
+.continue-button {
+	border: 3px solid #b08930;
+	padding: 1%;
+	font-size: 18px;
+	border-radius: 22px;
+}
+
+.continue-button:hover {
+	cursor: pointer;
+}
+
+
+
+
+/* ORDER PAGE */
+
+.order-quantity {
+	width: 45px;
+}
+
+.view-cart-button {
+	border: 3px solid #b08930;
+	padding: 1%;
+	font-size: 22px;
+	border-radius: 26px;
+}
+
+.view-cart-button:hover {
+	cursor: pointer;
+}
+
+.sorting {
+	text-decoration: underline;
+}
+
+
+
+/* CART PAGE */
+
+.total {
+	margin-right: 5%;
+	margin-top: 3%;
+}
+
+#cart-table tr:hover {
+	background: white;
+}
+
+
+
+/* CHECKOUT PAGE */
+
+textarea {
+	width: 280px;
+}
+
+
+
+/* ORDER DETAIL PAGE */
+
+.customer-info{
+	width: 50%;
+	border: 1px solid black;
+}
+
+.customer-info {
+	display: inline-block;
+}
+
+.customer-info p {
+	width: 15%;
+}
+
+.back-button {
+	border: 3px solid #b08930;
+	padding: 10%;
+	font-size: 16px;
+	border-radius: 22px;
+}
+
+.back-button:hover {
+	cursor: pointer;
+}
+
+
+
