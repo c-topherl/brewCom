@@ -27,7 +27,9 @@ else
     $function = $values['function'];
 }
 //TODO convert all of these to safe queries
-//print_r($values);
+define('LOG_FILE', '/home1/joelmeis/public_html/brewCom/test.log');
+//file_put_contents(LOG_FILE, print_r($_SERVER,true), FILE_APPEND);
+//file_put_contents(LOG_FILE, print_r($values,true), FILE_APPEND);
 
 switch($function)
 {

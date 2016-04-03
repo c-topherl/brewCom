@@ -8,6 +8,7 @@ require_once("PDOConnection.php");
 include_once('get_cart.php');
 include_once('add_order.php');
 include_once('get_users.php');
+include_once('mail.inc');
 
 function submit_order($values)
 {
@@ -52,7 +53,7 @@ function delete_cart_by_user_id($dbh, $user_id)
     {
         throw new Exception('must specifiy user_id');
     }
-    $query = "DELETE FROM cart_header WHERE user_id = :user_id";
+    $query = "DELETE FROM cart_headers WHERE user_id = :user_id";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
     if(!$sth->execute())
@@ -60,7 +61,7 @@ function delete_cart_by_user_id($dbh, $user_id)
         throw new Exception($sth->errorInfo()[2]);
     }
 
-    $query = "DELETE FROM cart_detail WHERE user_id = :user_id";
+    $query = "DELETE FROM cart_details WHERE user_id = :user_id";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
     if(!$sth->execute())

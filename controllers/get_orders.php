@@ -11,19 +11,23 @@ require_once("PDOConnection.php");
 function get_orders($filters = NULL)
 {
     $dbh = new PDOConnection();
+
     $query = "SELECT order_id, 
             user_id, 
-            total_price, 
+            status,
             order_date,
             ship_date,
-            delivery_method,
-            shipping_type,
-            status,
-            comments,
-            shipping_comments,
-            u.username 
-        FROM orders o 
-        LEFT JOIN users u ON o.user_id = u.id ";
+            total_price, 
+            delivery_method ";
+
+    if(isset($filters['details']))
+    {
+        $query .= ",comments order_comments, 
+                shipping_comments,
+                u.username
+            ";
+    }
+    $query .= " FROM orders o LEFT JOIN users u ON o.user_id = u.id ";
 
     $query .= GetOptionalParameters($filters);
 
@@ -101,24 +105,37 @@ function get_order_detail($values)
         throw new Exception("Must provide order_id");
     }
     $dbh = new PDOConnection();
-    $query = "SELECT od.id, od.price, quantity, 
-            p.id product_id, p.code product_code, p.description product_description, 
-            unit_id, u.code unit_code, u.description unit_description 
+
+    $orderHeader = get_orders(array('order_id' => $values['order_id']));
+    $query = "SELECT 
+            od.id line_key, 
+            od.line_id,
+            od.price unit_price, 
+            quantity, 
+            p.id product_id, 
+            p.code product_code, 
+            p.description product_description, 
+            unit_id, 
+            u.code unit_code, 
+            u.description unit_description,
+            (od.price * od.quantity) line_price
         FROM order_details od 
         LEFT JOIN products p ON od.product_id = p.id 
         LEFT JOIN units u ON unit_id = u.id 
         WHERE order_id = :order_id ";
 
     $sth = $dbh->prepare($query);
-    $sth->bindParam(':order_id',$order_id);
+    $sth->bindParam(':order_id',$values['order_id']);
     $detailArray = array();
     if(!$sth->execute())
     {
         throw new Exception($sth->errorInfo[2]);
     }
+    $line_id = 0;
     foreach($sth->fetchAll(PDO::FETCH_ASSOC) as $row)
     {
-        $detailArray[$row['id']] = $row;
+        $row['line_id'] = $line_id++;
+        $detailArray[] = $row;
     }
     return array('order_details' => $detailArray);
 }

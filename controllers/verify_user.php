@@ -37,7 +37,7 @@ function verify_user($userArray)
     $sth->execute(array(":user_id" => $user_id));
     if($sth->rowCount() > 0)
     {
-        return array('cart' => get_cart(array('user_id' => $user_id)));
+        return array('cart' => get_cart(array('user_id' => $user_id)), 'user_id' => $user_id);
     }
-    return array('delivery_options' => get_delivery_options());
+    return array('delivery_options' => get_delivery_options(), 'user_id' => $user_id);
 }
