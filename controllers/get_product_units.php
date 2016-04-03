@@ -5,7 +5,9 @@ require_once("PDOConnection.php");
 function get_product_units($info = NULL)
 {
     $dbh = new PDOConnection();
-    $query = "SELECT p.id product_id, 
+    $query = "SELECT 
+                pu.id product_unit_id,
+                p.id product_id, 
                 p.code product_code, 
                 p.description product_description, 
                 pu.price, 

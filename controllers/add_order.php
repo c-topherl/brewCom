@@ -100,5 +100,5 @@ function GetProductInfo($dbh, $detail)
         $product_sth->bindParam(':prod_code', $detail['product_id']);
         $product_sth->execute() or die($sth->errorInfo()[2]);
         $row = $product_sth->fetch(PDO::FETCH_ASSOC);
-        return $row
+        return $row;
 }

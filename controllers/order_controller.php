@@ -1,9 +1,12 @@
 <?php
+define('LOG_FILE', '/home1/joelmeis/public_html/brewCom/order_controller.log');
+
 function exception_handler($e)
 {
     $responseArray['status'] = 'failure';
     $responseArray['message'] = $e->getMessage();
     echo json_encode($responseArray);
+    file_put_contents(LOG_FILE, print_r($responseArray, true), FILE_APPEND);
 }
 set_exception_handler('exception_handler');
 
@@ -27,7 +30,6 @@ else
     $function = $values['function'];
 }
 //TODO convert all of these to safe queries
-define('LOG_FILE', '/home1/joelmeis/public_html/brewCom/test.log');
 //file_put_contents(LOG_FILE, print_r($_SERVER,true), FILE_APPEND);
 //file_put_contents(LOG_FILE, print_r($values,true), FILE_APPEND);
 

@@ -57,24 +57,35 @@ function add_cart_detail($cartDetail)
         throw new Exception("Cannot find cart for user");
     }
 
+    //remove all cart_details for current user
+    $query = "DELETE FROM cart_details WHERE user_id = :user_id";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    if(!$sth->execute())
+    {
+        throw new Exception($sth->errorInfo()[2]);
+    }
+
     //set up parameters to bind
     $product_id = -1;
     $unit_id = -1;
     $price = -1;
     $quantity = -1;
+    $line_id = 0;
 
-    $query = "INSERT INTO cart_details(user_id, product_id, price, quantity, unit_id)
-            VALUES(:user_id, :product_id, :price, :quantity, :unit_id)";
+    $query = "INSERT INTO cart_details(user_id, product_id, unit_id, price, quantity, line_id)
+            VALUES(:user_id, :product_id, :unit_id, :price, :quantity, :line_id)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id',$user_id);
     $sth->bindParam(':product_id',$product_id);
     $sth->bindParam(':price',$price);
     $sth->bindParam(':quantity',$quantity);
     $sth->bindParam(':unit_id',$unit_id);
+    $sth->bindParam(':line_id',$line_id);
 
-    file_put_contents(LOG_FILE, "adding ".print_r($details,true)."\n", FILE_APPEND);
     foreach($details as $detail)
     {
+        $detail = (array)$detail;
         if(!(isset($detail['product_id']) 
             && isset($detail['unit_id'])
             && isset($detail['price']) 
@@ -91,7 +102,7 @@ function add_cart_detail($cartDetail)
         {
             throw new Exception($sth->errorInfo()[2]);
         }
-        file_put_contents(LOG_FILE, "added ".print_r($detail,true)."\n", FILE_APPEND);
+        ++$line_id;
     }
 
     return true;
