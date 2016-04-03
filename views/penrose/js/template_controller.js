@@ -189,23 +189,24 @@ var buildCart = function(){
 			quantityId = currentQtyField.id;
 			productId = quantityId.substr(quantityId.length - 1);
 			lineObj = {};
-			lineObj.product = document.getElementById("product_" + productId).innerHTML;
-			lineObj.desc = document.getElementById("desc_" + productId).innerHTML;
-			lineObj.unit = document.getElementById("unit_" + productId).innerHTML;
-			lineObj.price = document.getElementById("price_" + productId).innerHTML;
+			lineObj.product_code = document.getElementById("product_" + productId).innerHTML;
+			lineObj.product_description = document.getElementById("desc_" + productId).innerHTML;
+			lineObj.unit_id = document.getElementById("unit_id_" + productId).innerHTML;
+			lineObj.unit_description = document.getElementById("unit_" + productId).innerHTML;
+			lineObj.price = parseFloat(document.getElementById("price_" + productId).innerHTML.slice(1));
 			lineObj.quantity = currentQty;
+			lineObj.product_id = productId;
 
 			data.lines[lineCounter] = lineObj;
 
-			currPrice = parseFloat(lineObj.price.slice(1));
 			currQty = parseFloat(lineObj.quantity);
-			totalPrice += currPrice * currQty;
+			totalPrice += lineObj.price * currQty;
 			totalPrice = Math.round(totalPrice * 100) / 100;
 			lineCounter++;
 		}
 	}
 
-	data.totalPrice = totalPrice;
+	data.total_price = totalPrice;
     loadTemplate(url, data);
 
     url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
