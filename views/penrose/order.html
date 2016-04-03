@@ -17,6 +17,7 @@
 	   			<td id="unit_{{product_id}}">{{unit_description}}</td>
 	   			<td id="price_{{product_id}}">${{price}}</td>
 	   			<td><input class="order-quantity" id="order_{{product_id}}" onblur="validateQuantity(this)" type="text"/></td>
+	   			<td class="hidden" id="unit_id_{{product_id}}">{{unit_id}}</td>
 	   		</tr>
 	   		{{/product_units}}
 		</tbody>

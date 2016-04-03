@@ -11,17 +11,17 @@
 				</tr>
 				{{#lines}}
 				<tr>
-		  			<td>{{product}}</td>
-					<td>{{desc}}</td>
-					<td>{{unit}}</td>
-					<td>{{price}}</td>
+		  			<td>{{product_code}}</td>
+					<td>{{product_description}}</td>
+					<td>{{unit_description}}</td>
+					<td>${{price}}</td>
 					<td>{{quantity}}</td>
 				</tr>
 				{{/lines}}
 	   		</table>
 
 	   		<div class="total" align="right">
-	   			<p><b>Total: ${{totalPrice}}</b><p>
+	   			<p><b>Total: ${{total_price}}</b><p>
 	   		</div>
 	   	</div>
 
