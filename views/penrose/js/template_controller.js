@@ -43,6 +43,7 @@ var verifyLogin = function(){
     var data;
     var userId;
     var userDiv;
+    var lines;
 
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
@@ -61,8 +62,13 @@ var verifyLogin = function(){
         			loadTemplate(template, data);
         		} else {
         			data = responseObj.response.cart;
-        			template = "http://localhost/brewCom/views/penrose/cart.html";
-        			loadTemplate(template, data);
+        			lines = data.lines;
+        			if (lines.length === 0){
+        				getOrderPage();
+        			} else {
+        				template = "http://localhost/brewCom/views/penrose/cart.html";
+        				loadTemplate(template, data);
+        			}
         		}
 
         		showNavLinks();
