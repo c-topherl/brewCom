@@ -92,7 +92,7 @@ var hideNavLinks = function(){
 }
 
 //remove "hidden" class from all navlinks
-var showNavLinks = function(customerCode){
+var showNavLinks = function(){
 	var navLinks = document.getElementsByClassName("nav-link");
 	var i;
 	var classes;
@@ -106,8 +106,6 @@ var showNavLinks = function(customerCode){
 		}
 		navLinks[i].className = classes.join(" ");
 	}
-
-	document.getElementById("customer-code").innerHTML = customerCode;
 	
 	return;
 }
