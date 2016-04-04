@@ -2,12 +2,15 @@
 include_once('PDOConnection.php');
 function get_delivery_options($optionsArray = NULL)
 {
-    //not supported yet
     $dbh = new PDOConnection();
+
+    //not supported yet
     $customer_id = isset($optionsArray['customer_id']) ? $optionsArray['customer_id'] : '';
 
     $dates = GetAvailableDates();
     $deliveryMethods = GetDeliveryMethods($dbh);
+
+    //not supported yet
     $warehouses = GetWarehouses($dbh);
 
     $deliveryOptions = array(
@@ -74,8 +77,10 @@ function GetAvailableDates()
     $datetime = new DateTime('tomorrow');
     for($i=0;$i<6;++$i)
     {
-        $dates[] = array("title" => date('Y-m-d', strtotime('tomorrow + '.$i.' day')), 
-            "value" => date('m/d/Y', strtotime('tomorrow + '.$i.' day')));
+        $dates[] = array(
+            "value" => date('Y-m-d', strtotime('tomorrow + '.$i.' day')), 
+            "title" => date('m/d/Y', strtotime('tomorrow + '.$i.' day'))
+            );
     }
     return $dates;
 }

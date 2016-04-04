@@ -25,7 +25,7 @@ function add_cart_header($cartHeader)
         throw new Exception("User cart already exists");
     }
 
-    $query = "INSERT INTO cart_header(user_id, ship_date, delivery_method, shipping_type, comments, shipping_comments) ";
+    $query = "INSERT INTO cart_headers(user_id, ship_date, delivery_method, shipping_type, comments, shipping_comments) ";
     $query .= "VALUES(:user_id, :ship_date, :delivery_method, :shipping_type, :comments, :shipping_comments)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
@@ -44,36 +44,65 @@ function add_cart_header($cartHeader)
 
 function add_cart_detail($cartDetail)
 {
-    $dbh = new PDOConnection();
-
-    if(!(isset($cartDetail['user_id']) && isset($cartDetail['product_id']) && isset($cartDetail['unit_id'])
-        && isset($cartDetail['price']) && isset($cartDetail['quantity'])))
+    if(!(isset($cartDetail['user_id']) && isset($cartDetail['lines'])))
     {
-        throw new Exception("Must provide user_id, product_id, unit_id, price, quantity");
+        throw new Exception('Must provide user_id and lines');
     }
+    $details = $cartDetail['lines'];
     $user_id = $cartDetail['user_id'];
-    $product_id = $cartDetail['product_id'];
-    $unit_id = $cartDetail['unit_id'];
-    $price = $cartDetail['price'];
-    $quantity = $cartDetail['quantity'];
+    $dbh = new PDOConnection();
 
     if(!check_cart_exists($dbh,$user_id))
     {
         throw new Exception("Cannot find cart for user");
     }
 
-    $query = "INSERT INTO cart_detail(user_id, product_id, price, quantity, unit_id) ";
-    $query .= "VALUES(:user_id, :product_id, :price, :quantity, :unit_id)";
+    //remove all cart_details for current user
+    $query = "DELETE FROM cart_details WHERE user_id = :user_id";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    if(!$sth->execute())
+    {
+        throw new Exception($sth->errorInfo()[2]);
+    }
+
+    //set up parameters to bind
+    $product_id = -1;
+    $unit_id = -1;
+    $price = -1;
+    $quantity = -1;
+    $line_id = 0;
+
+    $query = "INSERT INTO cart_details(user_id, product_id, unit_id, price, quantity, line_id)
+            VALUES(:user_id, :product_id, :unit_id, :price, :quantity, :line_id)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id',$user_id);
     $sth->bindParam(':product_id',$product_id);
     $sth->bindParam(':price',$price);
     $sth->bindParam(':quantity',$quantity);
     $sth->bindParam(':unit_id',$unit_id);
+    $sth->bindParam(':line_id',$line_id);
 
-    if(!$sth->execute())
+    foreach($details as $detail)
     {
-        throw new Exception($sth->errorInfo()[2]);
+        $detail = (array)$detail;
+        if(!(isset($detail['product_id']) 
+            && isset($detail['unit_id'])
+            && isset($detail['price']) 
+            && isset($detail['quantity'])))
+        {
+            throw new Exception("Must provide product_id, unit_id, price, quantity");
+        }
+        $product_id = $detail['product_id'];
+        $unit_id = $detail['unit_id'];
+        $price = $detail['price'];
+        $quantity = $detail['quantity'];
+
+        if(!$sth->execute())
+        {
+            throw new Exception($sth->errorInfo()[2]);
+        }
+        ++$line_id;
     }
 
     return true;
