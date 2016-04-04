@@ -3,7 +3,7 @@
 INPUTS:
 user_id
 order_date
-ship_date
+delivery_date
 delivery_method?
 status?
 comments?
@@ -40,9 +40,9 @@ function add_order($orderArray)
         throw new Exception($sth->errorInfo()[2]);
     }
     $order_id = $dbh->lastInsertId();
-    if(isset($orderArray['detail']))
+    if(isset($orderArray['lines']))
     {
-        add_order_detail($dbh,$order_id,$orderArray['detail']);
+        add_order_detail($dbh,$order_id,$orderArray['lines']);
     }
     return array('id' => $order_id);
 }
@@ -67,8 +67,8 @@ function add_order_detail($dbh, $order_id, $detailArray)
 
     foreach($detailArray as $detail)
     {
-        $product_info = GetProductInfo($dbh,$detail);
-        $detail['product_id'] = $product_info['id'];
+        $product_info = GetProductInfoByCode($dbh,$detail);
+        $detail['product_id'] = isset($detail['product_id']) ? $detail['product_id'] : $product_info['id'];
         $detail['price'] = isset($detail['price']) ? $detail['price'] : $product_info['price'];
 
         if(!(isset($detail['product_id']) 
@@ -77,7 +77,8 @@ function add_order_detail($dbh, $order_id, $detailArray)
             && isset($detail['unit_id'])))
         {
             //something is missing
-            throw new Exception("Product_id, price, quantity, unit_id required");
+            throw new Exception("ERROR in add_order_detail: product_id, price, quantity, unit_id required. \n"
+                . print_r($detail,true). " provided.\n");
         }
 
         $product_id = $detail['product_id'];
@@ -93,11 +94,11 @@ function add_order_detail($dbh, $order_id, $detailArray)
     }
 }
 
-function GetProductInfo($dbh, $detail)
+function GetProductInfoByCode($dbh, $detail)
 {
         $product_query = "SELECT id,price FROM products WHERE code = :prod_code";
         $product_sth = $dbh->prepare($product_query);
-        $product_sth->bindParam(':prod_code', $detail['product_id']);
+        $product_sth->bindParam(':prod_code', $detail['product_code']);
         $product_sth->execute() or die($sth->errorInfo()[2]);
         $row = $product_sth->fetch(PDO::FETCH_ASSOC);
         return $row;
