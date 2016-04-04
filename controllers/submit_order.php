@@ -36,16 +36,15 @@ function get_order_information($dbh, $values)
     $user_id = $values['user_id'];
 
     $cart = get_cart(array('user_id'=>$user_id))['cart'];
-    $details = get_cart_details($dbh, $user_id);
+//    $details = get_cart_details($dbh, $user_id);
 
+    //if comments were passed in, append those to the front of the cart comments
     $cart['comments'] = isset($values['comments']) 
         ? $values['comments'] . $cart['comments'] 
-        : $cart['comments'];
+            : $cart['comments'];
 
     //convert values to integers that can be converted to integers
-    $order = $cart;
-    $order['detail'] = $details;
-    return $order;
+    return $cart;
 }
 function delete_cart_by_user_id($dbh, $user_id)
 {
@@ -53,7 +52,7 @@ function delete_cart_by_user_id($dbh, $user_id)
     {
         throw new Exception('must specifiy user_id');
     }
-    $query = "DELETE FROM cart_headers WHERE user_id = :user_id";
+    $query = "DELETE FROM cart_details WHERE user_id = :user_id";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
     if(!$sth->execute())
@@ -61,7 +60,7 @@ function delete_cart_by_user_id($dbh, $user_id)
         throw new Exception($sth->errorInfo()[2]);
     }
 
-    $query = "DELETE FROM cart_details WHERE user_id = :user_id";
+    $query = "DELETE FROM cart_headers WHERE user_id = :user_id";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
     if(!$sth->execute())

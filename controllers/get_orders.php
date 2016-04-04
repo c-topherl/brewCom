@@ -4,7 +4,7 @@
    order_id
    status
    user_id
-   start_date/end_date => ship_date
+   start_date/end_date => delivery_date
    delivery_method
  */
 require_once("PDOConnection.php");
@@ -13,19 +13,29 @@ function get_orders($filters = NULL)
     $dbh = new PDOConnection();
 
     $query = "SELECT order_id, 
-            user_id, 
-            status,
+            total_price, 
             order_date,
             ship_date,
-            total_price, 
-            delivery_method ";
+            delivery_date,
+            delivery_method,
+            user_id, 
+            status
+            ";
 
     if(isset($filters['details']))
     {
         $query .= ",comments order_comments, 
                 shipping_comments,
-                u.username
+                u.username,
             ";
+                /* TODO
+                bill_to_name
+                bill_to_address_one
+                bill_to_address_two
+                ship_to_name
+                ship_to_address_one
+                ship_to_address_two
+                */
     }
     $query .= " FROM orders o LEFT JOIN users u ON o.user_id = u.id ";
 
@@ -39,9 +49,9 @@ function get_orders($filters = NULL)
     if(isset($filters['user_id']))
         $sth->bindParam(':user_id',$filters['user_id']);
     if(isset($filters['start_date']))
-        $sth->bindParam(':start_ship_date',$filters['start_date']);
+        $sth->bindParam(':start_delivery_date',$filters['start_date']);
     if(isset($filters['end_date']))
-        $sth->bindParam(':end_ship_date',$filters['end_date']);
+        $sth->bindParam(':end_delivery_date',$filters['end_date']);
     if(isset($filters['delivery_method']))
         $sth->bindParam(':delivery_method',$filters['delivery_method']);
 
@@ -80,11 +90,11 @@ function GetOptionalParameters($filters)
     }
     if(isset($filters['start_date']))
     {
-        $optionalParams[] = "o.ship_date >= :start_ship_date ";
+        $optionalParams[] = "o.delivery_date >= :start_delivery_date ";
     }
     if(isset($filters['end_date']))
     {
-        $optionalParams[] = "o.ship_date <= :end_ship_date ";
+        $optionalParams[] = "o.delivery_date <= :end_delivery_date ";
     }
     if(isset($filters['delivery_method']))
     {

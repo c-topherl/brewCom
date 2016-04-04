@@ -6,12 +6,12 @@ function add_cart_header($cartHeader)
 {
     $dbh = new PDOConnection();
 
-    if(!(isset($cartHeader['user_id']) && $cartHeader['ship_date'] && $cartHeader['delivery_method']))
+    if(!(isset($cartHeader['user_id']) && $cartHeader['delivery_date'] && $cartHeader['delivery_method']))
     {
-        throw new Exception("Must provide user_id, ship_date, and delivery_method");
+        throw new Exception("Must provide user_id, delivery_date, and delivery_method");
     }
     $user_id = $cartHeader['user_id'];
-    $ship_date = $cartHeader['ship_date'];
+    $delivery_date = $cartHeader['delivery_date'];
     $delivery_method = $cartHeader['delivery_method'];
 
 //optional parameters
@@ -25,11 +25,11 @@ function add_cart_header($cartHeader)
         throw new Exception("User cart already exists");
     }
 
-    $query = "INSERT INTO cart_headers(user_id, ship_date, delivery_method, shipping_type, comments, shipping_comments) ";
-    $query .= "VALUES(:user_id, :ship_date, :delivery_method, :shipping_type, :comments, :shipping_comments)";
+    $query = "INSERT INTO cart_headers(user_id, delivery_date, delivery_method, shipping_type, comments, shipping_comments) ";
+    $query .= "VALUES(:user_id, :delivery_date, :delivery_method, :shipping_type, :comments, :shipping_comments)";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
-    $sth->bindParam(':ship_date', $ship_date);
+    $sth->bindParam(':delivery_date', $delivery_date);
     $sth->bindParam(':delivery_method', $delivery_method);
     $sth->bindParam(':shipping_type', $shipping_type);
     $sth->bindParam(':comments', $comments);
