@@ -2,7 +2,7 @@
 include_once 'PDOConnection.php';
 include_once 'common_cart_functions.inc'; //check_cart_exists()
 
-function update_cart($cartInfo)
+function update_cart_header($cartInfo)
 {
     return 'not implemented';
 
