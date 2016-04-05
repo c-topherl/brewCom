@@ -27,6 +27,7 @@ function submit_order($values)
 
     $order_id = add_order($order);
     order_confirmation_email(array('email' => $email, 'order_id' => $order_id));
+
     //delete cart
     delete_cart_by_user_id($dbh, $values['user_id']);
     return array('order_id' => $order_id);

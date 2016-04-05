@@ -1,5 +1,6 @@
 <?php
 //send email confirming registration, eventually will be sending a verification email
+define('MAIL_LOG','/home1/joelmeis/public_html/brewCom/logs/mail.log');
 define('DEFAULT_EMAIL','joelmeister1209@gmail.com');
 define('NOREPLY_EMAIL','noreply@joelmeister.net');
 function order_confirmation_email($information)
