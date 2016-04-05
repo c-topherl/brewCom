@@ -26,7 +26,6 @@ else
     $values = (array)json_decode($values);
     $function = $values['function'];
 }
-print_r($values);
 switch($function)
 {
     case "add_product":

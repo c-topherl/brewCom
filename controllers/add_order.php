@@ -77,8 +77,7 @@ function add_order_detail($dbh, $order_id, $detailArray)
             && isset($detail['unit_id'])))
         {
             //something is missing
-            throw new Exception("ERROR in add_order_detail: product_id, price, quantity, unit_id required. \n"
-                . print_r($detail,true). " provided.\n");
+            throw new Exception("ERROR in add_order_detail: product_id, price, quantity, unit_id required. \n");
         }
 
         $product_id = $detail['product_id'];

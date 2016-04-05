@@ -10,7 +10,6 @@ function update_inventory($inventoryInfo)
         throw new Exception('Must provide \'inventory\'');
     }
 
-    print_r($inventoryInfo);
     $dbh = new PDOConnection();
     $query = "INSERT INTO inventory(
                 product_id, unit_id, quantity
