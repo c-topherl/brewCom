@@ -22,7 +22,8 @@ elseif (isset($_GET['function']))
 }
 else
 {
-    $values = (array)json_decode(file_get_contents('php://input'));
+    $values = file_get_contents('php://input');
+    $values = (array)json_decode($values);
     $function = $values['function'];
 }
 switch($function)
@@ -67,6 +68,11 @@ switch($function)
         $responseArray['response'] = get_units($values);
         $responseArray['message'] = "Units successfully read";
         break;
+    case "update_unit":
+        include "update_unit.php";
+        $responseArray['response'] = update_unit($values);
+        $responseArray['message'] = "Successfully updated unit";
+        break;
     case "add_product_unit":
         include "add_product_unit.php";
         add_product_unit($values);
@@ -76,6 +82,11 @@ switch($function)
         include "get_product_units.php";
         $responseArray['response'] = get_product_units($values);
         $responseArray['message'] = "Product/Units successfully read";
+        break;
+    case "update_inventory":
+        include "update_inventory.php";
+        $responseArray['response'] = update_inventory($values);
+        $responseArray['message'] = "Inventory updated";
         break;
     default:
         throw new Exception("Unknown function: $function.");

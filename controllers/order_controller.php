@@ -1,5 +1,5 @@
 <?php
-define('LOG_FILE', '/home1/joelmeis/public_html/brewCom/order_controller.log');
+define('LOG_FILE', '/home1/joelmeis/public_html/brewCom/logs/order_controller.log');
 
 function exception_handler($e)
 {
@@ -26,7 +26,8 @@ elseif (isset($_GET['function']))
 }
 else
 {
-    $values = (array)json_decode(file_get_contents('php://input'));
+    $values = file_get_contents('php://input');
+    $values = (array)json_decode($values);
     $function = $values['function'];
 }
 //TODO convert all of these to safe queries
@@ -53,9 +54,9 @@ switch($function)
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Here is your cart';
         break;
-    case "update_cart":
+    case "update_cart_header":
         include "update_cart.php";
-        $responseArray['response'] = update_cart($values);
+        $responseArray['response'] = update_cart_header($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart successfully updated';
         break;
