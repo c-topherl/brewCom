@@ -49,11 +49,16 @@ var verifyLogin = function(){
 var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
+    hideError();
 
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
         	var resp = JSON.parse(req.responseText);
-        	loadTemplate(templatePath, resp.response);
+        	if (resp.status === "success"){
+        		loadTemplate(templatePath, resp.response);
+        	} else {
+        		showError(resp.message);
+        	}
         }
     };
 
@@ -63,6 +68,7 @@ var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 var buildHttpRequest = function(method, url, data, callback, callbackParam){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
+    hideError();
 
     req.onreadystatechange = function(){
     	if (req.readyState == 4 && req.status == 200){
@@ -125,5 +131,30 @@ var displayTables = function(){
 		}
 	}
 
+	return;
+}
+
+var showConfirmation = function(message){
+	var template = templatePath + "confirmation.html";
+	var content = {"message": message};
+	loadTemplate(template, content);
+
+	return;
+}
+
+var showError = function(message){
+	var error = document.getElementById("error-message");
+	if (error){
+		error.className = "";
+		error.innerHTML = message;
+	}
+	return;
+}
+
+var hideError = function(){
+	var error = document.getElementById("error-message");
+	if (error){
+		error.className = "hidden";
+	}
 	return;
 }

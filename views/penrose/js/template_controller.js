@@ -25,6 +25,7 @@ var loadTemplate = function(templateName, content){
 var verifyLogin = function(){
 	var user = document.getElementById("username");
 	var pass = document.getElementById("password");
+	hideError();
 
 	if (!user.value || !pass.value){
 		showError("You must enter a username and password!");
@@ -312,20 +313,11 @@ var removeRow = function(lineNumber){
 	document.getElementById("total-price").innerHTML = currentTotal;
 
 	rowToRemove.remove();
-	return;
-}
 
-var showConfirmation = function(message){
-	var template = templatePath + "confirmation.html";
-	var content = {"message": message};
-	loadTemplate(template, content);
+	var remainingRows = document.getElementById("cart-table").getElementsByTagName("tr").length;
+	if (remainingRows <= 1){
+		getOrderPage();
+	}
 
 	return;
 }
-
-var showError = function(message){
-	alert(message);
-	return;
-}
-
-

@@ -28,6 +28,16 @@ th {
 	font-size: 24px;
 }
 
+#error-message {
+	color: red;
+    border: 1px solid red;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+    background-color: #FFFFE0;
+}
+
 /* LOGIN PAGE */
 
 #login-div {

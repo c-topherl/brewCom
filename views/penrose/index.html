@@ -62,7 +62,6 @@
                 <!-- Hidden on desktop -->
                 <li class="home"><a href="/">Home</a></li>
                 
-                <li class="nav-link"><a href="javascript:void(0)" onclick="showLandingPage();">Home</a></li>
                 <li class="nav-link"><a href="javascript:void(0)" onclick="getDeliveryOptions();">Place Order</a></li>
                 <li class="nav-link"><a href="javascript:void(0)" onclick="getOpenOrders();">View Orders</a></li>
                 <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
@@ -119,26 +118,31 @@
 
 			<hr class="section-rule">
 
-			<div class="wrapper" id="main-content">
+			<div class="wrapper"> 
 
-				<div id="login-div">
-					<div id="login-forms">
-						Username: <input type="text" id="username"><br><br>
-						Password: &nbsp;&nbsp;<input type="password" id="password">
-							
-						<br><br>
-							
-						<a id="forgot-pass-link" href="forgot_password.html">Forgot password</a>
-							
-						<br><br>
-							
-						<input type="button" id="login-btn" onclick="verifyLogin();" value="Submit">
+				<p id="error-message" class="hidden"></p>
+
+				<div id="main-content">
+
+					<div id="login-div">
+						<div id="login-forms">
+							Username: <input type="text" id="username"><br><br>
+							Password: &nbsp;&nbsp;<input type="password" id="password">
+								
+							<br><br>
+								
+							<a id="forgot-pass-link" href="forgot_password.html">Forgot password</a>
+								
+							<br><br>
+								
+							<input type="button" id="login-btn" onclick="verifyLogin();" value="Submit">
+						</div>
+						<div id="login-info">
+							<p>If you require assistance with login information, <br> please contact customer service at (123) 456-7890.</p>
+						</div>
 					</div>
-					<div id="login-info">
-						<p>If you require assistance with login information, <br> please contact customer service at (123) 456-7890.</p>
-					</div>
-				</div>
-			</div>   
+				</div>   
+			</div>
 
 		</section>		 
 
@@ -199,7 +203,7 @@
 		 <script type="text/javascript">
             
             $(document).ready(function () {
-            	hideNavLinks();
+            	displayTables();
     		});
         </script>
 
