@@ -109,3 +109,21 @@ var showNavLinks = function(){
 	
 	return;
 }
+
+var displayTables = function(){
+	var tableList = [
+		"order-table",
+		"cart-table"
+	];
+
+	var table;
+	for (var i = 0; i < tableList.length; i++){
+		table = document.getElementById(tableList[i]);
+		if (table){
+			displayTable(tableList[i]);
+			break;
+		}
+	}
+
+	return;
+}

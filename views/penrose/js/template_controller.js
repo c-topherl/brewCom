@@ -13,6 +13,7 @@ var loadTemplate = function(templateName, content){
     		var compiledTemplate = Handlebars.compile(req.responseText);
     		var compiledHtml = compiledTemplate(content);
     		$(targetDiv).html(compiledHtml);
+    		displayTables();
         }
     };
 
@@ -98,7 +99,7 @@ var getOpenOrders = function(){
 
     buildHttpRequestForTemplate(method, url, template, requestData);
     
-    displayTable("order-table");
+    
     return;
 }
 
@@ -143,9 +144,8 @@ var buildCartHeader = function(){
 	var requestData = {
     	"function": "add_cart_header",
     	"user_id": userId,
-    	"ship_date": shipDate,
-    	"type": deliveryMethod,
-    	"user_id": "test",
+    	"delivery_date": shipDate,
+    	"delivery_method": deliveryMethod,
     	"shipping_type": "standard"
     };
 
@@ -172,8 +172,7 @@ var buildCart = function(){
 	var template = templatePath + "cart.html";
 	var userId = document.getElementById("user-id").innerHTML;
 
-	var productId;
-	var quantityId;
+	var lineId;
 	var lineCounter = 0;
 	var currentQtyField;
 	var currentQty;
@@ -193,16 +192,18 @@ var buildCart = function(){
 		currentQtyField = quantityFields[i];
 		currentQty = currentQtyField.value;
 		if (currentQty !== "" && currentQty > 0){
-			quantityId = currentQtyField.id;
-			productId = quantityId.substr(quantityId.length - 1);
+			lineId = currentQtyField.id.split("_");
+			lineId = lineId[lineId.length-1];
 			lineObj = {};
-			lineObj.product_code = document.getElementById("product_" + productId).innerHTML;
-			lineObj.product_description = document.getElementById("desc_" + productId).innerHTML;
-			lineObj.unit_id = document.getElementById("unit_id_" + productId).innerHTML;
-			lineObj.unit_description = document.getElementById("unit_" + productId).innerHTML;
-			lineObj.price = parseFloat(document.getElementById("price_" + productId).innerHTML.slice(1));
+			lineObj.product_code = document.getElementById("product_" + lineId).innerHTML;
+			lineObj.product_description = document.getElementById("desc_" + lineId).innerHTML;
+			lineObj.unit_id = document.getElementById("unit_id_" + lineId).innerHTML;
+			lineObj.product_id = document.getElementById("product_id_" + lineId).innerHTML;
+			lineObj.unit_description = document.getElementById("unit_" + lineId).innerHTML;
+			lineObj.price = parseFloat(document.getElementById("price_" + lineId).innerHTML.slice(1));
+			lineObj.line_id = i;
 			lineObj.quantity = currentQty;
-			lineObj.product_id = productId;
+			lineObj.product_unit_id = lineId;
 
 			data.lines[lineCounter] = lineObj;
 
@@ -277,6 +278,41 @@ var updateCustomerInfo = function(){
 	showConfirmation(message);
 
     return;
+}
+
+var deleteLine = function(lineNumber){
+	var userId = document.getElementById("user-id").innerHTML;
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+
+	var requestData = {
+    	"function": "delete_cart_detail",
+    	"user_id": userId,
+    	"line_id": lineNumber
+    };
+
+    buildHttpRequest(method, url, requestData, removeRow, lineNumber);
+}
+
+var removeRow = function(lineNumber){
+	var currentTotal = parseFloat(document.getElementById("total-price").innerHTML);
+	var rowToRemove = document.getElementById("line_" + lineNumber);
+	var elements = rowToRemove.getElementsByTagName("td");
+	var price;
+	var qty;
+	for (var i = 0; i < elements.length; i++){
+		if (elements[i].className === "price"){
+			price = elements[i].innerHTML;
+		} else if (elements[i].className === "quantity"){
+			qty = elements[i].innerHTML;
+		}
+	}
+
+	price = price.slice(1);
+	currentTotal -= parseFloat(price * qty);
+	document.getElementById("total-price").innerHTML = currentTotal;
+
+	rowToRemove.remove();
+	return;
 }
 
 var showConfirmation = function(message){
