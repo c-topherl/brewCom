@@ -97,6 +97,7 @@ function add_cart_detail($cartDetail)
         $unit_id = $detail['unit_id'];
         $price = $detail['price'];
         $quantity = $detail['quantity'];
+        $line_id = isset($detail['line_id']) ? $detail['line_id'] : $line_id;
 
         if(!$sth->execute())
         {
