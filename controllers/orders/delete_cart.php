@@ -1,6 +1,6 @@
 <?php
 require_once "PDOConnection.php";
-include_once "common_cart_functions.inc";
+include_once "orders/common_cart_functions.inc";
 
 function delete_cart_detail($cartDetail)
 {

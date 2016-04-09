@@ -3,7 +3,7 @@ require_once("PDOConnection.php");
 function get_users($values = NULL)
 {
     $dbh = new PDOConnection();
-    $query = "SELECT username, email FROM users ";
+    $query = "SELECT id, username, email FROM users ";
 
     if(isset($values['id']))
     {
