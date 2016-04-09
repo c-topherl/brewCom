@@ -37,61 +37,61 @@ else
 switch($function)
 {
     case "add_cart_header":
-        include "add_cart.php";
+        include "orders/add_cart.php";
         add_cart_header($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart header created successfully.';
         break;
     case "add_cart_detail":
-        include "add_cart.php";
+        include "orders/add_cart.php";
         add_cart_detail($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart detail added successfully.';
         break;
     case "get_cart":
-        include "get_cart.php";
+        include "orders/get_cart.php";
         $responseArray['response'] = get_cart($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Here is your cart';
         break;
     case "update_cart_header":
-        include "update_cart.php";
+        include "orders/update_cart.php";
         $responseArray['response'] = update_cart_header($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart successfully updated';
         break;
     case "delete_cart_detail":
-        include "delete_cart.php";
+        include "orders/delete_cart.php";
         $responseArray['response'] = delete_cart_detail($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Successfully delete cart line';
         break;
     case "submit_order":
-        include "submit_order.php";
+        include "orders/submit_order.php";
         $responseArray['response'] = submit_order($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Order successfully submited';
         break;
     case "add_order":
-        include "add_order.php";
+        include "orders/add_order.php";
         $responseArray['response'] = add_order($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Added order";
         break;
     case "get_orders":
-        include "get_orders.php";
+        include "orders/get_orders.php";
         $responseArray['response'] = get_orders($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Orders successfully read";
         break;
     case "get_order_detail":
-        include "get_orders.php";
+        include "orders/get_orders.php";
         $responseArray['response'] = get_order_detail($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = "Order details successfully read";
         break;
     case "get_delivery_options":
-        include "get_delivery_options.php";
+        include "orders/get_delivery_options.php";
         $responseArray['status'] = "success";
         $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";
         $responseArray['response'] =  get_delivery_options($values);
