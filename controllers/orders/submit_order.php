@@ -7,7 +7,7 @@
 require_once("PDOConnection.php");
 include_once('orders/get_cart.php');
 include_once('orders/add_order.php');
-include_once('get_users.php');
+include_once('customers/get_users.php');
 include_once('mail.inc');
 
 function submit_order($values)
