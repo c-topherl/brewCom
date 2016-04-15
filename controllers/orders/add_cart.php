@@ -1,6 +1,6 @@
 <?php
 require_once "PDOConnection.php";
-include_once "common_cart_functions.inc";
+include_once "orders/common_cart_functions.inc";
 //TODO: warehouse
 function add_cart_header($cartHeader)
 {
@@ -97,6 +97,7 @@ function add_cart_detail($cartDetail)
         $unit_id = $detail['unit_id'];
         $price = $detail['price'];
         $quantity = $detail['quantity'];
+        $line_id = isset($detail['line_id']) ? $detail['line_id'] : $line_id;
 
         if(!$sth->execute())
         {

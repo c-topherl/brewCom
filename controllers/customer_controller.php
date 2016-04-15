@@ -27,22 +27,22 @@ else
 switch($function)
 {
     case "add_user":
-        include "add_user.php";
-        add_user($values);
+        include "customers/add_user.php";
+        $responseArray['response'] = add_user($values);
         $responseArray['message'] = "User successfully added";
         break;
     case "get_users":
-        include "get_users.php";
+        include "customers/get_users.php";
         $responseArray['response'] = get_users($values);
         $responseArray['message'] = "Users successfully read";
         break;
     case "update_user":
-        include "update_user.php";
+        include "customers/update_user.php";
         $responseArray['response'] = update_user($values);
         $responseArray['message'] = "User updated.";
         break;
     case "verify_user":
-        include "verify_user.php";
+        include "customers/verify_user.php";
         $responseArray['response'] = verify_user($values);
         $responseArray['message'] = "User verified";
         break;

@@ -1,6 +1,6 @@
 <?php
 include_once 'PDOConnection.php';
-include_once 'common_cart_functions.inc'; //check_cart_exists()
+include_once 'orders/common_cart_functions.inc'; //check_cart_exists()
 
 function update_cart_header($cartInfo)
 {

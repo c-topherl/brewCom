@@ -10,9 +10,14 @@ require_once("common.inc"); //hash_password
 require_once("mail.inc"); //verification_email
 function add_user($userInfo)
 {
+    if(!(isset($userInfo['username']) && isset($userInfo['email'])  && isset($userInfo['password'])))
+    {
+        throw new Exception("Requires username, email, and password");
+    }
     $dbh = new PDOConnection();
     CheckUsernameEmailExists($dbh, $userInfo);
-    return AddToUsers($dbh, $userInfo);
+    $user_id = AddToUsers($dbh, $userInfo);
+    return array('user_id' => $user_id);
 }
 
 /**
@@ -26,6 +31,8 @@ inputs:
 function AddToUsers($dbh, $userInfo)
 {
     //salty.  in common.inc
+    $username = $userInfo['username'];
+    $email = $userInfo['email'];;
     $password = hash_password($userInfo['password'],$username);
 
     $query = "INSERT INTO users(username,email,password) VALUES(:username, :email, :password)";
@@ -37,8 +44,9 @@ function AddToUsers($dbh, $userInfo)
     {
         throw new Exception($sth->errorInfo()[2]);
     }
+    $user_id = $dbh->lastInsertId();
     verification_email($email);
-    return true;
+    return $user_id;
 }
 /**
     Check if a username or email already exists in the system. Throws Exception if so.

@@ -1,8 +1,8 @@
 <?php
 require_once("PDOConnection.php");
 require_once("common.inc");
-include("get_cart.php");
-include("get_delivery_options.php");
+include_once("orders/get_cart.php");
+include_once("orders/get_delivery_options.php");
 function verify_user($userArray)
 {
     if(!((isset($userArray['username']) || isset($userArray['email'])) && isset($userArray['password'])))
