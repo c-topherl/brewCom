@@ -225,6 +225,19 @@ var buildCart = function(){
     return;
 }
 
+var getCart = function() {
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var userId = document.getElementById("user-id").innerHTML;
+	var template = templatePath + "cart.html";
+
+	var requestData = {
+    	"function": "get_cart",
+    	"user_id": userId,
+    };
+
+    buildHttpRequestForTemplate(method, url, template, requestData);
+}
+
 var buildCheckoutPage = function(){
 	var template = templatePath + "checkout.html";
     loadTemplate(template, null);

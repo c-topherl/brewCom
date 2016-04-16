@@ -1,25 +1,29 @@
 
 		<div id="cart-div">
 			<h4>Shopping Cart</h4><br>
-		   	<table id="cart-table"> 
-				<tr>
-		  			<th>Beer</th>
-					<th>Type</th>
-					<th>Unit</th>
-					<th>Price</th>
-					<th>Quantity</th>
-					<th>&nbsp;</th>
-				</tr>
-				{{#lines}}
-				<tr id="line_{{line_id}}">
-		  			<td>{{product_code}}</td>
-					<td>{{product_description}}</td>
-					<td>{{unit_description}}</td>
-					<td class="price">${{price}}</td>
-					<td class="quantity">{{quantity}}</td>
-					<td><a href="javascript:void(0)" onclick="deleteLine({{line_id}})">Delete</a></td>
-				</tr>
-				{{/lines}}
+		   	<table id="cart-table" class="table"> 
+		   		<thead>
+					<tr>
+			  			<th>Beer</th>
+						<th>Type</th>
+						<th>Unit</th>
+						<th>Price</th>
+						<th>Quantity</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#lines}}
+					<tr id="line_{{line_id}}">
+			  			<td>{{product_code}}</td>
+						<td>{{product_description}}</td>
+						<td>{{unit_description}}</td>
+						<td class="price">${{price}}</td>
+						<td class="quantity">{{quantity}}</td>
+						<td><a href="javascript:void(0)" onclick="deleteLine({{line_id}})">Delete</a></td>
+					</tr>
+					{{/lines}}
+				</tbody>
 	   		</table>
 
 	   		<div class="total" align="right">
@@ -32,7 +36,7 @@
 		<a class="view-cart-button" href="javascript:void(0)" onclick="buildCheckoutPage();">Check Out >></a>
 
 		<script type="text/javascript">
-      		displayTable("cart-table");
+      		//displayTable("cart-table");
   		</script>
 
 

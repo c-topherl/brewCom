@@ -201,9 +201,28 @@
 <script src="js/template_controller.js"></script>
 
 		 <script type="text/javascript">
-            
+            var showTables = function() {
+            	/*
+            	var tableList = ["cart-table"];
+            	var i;
+            	var currentTable;
+            	for (i = 0; i < tableList.length; i++){
+            		currentTable = document.getElementById(tableList[i]);
+            		if (currentTable && !$.fn.DataTable.fnIsDataTable(currentTable)){
+            			$(currentTable).dataTable();
+            		}
+            		
+            	}
+            	*/
+            	$(".table").each(function(i, obj) {
+            		if (! $.fn.DataTable.fnIsDataTable(obj)){
+            			$(this).dataTable();
+            		}
+            	});
+            }
+
             $(document).ready(function () {
-            	displayTables();
+            	$('#main-content').bind('DOMNodeInserted', showTables);
     		});
         </script>
 

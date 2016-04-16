@@ -1,27 +1,27 @@
    <div id="order-div">
-	   	<table id="order-table"> 
-	   		<thead>
-   				<tr>
-		   			<th>Order Number</th>
-   					<th>Delivery Date</th>
-   					<th>Delivery Method</th>
-   					<th>Total Amount</th>
-   				</tr>
-   			</thead>
-   			<tbody>
-               {{#orders}}
-   				<tr>
-		   			<td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">{{order_id}}</a></td>
-   					<td>{{order_date}}</td>
-   					<td>{{delivery_method}}</td>
-   					<td>${{total_price}}</td>
-   				</tr>
+	   	<table id="orders-table" class="table"> 
+            <thead>
+   			   <tr>
+   		   		<th>Order Number</th>
+   				  <th>Delivery Date</th>
+   				  <th>Delivery Method</th>
+   				  <th>Total Amount</th>
+   			   </tr>
+            </thead>
+            <tbody>
+   			   {{#orders}}
+   			   <tr>
+   		   	   <td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">{{order_id}}</a></td>
+   				  <td>{{order_date}}</td>
+   				  <td>{{delivery_method}}</td>
+      			   <td>${{total_price}}</td>
+   			   </tr>
                {{/orders}}
-	  		   </tbody>
+            </tbody>
 		   </table>
 	</div>
    <script type="text/javascript">
-      displayTable("order-table");
+      //displayTable("order-table");
    </script>
 
 
