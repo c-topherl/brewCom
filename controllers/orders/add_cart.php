@@ -48,6 +48,10 @@ function add_cart_detail($cartDetail)
     {
         throw new Exception('Must provide user_id and lines');
     }
+    if(empty($cartDetail['lines']))
+    {
+        throw new Exception("'lines' is empty");
+    }
     $details = $cartDetail['lines'];
     $user_id = $cartDetail['user_id'];
     $dbh = new PDOConnection();
@@ -82,6 +86,8 @@ function add_cart_detail($cartDetail)
     $sth->bindParam(':quantity',$quantity);
     $sth->bindParam(':unit_id',$unit_id);
     $sth->bindParam(':line_id',$line_id);
+    echo "details\n";
+    print_r($details);
 
     foreach($details as $detail)
     {

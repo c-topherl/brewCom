@@ -1,6 +1,6 @@
 <?php
 require_once "PDOConnection.php";
-include_once "get_units.php";
+include_once "products/get_units.php";
 //At least needs ID passed in.  If you don't know it, get it from the get_products() routine
 // This is so we can update a product code (since we store id on everything, don't change that)
 function update_unit($unitInfo)
