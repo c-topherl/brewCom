@@ -86,8 +86,6 @@ function add_cart_detail($cartDetail)
     $sth->bindParam(':quantity',$quantity);
     $sth->bindParam(':unit_id',$unit_id);
     $sth->bindParam(':line_id',$line_id);
-    echo "details\n";
-    print_r($details);
 
     foreach($details as $detail)
     {
