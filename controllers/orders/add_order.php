@@ -23,6 +23,17 @@ function add_order($orderArray)
     $status = isset($orderArray['status']) ? $orderArray['status'] : "open";
     $comments = isset($orderArray['comments']) ? $orderArray['comments']: '';
     $shipping_comments = isset($orderArray['shipping_comments']) ? $orderArray['shipping_comments'] : '';
+    $total_price = 0;
+    if(isset($orderArray['total_price']))
+    {
+        $total_price = $orderArray['total_price'];
+    }
+    elseif(isset($orderArray['lines']))
+    {
+        $total_price =  array_sum(array_map(function($row){
+                return $row['quantity'] * $row['price'];
+                }, $orderArray['lines']));
+    }
 
     $query = "INSERT INTO orders(user_id, order_date,delivery_date,delivery_method,status,comments,shipping_comments, total_price) 
         VALUES(:user_id, :order_date, :delivery_date, :delivery_method, :status, :comments, :shipping_comments, :total_price)";
