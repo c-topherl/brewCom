@@ -24,8 +24,8 @@ function add_order($orderArray)
     $comments = isset($orderArray['comments']) ? $orderArray['comments']: '';
     $shipping_comments = isset($orderArray['shipping_comments']) ? $orderArray['shipping_comments'] : '';
 
-    $query = "INSERT INTO orders(user_id, order_date,delivery_date,delivery_method,status,comments,shipping_comments) 
-        VALUES(:user_id, :order_date, :delivery_date, :delivery_method, :status, :comments, :shipping_comments)";
+    $query = "INSERT INTO orders(user_id, order_date,delivery_date,delivery_method,status,comments,shipping_comments, total_price) 
+        VALUES(:user_id, :order_date, :delivery_date, :delivery_method, :status, :comments, :shipping_comments, :total_price)";
 
     $sth = $dbh->prepare($query);
     $orderArr = array(':user_id' => $user_id, 
@@ -34,7 +34,8 @@ function add_order($orderArray)
         ':delivery_method' => $delivery_method, 
         ':status'=> $status, 
         ':comments' => $comments, 
-        ':shipping_comments' => $shipping_comments);
+        ':shipping_comments' => $shipping_comments,
+        ':total_price' => $total_price);
     if(!$sth->execute($orderArr))
     {
         throw new Exception($sth->errorInfo()[2]);
