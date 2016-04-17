@@ -1,1 +1,3 @@
 BrewCom readme.
+
+All server requests are to be directed to the controllers/*_controller.php files with the appropriate "function='function'" query parameter.

@@ -27,17 +27,23 @@ function get_orders($filters = NULL)
         $query .= ",comments order_comments, 
                 shipping_comments,
                 u.username,
+
+                billing.name bill_to_name,
+                billing.address1 bill_to_address_one,
+                billing.address2 bill_to_address_two,
+                shipping.name ship_to_name,
+                shipping.address1 ship_to_address_one,
+                shipping.address2 ship_to_address_two
             ";
-                /* TODO
-                bill_to_name
-                bill_to_address_one
-                bill_to_address_two
-                ship_to_name
-                ship_to_address_one
-                ship_to_address_two
-                */
     }
+
     $query .= " FROM orders o LEFT JOIN users u ON o.user_id = u.id ";
+
+    if(isset($filters['details']))
+    {
+        $query .= " LEFT JOIN addresses billing on billing.id = o.billing_address_id"
+                . " LEFT JOIN addresses shipping on shipping.id = o.shipping_address_id";
+    }
 
     $query .= GetOptionalParameters($filters);
 
@@ -58,7 +64,7 @@ function get_orders($filters = NULL)
     $orderArray = array();
     if(!$sth->execute())
     {
-        throw new Exception($sth->errorInfo[2]);
+        throw new Exception("ERROR: failed to retrieve header information - ".$sth->errorInfo()[2]);
     }
     $result = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach($result as $row)
@@ -66,7 +72,6 @@ function get_orders($filters = NULL)
         $orderArray[] = $row;
         $idx++;
     }
-
     return array('orders' => $orderArray);
 }
 
@@ -116,7 +121,9 @@ function get_order_detail($values)
     }
     $dbh = new PDOConnection();
 
-    $orderHeader = get_orders(array('order_id' => $values['order_id']));
+    //get header information - this returns array of orders, so just grab the first one
+    $result = get_orders(array('order_id' => $values['order_id'], 'details' => 1));
+    $orderHeader = $result['orders'][0];
     $query = "SELECT 
             od.id line_key, 
             od.line_id,
@@ -139,13 +146,13 @@ function get_order_detail($values)
     $detailArray = array();
     if(!$sth->execute())
     {
-        throw new Exception($sth->errorInfo[2]);
+        throw new Exception("ERROR: Could not retrieve order lines - ".$sth->errorInfo[2]);
     }
-    $line_id = 0;
     foreach($sth->fetchAll(PDO::FETCH_ASSOC) as $row)
     {
-        $row['line_id'] = $line_id++;
         $detailArray[] = $row;
     }
-    return array('order_details' => $detailArray);
+    $orderDetails = $orderHeader;
+    $orderDetails['lines'] = $detailArray;
+    return $orderDetails;
 }
