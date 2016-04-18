@@ -24,8 +24,24 @@ else
     $values = (array)json_decode(file_get_contents('php://input'));
     $function = $values['function'];
 }
+
 switch($function)
 {
+    case "add_address";
+        include "customers/add_address.php";
+        $responseArray['response'] = add_address($values);
+        $responseArray['message'] = "Address added";
+        break;
+    case "get_addresses";
+        include "customers/get_addresses.php";
+        $responseArray['response'] = get_addresses($values);
+        $responseArray['message'] = "Addresses got";
+        break;
+    case "update_address";
+        include "customers/update_address.php";
+        $responseArray['response'] = update_address($values);
+        $responseArray['message'] = "Address updated";
+        break;
     case "add_user":
         include "customers/add_user.php";
         $responseArray['response'] = add_user($values);
