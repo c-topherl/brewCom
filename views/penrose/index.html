@@ -53,52 +53,46 @@
 		<a id="top"></a>
 
 <header class="header-global">
-    <div class="wrapper">
+    <div class="container">
 
-        <!-- Main Nav --> 
+        <!-- Logo -->
+        <h1><a class="logo" href="/">Penrose Brewing Company</a></h1>
+        
+        <!-- Main Nav -->
         <a href="#menu-main" class="nav-mobile-toggle menu-trigger">Menu</a>
-        <nav id="nav-main" class="nav-main nav-header">
+        <nav id="nav-main" class="nav-main nav-header col-xs-12">
             <ul>
-                <!-- Hidden on desktop -->
-                <li class="home"><a href="/">Home</a></li>
-                
-                <li class="nav-link"><a href="javascript:void(0)" onclick="getDeliveryOptions();">Place Order</a></li>
-                <li class="nav-link"><a href="javascript:void(0)" onclick="getOpenOrders();">View Orders</a></li>
-                <li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
-         		<li class="header-logo"><h1><a class="logo" href="/">Penrose Brewing Company</a></h1></li>
-         		<li class="nav-link"><a href="javascript:void(0)">&nbsp;</a></li>
-				<li class="nav-link"><a href="javascript:void(0)" onclick="getCustomerInfoForm();">Update Info</a></li>
-                <li class="nav-link"><a href="index.html">Log Out</a></li>
-                
-                <!-- Hidden on Desktop -->
-                <!-- <li class="nav-mobile"><a href="/where-to-buy">Where to Buy</a></li> -->
-                <li class="nav-mobile"><a href="/taproom#tap-list">Current Tap List</a></li>
+                <li class="nav-link col-xs-1"><a href="javascript:void(0)">&nbsp;</a></li>
+                <li class="nav-link col-xs-2"><a href="javascript:void(0)" onclick="getDeliveryOptions();">Place Order</a></li>
+                <li class="nav-link col-xs-2"><a href="javascript:void(0)" onclick="getOpenOrders();">View Orders</a></li>
+                <li class="nav-link col-xs-2"><a href="javascript:void(0)">&nbsp;</a></li>
+                <li class="nav-link col-xs-2"><a href="javascript:void(0)" onclick="getCustomerInfoForm();">Update Info</a></li>
+                <li class="nav-link col-xs-2"><a href="index.html">Log Out</a></li>
             </ul>
         </nav>
-
     </div>   
 </header>
 
 
-<!-- Main Nav -->
+<!-- Main Nav 
 <nav class="nav-main nav-header nav-short">
     <ul>
-        <!-- Left Side -->
+         Left Side 
         <li class="about"><a href="/about">About</a></li>
         <li class="beer"><a href="/beer">Beer</a></li>
         <li class="news"><a href="/news">News</a></li>
         <li class="events"><a href="/events">Events</a></li>
         <li class="shop"><a href="https://estore.bfcprint.com/penrose/start_new_order.cgi">Shop</a></li>
-        <!-- Logo -->
+         Logo
         <li class="home"><a href="/">Penrose Brewing Company</a></li>
-        <!-- Right Side -->
+         Right Side 
         <li class="tasting-room"><a href="/taproom">Taproom</a></li>
-        <li class="tours is-short"><a href="/taproom/detail/brewery-tours">Tours</a></li>
+        <li class="tours is-short"><a href="/taproom/detail/brewery-tours">Test</a></li>
         <li class="pritave-events is-short"><a href="/taproom/detail/private-events">Private Events</a></li>
         <li class="contact is-short"><a href="/contact">Contact</a></li>
     </ul>
 </nav>
-
+-->
 
 		<header class="header-simple">
 			<h2 class="header-fade fade-in">Online Ordering</h2>
@@ -210,18 +204,6 @@
 
 		 <script type="text/javascript">
             var showTables = function() {
-            	/*
-            	var tableList = ["cart-table"];
-            	var i;
-            	var currentTable;
-            	for (i = 0; i < tableList.length; i++){
-            		currentTable = document.getElementById(tableList[i]);
-            		if (currentTable && !$.fn.DataTable.fnIsDataTable(currentTable)){
-            			$(currentTable).dataTable();
-            		}
-            		
-            	}
-            	*/
             	$(".table").each(function(i, obj) {
             		if (! $.fn.DataTable.fnIsDataTable(obj)){
             			$(this).dataTable();
@@ -230,6 +212,7 @@
             }
 
             $(document).ready(function () {
+                hideNavLinks();
             	$('#main-content').bind('DOMNodeInserted', showTables);
     		});
         </script>

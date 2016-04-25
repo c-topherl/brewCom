@@ -44,3 +44,23 @@ textarea {
 		width: 20%;
 	}
 }
+
+ul li {
+	display: inline;
+}
+
+.menu ul li a {
+	font-size: 16px;
+	font-size: 1rem;
+	text-transform: uppercase;
+	color: #fff;
+	letter-spacing: 1px;
+	font-family: "din-condensed-web", "Lucida Grande", "Lucida Console", Verdana, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	background-color 0.2s ease-in-out, color 0.2s ease-in-out, background-position 0.2s ease-in-out;
+	cursor: auto;
+	background: 0 0;
+	outline: 0;
+}

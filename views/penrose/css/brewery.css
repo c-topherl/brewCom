@@ -2281,10 +2281,6 @@ ol li {
     padding: 0 6.25em; } }
 /* NAVIGATION
 /*-----------------------------------------------------*/
-.nav-main ul li {
-  display: inline-block;
-  line-height: 16px;
-  line-height: 1rem; }
 
 .nav-main ul li a {
   text-transform: uppercase;
@@ -3895,7 +3891,7 @@ body:not(:-moz-handler-blocked) .story-author img {
   padding-bottom: 0; }
 
 /* FORMS
-/*-----------------------------------------------------*/
+/*-----------------------------------------------------
 form {
   margin-top: 20px;
   padding: 24px;
@@ -3905,7 +3901,7 @@ form {
 
 form input,
 form textarea {
-  /*width: 100%;*/
+  /*width: 100%;
   color: #777;
   border: none;
   border: 2px solid #e1e1e1;
@@ -3977,6 +3973,7 @@ form .note {
   line-height: 1.4rem;
   font-style: italic;
   color: #666; }
+*/
 
 .parsley-error-list {
   max-width: 450px;
