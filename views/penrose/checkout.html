@@ -1,20 +1,19 @@
+<form role="form" class="col-xs-12 text-center">
+	<div class="form-group">
+		<label for="email">Confirmation email:</label>
+		<input type="text" name="email" onblur="validateEmail(this)" />
+	</div>
 
-	   	<div id="cart-div">
-	 		<div style="display: inline-block;">
-	   			<p>Confirmation email:</p>
-	   		</div>
-			<div align="left" style="display: inline-block;">
-				<input type="text" size="30" onblur="validateEmail(this)"/>
-			</div>
-			<br>
-			<div style="display: inline-block;">
-				<p>Order Comments: </p>
-			</div>
-			<div align="left" style="display: inline-block;">
-				<textarea rows="10" columns="150"></textarea>
-			</div>
-		</div>
+	<div class="form-group">
+		<label for="comments">Order comments:</label>
+		<textarea rows="6" columns="150"></textarea>
+	</div>
 
-		<br><br><br><br>
-		<a class="view-cart-button" href="javascript:void(0)" onclick="getCart();">&lt;&lt;Back</a>&nbsp;&nbsp;&nbsp;
-		<a class="view-cart-button" href="javascript:void(0)" onclick="submitOrder();">Place Order</a>
+	<!-- spacing -->
+	<div class="col-xs-12">&nbsp;</div>
+	
+	<div class="col-xs-12">
+		<a class="btn btn-primary" href="javascript:void(0)" onclick="getCart();">Back</a>
+		<a class="btn btn-primary" href="javascript:void(0)" onclick="submitOrder();">Place Order</a>
+	</div>
+</form>

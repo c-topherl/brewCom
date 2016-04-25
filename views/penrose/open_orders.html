@@ -1,27 +1,27 @@
-   <div id="order-div">
-	   	<table id="orders-table" class="table"> 
-            <thead>
-   			   <tr>
-   		   		<th>Order Number</th>
-   				  <th>Delivery Date</th>
-   				  <th>Delivery Method</th>
-   				  <th>Total Amount</th>
-   			   </tr>
-            </thead>
-            <tbody>
-   			   {{#orders}}
-   			   <tr>
-   		   	   <td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="detail-link">{{order_id}}</a></td>
-   				  <td>{{order_date}}</td>
-   				  <td>{{delivery_method}}</td>
-      			   <td>${{total_price}}</td>
-   			   </tr>
-               {{/orders}}
-            </tbody>
-		   </table>
-	</div>
-   <script type="text/javascript">
-      //displayTable("order-table");
-   </script>
+<table id="orders-table" class="table"> 
+   <thead>
+  	   <tr>
+  		   <th>Order Number</th>
+  		   <th>Delivery Date</th>
+  			<th>Delivery Method</th>
+  			<th>Total Amount</th>
+  		</tr>
+   </thead>
+      
+   <tbody>
+  	   {{#each orders}}
+  	      <tr>
+  		  	   <td><a href="javascript:void(0)" onclick="getOrderDetail(this.innerHTML)" class="order-link link">{{order_id}}</a></td>
+  		    	<td>{{order_date}}</td>
+  				<td>{{delivery_method}}</td>
+     			<td class="price">${{total_price}}</td>
+  			</tr>
+      {{else}}
+         <div class="col-xs-12 alert alert-warning">
+            <p>There are no open orders at this time!</p>
+         </div>
+      {{/each}}
+   </tbody>
+</table>
 
 

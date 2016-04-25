@@ -25,10 +25,10 @@
 <!-- CSS -->
 <!-- ////////////////////////////////////////// --> 
 
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/dataTables.min.css">
 <link rel="stylesheet" href="css/brewery.css">
 <link rel="stylesheet" href="css/styles.css">
-<link rel="stylesheet" href="css/dataTables.min.css">
-
 
 
 <!-- TYPEKIT -->
@@ -118,29 +118,37 @@
 
 			<hr class="section-rule">
 
-			<div class="wrapper"> 
+			<div class="container"> 
 
-				<p id="error-message" class="hidden"></p>
+                <div id="error-message" class="col-xs-12 alert alert-danger hidden"></div>
 
-				<div id="main-content">
+				<div id="main-content" class="col-xs-12">
+                    <form role="form" class="col-xs-6 text-center">
+                        <div class="form-group">
+    					    <label for="username">Username: </label> 
+                            <input type="text" name="username" id="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password: </label>
+   						    <input type="password" name="password" id="password">
+                        </div>
 
-					<div id="login-div">
-						<div id="login-forms">
-							Username: <input type="text" id="username"><br><br>
-							Password: &nbsp;&nbsp;<input type="password" id="password">
-								
-							<br><br>
-								
-							<a id="forgot-pass-link" href="forgot_password.html">Forgot password</a>
-								
-							<br><br>
-								
-							<input type="button" id="login-btn" onclick="verifyLogin();" value="Submit">
-						</div>
-						<div id="login-info">
-							<p>If you require assistance with login information, <br> please contact customer service at (123) 456-7890.</p>
-						</div>
-					</div>
+                        <div class="col-xs-12">
+                            <a class="link" href="forgot_password.html">Forgot password</a>
+                        </div>
+
+                        <br><br>
+                        
+                        <div class="col-xs-12">
+                            <input class="btn btn-primary" type="button" onclick="verifyLogin();" value="Submit">				
+                        </div>
+                        
+					</form>
+
+                    <div class="col-xs-6">          
+                        <p>If you require assistance with login information, please contact customer service at (123) 456-7890.</p>
+                    </div>
+					
 				</div>   
 			</div>
 

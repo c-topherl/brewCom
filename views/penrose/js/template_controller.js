@@ -25,7 +25,9 @@ var loadTemplate = function(templateName, content){
 var verifyLogin = function(){
 	var user = document.getElementById("username");
 	var pass = document.getElementById("password");
-	hideError();
+	if (isErrorDisplayed()){
+		hideError();
+	}
 
 	if (!user.value || !pass.value){
 		showError("You must enter a username and password!");
@@ -150,9 +152,8 @@ var buildCartHeader = function(){
     	"shipping_type": "standard"
     };
 
-	buildHttpRequest(method, url, requestData);
+	buildHttpRequest(method, url, requestData, getOrderPage, null);
 
-	getOrderPage();
     return;
 }
 
@@ -187,7 +188,7 @@ var buildCart = function(){
 	var currPrice;
 	var currQty;
 
-	var quantityFields = document.getElementsByClassName("order-quantity");
+	var quantityFields = document.getElementsByClassName("quantity-field");
 
 	for (var i=0; i < quantityFields.length; i++){
 		currentQtyField = quantityFields[i];
@@ -213,6 +214,11 @@ var buildCart = function(){
 			totalPrice = Math.round(totalPrice * 100) / 100;
 			lineCounter++;
 		}
+	}
+
+	if(lineCounter === 0){
+		showError("Your cart is empty! Add an item to continue.");
+		return;
 	}
 
 	data.total_price = totalPrice;
@@ -257,12 +263,8 @@ var submitOrder = function(){
 
 	var successMessage = "Your information has been updated successfully!";
 
-	buildHttpRequest(method, url, showConfirmation, successMessage);
+	buildHttpRequest(method, url, null, showConfirmation, successMessage);
 	
-
-	//temporary - this will go away
-	var message = "Your order has been submitted successfully!";
-	showConfirmation(message);
     
     return;
 }

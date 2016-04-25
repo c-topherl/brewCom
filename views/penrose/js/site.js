@@ -49,7 +49,9 @@ var verifyLogin = function(){
 var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
-    hideError();
+    if (isErrorDisplayed()){
+    	hideError();
+    }
 
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
@@ -68,13 +70,20 @@ var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 var buildHttpRequest = function(method, url, data, callback, callbackParam){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
-    hideError();
+    if (isErrorDisplayed()){
+    	hideError();
+    }
 
     req.onreadystatechange = function(){
     	if (req.readyState == 4 && req.status == 200){
-    		if (callback){
-    			callback(callbackParam);
-    		}
+    		var resp = JSON.parse(req.responseText);
+    		if (resp.status === "success"){
+        		if (callback){
+        			callback(callbackParam);
+        		}
+        	} else {
+        		showError(resp.message);
+        	}
     	}
     }
     req.send(JSON.stringify(data));
@@ -143,9 +152,15 @@ var showConfirmation = function(message){
 }
 
 var showError = function(message){
+	if (isErrorDisplayed()){
+		hideError();
+	}
+
 	var error = document.getElementById("error-message");
 	if (error){
-		error.className = "";
+		var classes = error.className.split(" ");
+		classes.pop();
+		error.className = classes.join(" ");
 		error.innerHTML = message;
 	}
 	return;
@@ -154,7 +169,18 @@ var showError = function(message){
 var hideError = function(){
 	var error = document.getElementById("error-message");
 	if (error){
-		error.className = "hidden";
+		var classes = error.className.split(" ");
+		classes.push("hidden");
+		error.className = classes.join(" ");
 	}
 	return;
+}
+
+var isErrorDisplayed = function(){
+	var error = document.getElementById("error-message");
+	if (error && error.className.split(" ").indexOf("hidden") == -1){
+		return true;
+	}
+
+	return false;
 }

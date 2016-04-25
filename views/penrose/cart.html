@@ -1,7 +1,7 @@
 
-		<div id="cart-div">
+		<div class="col-xs-12">
 			<h4>Shopping Cart</h4><br>
-		   	<table id="cart-table" class="table"> 
+		   	<table id="cart-table"> 
 		   		<thead>
 					<tr>
 			  			<th>Beer</th>
@@ -9,7 +9,7 @@
 						<th>Unit</th>
 						<th>Price</th>
 						<th>Quantity</th>
-						<th>&nbsp;</th>
+						<th class="nosort">&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -20,25 +20,29 @@
 						<td>{{unit_description}}</td>
 						<td class="price">${{price}}</td>
 						<td class="quantity">{{quantity}}</td>
-						<td><a href="javascript:void(0)" onclick="deleteLine({{line_id}})">Delete</a></td>
+						<td align="center"><a class="cart-link link" href="javascript:void(0)" onclick="deleteLine({{line_id}})">Delete</a></td>
 					</tr>
 					{{/lines}}
 				</tbody>
 	   		</table>
-
-	   		<div class="total" align="right">
-	   			<p><b>Total: $<span id="total-price">{{total_price}}</span></b><p>
-	   		</div>
 	   	</div>
 
-		<br><br><br><br>
-		<a class="view-cart-button" href="javascript:void(0)" onclick="getOrderPage();">&lt;&lt;Back</a> &nbsp;&nbsp;&nbsp;
-		<a class="view-cart-button" href="javascript:void(0)" onclick="buildCheckoutPage();">Check Out >></a>
+	   	<!-- spacing -->
+	   	<div class="col-xs-12">
+	   		&nbsp;
+	   	</div>
 
-		<script type="text/javascript">
-      		//displayTable("cart-table");
-  		</script>
+	   	<div class="col-xs-12">
+	   		<div class="col-xs-4 col-md-2 pull-right">
+		   		<hr>
+	   			<p class="order-total"><b>Total: $<span id="total-price">{{total_price}}</span></b><p>
+	   		</div>
 
-
-								
-   
+	   		<div class="col-xs-2 col-md-1">
+				<a class="btn btn-primary" href="javascript:void(0)" onclick="getOrderPage();">Back</a> 
+			</div>
+			<div class="col-xs-2 col-md-1">
+				<a class="btn btn-primary" href="javascript:void(0)" onclick="buildCheckoutPage();">Check Out</a>
+			</div>
+		</div>
+		
