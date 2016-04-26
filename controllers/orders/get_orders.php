@@ -17,7 +17,8 @@ function get_orders($filters = NULL)
             order_date,
             ship_date,
             delivery_date,
-            delivery_method,
+            dm.id delivery_method_id,
+            dm.description delivery_method,
             user_id, 
             status
             ";
@@ -27,6 +28,7 @@ function get_orders($filters = NULL)
         $query .= ",comments order_comments, 
                 shipping_comments,
                 u.username,
+                dm.code delivery_method_code,
 
                 billing.name bill_to_name,
                 billing.address1 bill_to_address_one,
@@ -37,7 +39,8 @@ function get_orders($filters = NULL)
             ";
     }
 
-    $query .= " FROM orders o LEFT JOIN users u ON o.user_id = u.id ";
+    $query .= " FROM orders o LEFT JOIN users u ON o.user_id = u.id "
+            . " LEFT JOIN delivery_methods dm on delivery_method = dm.id ";
 
     if(isset($filters['details']))
     {
