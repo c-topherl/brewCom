@@ -31,7 +31,7 @@ function get_cart($cartInfo)
         }, $details));
     //uncomment if you want details passed in the main get_cart function
     $cartArray['lines'] = $details;
-    return array('cart' => $cartArray);
+    return $cartArray;
 }
 
 function get_cart_details($dbh, $user_id)
