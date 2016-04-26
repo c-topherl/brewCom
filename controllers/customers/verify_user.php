@@ -20,7 +20,7 @@ function verify_user($userArray)
 */
 function GetLandingPageContent($dbh, $user_id)
 {
-    $query = "SELECT COUNT(*) count FROM cart_details where user_id = :user_id";
+    $query = "SELECT COUNT(*) count FROM cart_headers where user_id = :user_id";
     $sth = $dbh->prepare($query);
     if(!$sth->execute(array(":user_id" => $user_id)))
     {
@@ -35,7 +35,7 @@ function GetLandingPageContent($dbh, $user_id)
     else
     {
         //user does not have cart_details, so return delivery options page
-        $landing_page = array('delivery_options' => get_delivery_options());
+        $landing_page = get_delivery_options();
     }
     //merge user_id to top level of array
     $landing_page = array_merge($landing_page, array('user_id' => $user_id));
