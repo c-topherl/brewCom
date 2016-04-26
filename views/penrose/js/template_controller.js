@@ -54,20 +54,18 @@ var verifyLogin = function(){
         if (req.readyState == 4 && req.status == 200){
         	var responseObj = JSON.parse(req.responseText);
         	if (responseObj.status === "success"){
-        		data = responseObj.response.cart;
+        		data = responseObj.response;
         		userId = responseObj.response.user_id;
         		userDiv = document.getElementById("user-id");
         		if (userId && userDiv){
         			userDiv.innerHTML = userId;
         		}
-
-        		if (!data || data.length === 0){
-        			data = responseObj.response.delivery_options;
+			
+			lines = data.lines;
+        		if (!lines){
         			template = templatePath + "delivery_date.html";
         			loadTemplate(template, data);
         		} else {
-        			data = responseObj.response.cart;
-        			lines = data.lines;
         			if (lines.length === 0){
         				getOrderPage();
         			} else {
