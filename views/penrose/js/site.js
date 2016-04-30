@@ -1,3 +1,6 @@
+var errorAlert = "error-message";
+var warningAlert = "warning-message";
+
 var validateQuantity = function(quantityField){
 	var quantity = quantityField.value;
 	if (isNaN(quantity) || quantity < 0){
@@ -49,8 +52,8 @@ var verifyLogin = function(){
 var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
-    if (isErrorDisplayed()){
-    	hideError();
+    if (isAlertDisplayed(errorAlert)){
+    	hideAlert(errorAlert);
     }
 
     req.onreadystatechange = function(){
@@ -59,7 +62,7 @@ var buildHttpRequestForTemplate = function(method, url, templatePath, data){
         	if (resp.status === "success"){
         		loadTemplate(templatePath, resp.response);
         	} else {
-        		showError(resp.message);
+        		showAlert(errorAlert, resp.message);
         	}
         }
     };
@@ -70,8 +73,8 @@ var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 var buildHttpRequest = function(method, url, data, callback, callbackParam){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
-    if (isErrorDisplayed()){
-    	hideError();
+    if (isAlertDisplayed(errorAlert)){
+    	hideAlert(errorAlert);
     }
 
     req.onreadystatechange = function(){
@@ -82,7 +85,7 @@ var buildHttpRequest = function(method, url, data, callback, callbackParam){
         			callback(callbackParam);
         		}
         	} else {
-        		showError(resp.message);
+        		showAlert(errorAlert, resp.message);
         	}
     	}
     }
@@ -151,34 +154,34 @@ var showConfirmation = function(message){
 	return;
 }
 
-var showError = function(message){
-	if (isErrorDisplayed()){
-		hideError();
+var showAlert = function(alertId, message){
+	if (isAlertDisplayed(errorAlert)){
+		hideAlert(errorAlert);
 	}
 
-	var error = document.getElementById("error-message");
-	if (error){
-		var classes = error.className.split(" ");
+	var alert = document.getElementById(alertId);
+	if (alert){
+		var classes = alert.className.split(" ");
 		classes.pop();
-		error.className = classes.join(" ");
-		error.innerHTML = message;
+		alert.className = classes.join(" ");
+		alert.innerHTML = message;
 	}
 	return;
 }
 
-var hideError = function(){
-	var error = document.getElementById("error-message");
-	if (error){
-		var classes = error.className.split(" ");
+var hideAlert = function(alertId){
+	var alert = document.getElementById(alertId);
+	if (alert){
+		var classes = alert.className.split(" ");
 		classes.push("hidden");
-		error.className = classes.join(" ");
+		alert.className = classes.join(" ");
 	}
 	return;
 }
 
-var isErrorDisplayed = function(){
-	var error = document.getElementById("error-message");
-	if (error && error.className.split(" ").indexOf("hidden") == -1){
+var isAlertDisplayed = function(alertId){
+	var alert = document.getElementById(alertId);
+	if (alert && alert.className.split(" ").indexOf("hidden") == -1){
 		return true;
 	}
 

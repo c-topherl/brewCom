@@ -1,6 +1,7 @@
 var targetDiv = "#main-content";
 var method = "post";
 var templatePath = "http://localhost/brewCom/views/penrose/";
+var userCart;
 
 var loadTemplate = function(templateName, content){
 
@@ -25,12 +26,12 @@ var loadTemplate = function(templateName, content){
 var verifyLogin = function(){
 	var user = document.getElementById("username");
 	var pass = document.getElementById("password");
-	if (isErrorDisplayed()){
-		hideError();
+	if (isAlertDisplayed(errorAlert)){
+		hideAlert(errorAlert);
 	}
 
 	if (!user.value || !pass.value){
-		showError("You must enter a username and password!");
+		showAlert(errorAlert, "You must enter a username and password!");
 		return;
 	}
 
@@ -70,13 +71,15 @@ var verifyLogin = function(){
         				getOrderPage();
         			} else {
         				template = templatePath + "cart.html";
+        				userCart = data;
         				loadTemplate(template, data);
+        				showAlert(warningAlert, "You already have an order in progress.");
         			}
         		}
 
         		showNavLinks();
         	} else {
-        		showError(responseObj.message);
+        		showAlert(errorAlert, responseObj.message);
         	}
         }
     };
@@ -120,6 +123,12 @@ var getOrderDetail = function(orderNumber){
 }
 
 var getDeliveryOptions = function(){
+	if (userCart){
+		getCart();
+		showAlert(warningAlert, "You already have an order in progress.");
+		return;
+	}
+
 	var userId = document.getElementById("user-id").innerHTML;
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var template = templatePath + "delivery_date.html";
@@ -156,6 +165,11 @@ var buildCartHeader = function(){
 }
 
 var getOrderPage = function(){
+	if (isAlertDisplayed(warningAlert)){
+		hideAlert(warningAlert);
+	}
+
+	var temp = userCart;
 	var userId = document.getElementById("user-id").innerHTML;
 	var template = templatePath + "order.html";
 	url = "http://joelmeister.net/brewCom/controllers/product_controller.php";
@@ -167,6 +181,29 @@ var getOrderPage = function(){
 
     buildHttpRequestForTemplate(method, url, template, requestData);
 }
+
+Handlebars.registerHelper('getQuantity', function(productId, unitId){
+	var quantity = "";
+
+	if (!userCart){
+		return quantity;
+	}
+
+	var i;
+	var currentLine;
+
+	for (i = 0; i < userCart.lines.length; i++){
+		currentLine = userCart.lines[i];
+		if (currentLine.product_id === productId 
+			&& currentLine.unit_id === unitId){
+			quantity = currentLine.quantity;
+			break;
+		}
+	}
+
+	return quantity;
+
+})
 
 var buildCart = function(){
 	var template = templatePath + "cart.html";
@@ -215,11 +252,12 @@ var buildCart = function(){
 	}
 
 	if(lineCounter === 0){
-		showError("Your cart is empty! Add an item to continue.");
+		showAlert(errorAlert, "Your cart is empty! Add an item to continue.");
 		return;
 	}
 
 	data.total_price = totalPrice;
+	userCart = data;
     loadTemplate(template, data);
 
     var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
@@ -243,6 +281,10 @@ var getCart = function() {
 }
 
 var buildCheckoutPage = function(){
+	if (isAlertDisplayed(warningAlert)){
+		hideAlert(warningAlert);
+	}
+
 	var template = templatePath + "checkout.html";
     loadTemplate(template, null);
     
@@ -259,7 +301,9 @@ var submitOrder = function(){
     	"user_id": userId,
     };
 
-	var successMessage = "Your information has been updated successfully!";
+	var successMessage = "Your order has been placed successfully!";
+
+	userCart = null;
 
 	buildHttpRequest(method, url, null, showConfirmation, successMessage);
 	
