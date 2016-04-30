@@ -296,18 +296,22 @@ var submitOrder = function(){
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var template = templatePath + "confirmation.html";
 
+	var comments = document.getElementById("comments").value;
+	var email = document.getElementById("email").value;
+
 	var requestData = {
     	"function": "submit_order",
     	"user_id": userId,
+    	"comments": comments,
+    	"email": email
     };
 
 	var successMessage = "Your order has been placed successfully!";
 
 	userCart = null;
 
-	buildHttpRequest(method, url, null, showConfirmation, successMessage);
-	
-    
+	buildHttpRequest(method, url, requestData, showConfirmation, successMessage);
+
     return;
 }
 
