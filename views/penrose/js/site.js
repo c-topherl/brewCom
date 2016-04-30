@@ -1,5 +1,7 @@
 var errorAlert = "error-message";
 var warningAlert = "warning-message";
+var infoAlert = "info-message";
+var successAlert = "success-message";
 
 var validateQuantity = function(quantityField){
 	var quantity = quantityField.value;
@@ -147,10 +149,7 @@ var displayTables = function(){
 }
 
 var showConfirmation = function(message){
-	var template = templatePath + "confirmation.html";
-	var content = {"message": message};
-	loadTemplate(template, content);
-
+	showAlert(successAlert, message);
 	return;
 }
 

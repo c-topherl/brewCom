@@ -39,11 +39,13 @@ textarea {
 	}
 }
 
+/*
 @media screen and (min-width: 1000px) {
 	textarea {
 		width: 20%;
 	}
 }
+*/
 
 ul li {
 	display: inline;
