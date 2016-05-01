@@ -23,6 +23,17 @@ var loadTemplate = function(templateName, content){
     return;
 }
 
+var forgotPassword = function(){
+	var template = templatePath + "forgot_password.html";
+	loadTemplate(template, null);
+	return;
+}
+
+var forgotPasswordSubmit = function(){
+	location.reload();
+	showAlert(infoAlert, "You will receive instructions to reset your password shortly.");
+}
+
 var verifyLogin = function(){
 	var user = document.getElementById("username");
 	var pass = document.getElementById("password");
