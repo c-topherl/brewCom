@@ -4,7 +4,7 @@ var templatePath = "http://localhost/brewCom/views/penrose/";
 var userCart;
 
 var loadTemplate = function(templateName, content){
-
+	hideAlerts();
 	var req = new XMLHttpRequest();
     req.open("get", templateName, true);
 
@@ -26,9 +26,7 @@ var loadTemplate = function(templateName, content){
 var verifyLogin = function(){
 	var user = document.getElementById("username");
 	var pass = document.getElementById("password");
-	if (isAlertDisplayed(errorAlert)){
-		hideAlert(errorAlert);
-	}
+	hideAlerts();
 
 	if (!user.value || !pass.value){
 		showAlert(errorAlert, "You must enter a username and password!");
@@ -165,10 +163,6 @@ var buildCartHeader = function(){
 }
 
 var getOrderPage = function(){
-	if (isAlertDisplayed(warningAlert)){
-		hideAlert(warningAlert);
-	}
-
 	var temp = userCart;
 	var userId = document.getElementById("user-id").innerHTML;
 	var template = templatePath + "order.html";
@@ -281,10 +275,6 @@ var getCart = function() {
 }
 
 var buildCheckoutPage = function(){
-	if (isAlertDisplayed(warningAlert)){
-		hideAlert(warningAlert);
-	}
-
 	var template = templatePath + "checkout.html";
     loadTemplate(template, null);
     
@@ -312,6 +302,7 @@ var submitOrder = function(){
 
 	buildHttpRequest(method, url, requestData, showConfirmation, successMessage);
 
+	$(targetDiv).html("");
     return;
 }
 

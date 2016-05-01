@@ -2,6 +2,12 @@ var errorAlert = "error-message";
 var warningAlert = "warning-message";
 var infoAlert = "info-message";
 var successAlert = "success-message";
+var alertList = [
+	errorAlert,
+	warningAlert,
+	infoAlert,
+	successAlert
+]
 
 var validateQuantity = function(quantityField){
 	var quantity = quantityField.value;
@@ -54,9 +60,7 @@ var verifyLogin = function(){
 var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
-    if (isAlertDisplayed(errorAlert)){
-    	hideAlert(errorAlert);
-    }
+    hideAlerts();
 
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
@@ -75,9 +79,7 @@ var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 var buildHttpRequest = function(method, url, data, callback, callbackParam){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
-    if (isAlertDisplayed(errorAlert)){
-    	hideAlert(errorAlert);
-    }
+    hideAlerts();
 
     req.onreadystatechange = function(){
     	if (req.readyState == 4 && req.status == 200){
@@ -164,6 +166,19 @@ var showAlert = function(alertId, message){
 		classes.pop();
 		alert.className = classes.join(" ");
 		alert.innerHTML = message;
+	}
+	return;
+}
+
+var hideAlerts = function(){
+	var i;
+	var alert;
+
+	for (i = 0; i < alertList.length; i++){
+		alert = alertList[i];
+		if (isAlertDisplayed(alert)){
+			hideAlert(alert);
+		}
 	}
 	return;
 }
