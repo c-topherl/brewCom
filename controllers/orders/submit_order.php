@@ -25,7 +25,7 @@ function submit_order($values)
 
     $order = get_order_information($dbh, $values);
 
-    $order_id = add_order($order);
+    $order_id = add_order($order)['id'];
     order_confirmation_email(array('email' => $email, 'order_id' => $order_id));
 
     //delete cart
@@ -36,7 +36,7 @@ function get_order_information($dbh, $values)
 {
     $user_id = $values['user_id'];
 
-    $cart = get_cart(array('user_id'=>$user_id))['cart'];
+    $cart = get_cart(array('user_id'=>$user_id));
 //    $details = get_cart_details($dbh, $user_id);
 
     //if comments were passed in, append those to the front of the cart comments
