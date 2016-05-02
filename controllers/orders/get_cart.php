@@ -39,7 +39,7 @@ function get_cart_details($dbh, $user_id)
     $detailArray = array();
     $query = "SELECT product_id, p.code product_code, p.description product_description, 
             unit_id, u.code unit_code, u.description unit_description, 
-            cd.price, quantity, cd.last_updated, cd.line_id
+            (cd.price / cd.quantity) unit_price, cd.price line_price, quantity, cd.last_updated, cd.line_id
         FROM cart_details cd
         LEFT JOIN products p ON p.id = cd.product_id 
         LEFT JOIN units u ON u.id = cd.unit_id

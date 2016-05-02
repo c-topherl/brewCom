@@ -23,16 +23,16 @@ function submit_order($values)
     $userInfo = get_users(array('id' => $user_id));
     $email = isset($values['email']) ? $values['email'] : $userInfo['email'];
 
-    $order = get_order_information($dbh, $values);
+    $order = get_cart_information($dbh, $values);
 
-    $order_id = add_order($order)['id'];
-    order_confirmation_email(array('email' => $email, 'order_id' => $order_id));
+    $orderInfo = add_order($order);
+    order_confirmation_email(array('email' => $email, 'order_id' => $orderInfo['id']));
 
     //delete cart
     delete_cart_by_user_id($dbh, $values['user_id']);
-    return array('order_id' => $order_id);
+    return $orderInfo;
 }
-function get_order_information($dbh, $values)
+function get_cart_information($dbh, $values)
 {
     $user_id = $values['user_id'];
 
