@@ -194,7 +194,7 @@
 
 		 <script type="text/javascript">
             var showTables = function() {
-            	$(".table").each(function(i, obj) {
+            	$(".dtable").each(function(i, obj) {
             		if (! $.fn.DataTable.fnIsDataTable(obj)){
             			$(this).dataTable();
             		}
@@ -203,6 +203,14 @@
 
             $(document).ready(function () {
             	$('#main-content').bind('DOMNodeInserted', showTables);
+                var userId = getCookie('userId');
+                if (userId === ""){
+                    return;
+                } else {
+                    document.getElementById("user-id").innerHTML = userId;
+                }
+
+
     		});
         </script>
 

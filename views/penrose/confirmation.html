@@ -1,0 +1,79 @@
+<h4>Order #{{order_id}}</h4><br>
+<p class="text-center">{{delivery_method}} on {{delivery_date}}</p>	
+
+<!-- spacing -->
+<div class="col-xs-12">&nbsp;</div>
+
+<div class="col-xs-12 col-lg-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">Ship To</div>
+		<div class="panel-body">
+			<p>{{ship_to_name}}</p>
+			<p>{{ship_to_addr1}}</p>
+			<p>{{ship_to_addr2}}</p>
+			<p>{{ship_to_city}}</p>
+			<p>{{ship_to_state}}</p>
+			<p>{{ship_to_zip}}</p>
+		</div>
+	</div>
+</div>
+
+<div class="col-xs-12 col-lg-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">Bill</div>
+		<div class="panel-body">
+			<p>{{bill_to_name}}</p>
+			<p>{{bill_to_addr1}}</p>
+			<p>{{bill_to_addr2}}</p>
+			<p>{{bill_to_city}}</p>
+			<p>{{bill_to_state}}</p>
+			<p>{{bill_to_zip}}</p>
+		</div>
+	</div>
+</div>
+
+<!-- spacing -->
+<div class="col-xs-12">&nbsp;</div>
+
+<table class="table table-striped table-bordered"> 
+	<thead>
+		<tr>
+			<th>Beer</th>
+			<th>Type</th>
+			<th>Unit</th>
+			<th>Price</th>
+			<th>Quantity</th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each lines}}
+		<tr>
+			<td>{{product_code}}</td>
+			<td>{{product_description}}</td>
+			<td>{{unit_description}}</td>
+			<td class="price">${{unit_price}}</td>
+			<td class="quantity">{{quantity}}</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+
+<!-- spacing -->
+<div class="col-xs-12">&nbsp;</div>
+
+<div class="col-xs-4 col-md-2 pull-right">
+	<hr>
+	<p class="order-total"><b>Total: $<span id="total-price">{{total_price}}</span></b><p>
+</div>
+
+<!-- spacing -->
+<div class="col-xs-12">&nbsp;</div>
+
+<div class="col-xs-6">
+	<div class="panel panel-default">
+		<div class="panel-heading">Order comments:</div>
+		<div class="panel-body">{{comments}}</div>
+	</div>
+</div>
+
+

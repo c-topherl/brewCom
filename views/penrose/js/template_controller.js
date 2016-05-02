@@ -313,7 +313,44 @@ var submitOrder = function(){
 
 	buildHttpRequest(method, url, requestData, showConfirmation, successMessage);
 
-	$(targetDiv).html("");
+	requestData = {
+		"order_id": "12345",
+		"delivery_method": "Standard delivery",
+		"delivery_date": "06/12/2016",
+		"ship_to_name": "Customer name",
+		"ship_to_addr1": "123 Main Street",
+		"ship_to_addr2": "Suite 101",
+		"ship_to_city": "Nowheresville",
+		"ship_to_state": "Maryland",
+		"ship_to_zip": 58293,
+		"bill_to_name": "Customer name",
+		"bill_to_addr1": "123 Main Street",
+		"bill_to_addr2": "Suite 101",
+		"bill_to_city": "Nowheresville",
+		"bill_to_state": "Maryland",
+		"bill_to_zip": 58293,
+		lines: [
+			{
+				"product_code": "product 1",
+				"product_description": "mmbeeer",
+				"unit_description": "12 pack",
+				"unit_price": 13.99,
+				"quantity": 4
+			},
+			{
+				"product_code": "product 2",
+				"product_description": "more beer",
+				"unit_description": "4 pack",
+				"unit_price": 5.99,
+				"quantity": 8
+			}
+		],
+		"comments": "This is an order comment!",
+		"total_price": 98.24
+	};
+
+	loadTemplate(template, requestData);
+	
     return;
 }
 
