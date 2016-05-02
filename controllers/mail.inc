@@ -5,10 +5,13 @@ define('DEFAULT_EMAIL','joelmeister1209@gmail.com');
 define('NOREPLY_EMAIL','noreply@joelmeister.net');
 function order_confirmation_email($information)
 {
+    /*
     $body = "<html><body>
         Order received!
         order id: ".$information['order_id']."
         </body></html>";
+    */
+    $body = file_get_contents('../views/penrose/email_confirmation.html');
     $subject = 'order received';
     return send_mail($information['email'], $subject, $body);
 }
