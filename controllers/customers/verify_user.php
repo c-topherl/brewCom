@@ -17,6 +17,10 @@ function verify_user($userArray)
     if(isset($userArray['token']))
     {
         $user_id = VerifyToken($userArray['token'], NULL, $userArray['username']);
+        if($user_id === FALSE)
+        {
+            throw new Exception("Invalid token provided.");
+        }
         $token = $userArray['token'];
     }
 
