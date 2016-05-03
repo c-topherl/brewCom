@@ -12,7 +12,7 @@ function get_orders($filters = NULL)
 {
     $dbh = new PDOConnection();
 
-    $query = "SELECT order_id, 
+    $query = "SELECT o.order_id, 
             total_price, 
             order_date,
             ship_date,
@@ -31,11 +31,17 @@ function get_orders($filters = NULL)
                 dm.code delivery_method_code,
 
                 billing.name bill_to_name,
-                billing.address1 bill_to_address_one,
-                billing.address2 bill_to_address_two,
+                billing.address1 bill_to_addr1,
+                billing.address2 bill_to_addr2,
+                billing.zipcode bill_to_zip,
+                billing.city bill_to_city,
+                billing.state bill_to_state,
                 shipping.name ship_to_name,
-                shipping.address1 ship_to_address_one,
-                shipping.address2 ship_to_address_two
+                shipping.address1 ship_to_addr1,
+                shipping.address2 ship_to_addr2,
+                shipping.zipcode ship_to_zip,
+                shipping.city ship_to_city,
+                shipping.state ship_to_state
             ";
     }
 
@@ -44,8 +50,8 @@ function get_orders($filters = NULL)
 
     if(isset($filters['details']))
     {
-        $query .= " LEFT JOIN addresses billing on billing.id = o.billing_address_id"
-                . " LEFT JOIN addresses shipping on shipping.id = o.shipping_address_id";
+        $query .= " LEFT JOIN order_addresses billing on billing.order_id = o.order_id and billing.type = 1"
+                . " LEFT JOIN order_addresses shipping on shipping.order_id = o.order_id and shipping.type = 0";
     }
 
     $query .= GetOptionalParameters($filters);

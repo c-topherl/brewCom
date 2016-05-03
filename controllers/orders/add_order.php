@@ -57,30 +57,7 @@ function add_order($orderInfo)
     }
 
     //return all order data to display on the order confirmation page
-    $orderConf = $orderInfo;
-    $orderConf['order_id'] = $order_id;
-    /*
-        TODO
-        note: need to get text
-		"delivery_method": "Standard delivery",
-
-        note: format
-		"delivery_date": "06/12/2016",
-
-        a lot to build out here. see issue #56
-		"ship_to_name": "Customer name",
-		"ship_to_addr1": "123 Main Street",
-		"ship_to_addr2": "Suite 101",
-		"ship_to_city": "Nowheresville",
-		"ship_to_state": "Maryland",
-		"ship_to_zip": 58293,
-		"bill_to_name": "Customer name",
-		"bill_to_addr1": "123 Main Street",
-		"bill_to_addr2": "Suite 101",
-		"bill_to_city": "Nowheresville",
-		"bill_to_state": "Maryland",
-		"bill_to_zip": 58293,
-        */
+    $orderConf = get_orders(array('details' => 1, 'order_id' => $order_id));
     return $orderConf;
 }
 function add_order_detail($dbh, $order_id, $detailArray)
