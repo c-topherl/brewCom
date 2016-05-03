@@ -7,16 +7,19 @@ include_once("orders/get_delivery_options.php");
 
 function verify_user($userArray)
 {
-    if(!((isset($userArray['username']) || isset($userArray['email'])) && (isset($userArray['password']) || isset($userArray['token']))))
+    if(!(isset($userArray['user_id']) || (isset($userArray['username']) || isset($userArray['email'])) && (isset($userArray['password']) || isset($userArray['token']))))
     {
         throw new Exception("Must provide (username or email) and password.");
     }
+    //set variables
+    $userArray['user_id'] = isset($userArray['user_id']) ? $userArray['user_id'] : NULL;
+    $userArray['username'] = isset($userArray['username']) ? $userArray['username'] : NULL;
 
     $token = NULL;
     $user_id = FALSE;
     if(isset($userArray['token']))
     {
-        $user_id = VerifyToken($userArray['token'], NULL, $userArray['username']);
+        $user_id = VerifyToken($userArray['token'], $userArray['user_id'], $userArray['username']);
         if($user_id === FALSE)
         {
             throw new Exception("Invalid token provided.");
