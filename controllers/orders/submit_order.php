@@ -5,24 +5,27 @@
     email will be retrieved from users table if not filled in
 */
 require_once("PDOConnection.php");
+include_once('mail.inc');
+include_once('token.inc');
+include_once('customers/get_users.php');
 include_once('orders/get_cart.php');
 include_once('orders/add_order.php');
-include_once('customers/get_users.php');
-include_once('mail.inc');
 
 function submit_order($values)
 {
-    if(!isset($values['user_id']))
+    if(!(isset($values['user_id']) && isset($values['token'])))
     {
-        throw new Exception('user_id required');
+        throw new Exception('user_id and token required');
     }
-    
-    $dbh = new PDOConnection();
-
+    if(FALSE === VerifyToken($values['token'], $values['user_id'], NULL))
+    {
+        throw new Exception('Invalid token for user');
+    }
     //set up all data to be passed to add_order()
     $userInfo = get_users(array('id' => $user_id));
     $email = isset($values['email']) ? $values['email'] : $userInfo['email'];
 
+    $dbh = new PDOConnection();
     $order = get_cart_information($dbh, $values);
 
     $orderInfo = add_order($order);

@@ -1,23 +1,45 @@
 <?php
 require_once("PDOConnection.php");
 require_once("common.inc");
+require_once("token.inc");
 include_once("orders/get_cart.php");
 include_once("orders/get_delivery_options.php");
+
 function verify_user($userArray)
 {
-    if(!((isset($userArray['username']) || isset($userArray['email'])) && isset($userArray['password'])))
+    if(!(isset($userArray['user_id']) || (isset($userArray['username']) || isset($userArray['email'])) && (isset($userArray['password']) || isset($userArray['token']))))
     {
-        //fail gracefully-ish
         throw new Exception("Must provide (username or email) and password.");
     }
+    //set variables
+    $userArray['user_id'] = isset($userArray['user_id']) ? $userArray['user_id'] : NULL;
+    $userArray['username'] = isset($userArray['username']) ? $userArray['username'] : NULL;
+
+    $token = NULL;
+    $user_id = FALSE;
+    if(isset($userArray['token']))
+    {
+        $user_id = VerifyToken($userArray['token'], $userArray['user_id'], $userArray['username']);
+        if($user_id === FALSE)
+        {
+            throw new Exception("Invalid token provided.");
+        }
+        $token = $userArray['token'];
+    }
+
     $dbh = new PDOConnection();
-    $row = VerifyUser($dbh, $userArray);
-    //user verified, return proper landing page content
-    $user_id= $row['id'];
-    return GetLandingPageContent($dbh, $user_id);
+    if($user_id === FALSE)
+    {
+        $row = VerifyUser($dbh, $userArray);
+        //user verified, return proper landing page content
+        $user_id= $row['id'];
+        $token = GenerateToken($userArray['username'], $userArray['password']);
+        StoreToken($userArray['username'], $token);
+    }
+    return array_merge(GetLandingPageContent($dbh, $user_id),array('token' => $token));
 }
 /*
-*/
+ */
 function GetLandingPageContent($dbh, $user_id)
 {
     $query = "SELECT COUNT(*) count FROM cart_headers where user_id = :user_id";
@@ -26,6 +48,7 @@ function GetLandingPageContent($dbh, $user_id)
     {
         throw new Exception($sth->errorInfo()[2]);
     }
+
     $count = (int)$sth->fetch(PDO::FETCH_ASSOC)['count'];
     if($count > 0)
     {
@@ -42,8 +65,8 @@ function GetLandingPageContent($dbh, $user_id)
     return $landing_page;
 }
 /**
-    Verifies login attempt and returns row of user information
-*/
+  Verifies login attempt and returns row of user information
+ */
 function VerifyUser($dbh, $userArray)
 {
     $username = isset($userArray['username']) ? $userArray['username'] : NULL;
