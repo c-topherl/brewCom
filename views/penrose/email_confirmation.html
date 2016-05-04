@@ -159,7 +159,7 @@
 							Its width can be set to 100% for a color band
 							that spans the width of the page.
 						-->
-						<table bgcolor="#E1E1E1" border="0" cellpadding="0" cellspacing="0" width="500" id="emailHeader">
+						<table border="0" cellpadding="0" cellspacing="0" width="500" id="emailHeader">
 
 							<!-- HEADER ROW // -->
 							<tr>
@@ -196,18 +196,7 @@
 																			</tr>
 																		</table>
 																	</td>
-																	<td align="right" valign="middle" class="flexibleContainerBox">
-																		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
-																			<tr>
-																				<td align="left" class="textContent">
-																					<!-- CONTENT // -->
-																					<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
-																						If you can't see this message, <a href="#" target="_blank" style="text-decoration:none;border-bottom:1px solid #828282;color:#828282;"><span style="color:#828282;">view&nbsp;it&nbsp;in&nbsp;your&nbsp;browser</span></a>.
-																					</div>
-																				</td>
-																			</tr>
-																		</table>
-																	</td>
+																	
 																</tr>
 															</table>
 														</td>
@@ -377,9 +366,8 @@
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																			<tr>
 																				<td valign="top" class="textContent">
-																					<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">Order Detail</h3>
 																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;margin-top:3px;color:#5F5F5F;line-height:135%;">
-																						<table style="border: 1px solid #eee;"> 
+																						<table style="border: 1px solid #eee; width:100%;"> 
 																							<thead style="background: #eee;">
 																								<tr>
 																									<th>Beer</th>
@@ -396,7 +384,7 @@
 																									<td style="border: 1px solid #eee;">{{product_description}}</td>
 																									<td style="border: 1px solid #eee;">{{unit_description}}</td>
 																									<td style="border: 1px solid #eee;text-align:right;">${{unit_price}}</td>
-																									<td "border: 1px solid #eee;text-align:right;">{{quantity}}</td>
+																									<td style="border: 1px solid #eee;text-align:right;">{{quantity}}</td>
 																								</tr>
 																								{{/lines}}
 																							</tbody>
@@ -423,14 +411,14 @@
 							<!-- // MODULE ROW -->
 
 
-							<!-- MODULE DIVIDER // -->
+							<!-- MODULE DIVIDER 
 							<tr>
 								<td align="center" valign="top">
-									<!-- CENTERING TABLE // -->
+									CENTERING TABLE // 
 									<table border="0" cellpadding="0" cellspacing="0" width="100%">
 										<tr>
 											<td align="center" valign="top">
-												<!-- FLEXIBLE CONTAINER // -->
+												FLEXIBLE CONTAINER //
 												<table border="0" cellpadding="0" cellspacing="0" width="500" class="flexibleContainer">
 													<tr>
 														<td align="center" valign="top" width="500" class="flexibleContainerCell">
@@ -438,13 +426,13 @@
 																<tr>
 																	<td align="center" valign="top" style="padding-top:0px;padding-bottom:0px;">
 
-																		<!-- CONTENT TABLE // -->
+																		CONTENT TABLE // 
 																		<table border="0" cellpadding="0" cellspacing="0" width="100%">
 																			<tr>
 																				<td align="center" valign="top" style="border-top:1px solid #C8C8C8;"></td>
 																			</tr>
 																		</table>
-																		<!-- // CONTENT TABLE -->
+																		 // CONTENT TABLE 
 
 																	</td>
 																</tr>
@@ -452,14 +440,15 @@
 														</td>
 													</tr>
 												</table>
-												<!-- // FLEXIBLE CONTAINER -->
+												// FLEXIBLE CONTAINER 
 											</td>
 										</tr>
 									</table>
-									<!-- // CENTERING TABLE -->
+									// CENTERING TABLE
 								</td>
 							</tr>
-							<!-- // END -->
+							// END 
+						-->
 
 
 							<!-- MODULE ROW // -->
@@ -472,7 +461,7 @@
 												<!-- FLEXIBLE CONTAINER // -->
 												<table border="0" cellpadding="30" cellspacing="0" width="500" class="flexibleContainer">
 													<tr>
-														<td valign="top" width="500" class="flexibleContainerCell">
+														<td valign="top" width="500" style="margin-left:30%;" class="flexibleContainerCell">
 
 															<!-- CONTENT TABLE // -->
 															<table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
@@ -486,12 +475,11 @@
 																			</tr>
 																		</table>
 																	</td>
-																	<td align="right" valign="middle" class="flexibleContainerBox">
+																	<td align="right" valign="middle" class="flexibleContainerBox" style="border-top: 2px solid black;">
 																		<table class="flexibleContainerBoxNext" border="0" cellpadding="0" cellspacing="0" width="210" style="max-width:100%;">
 																			<tr>
 																				<td align="left" class="textContent">
-																					<img src="http://www.charlesmudy.com/respmail/respmail-full.jpg" width="210" class="flexibleImage" style="max-width:100%;" alt="Text" title="Text" />
-																					<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:10px;margin-bottom:3px;text-align:left;">Order Total: {{total_price}}</h3>
+																					<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:10px;margin-bottom:3px;text-align:left;">Order Total: ${{total_price}}</h3>
 																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;color:#5F5F5F;line-height:135%;">&nbsp;</div>
 																				</td>
 																			</tr>
@@ -532,9 +520,9 @@
 																		<table border="0" cellpadding="0" cellspacing="0" width="60%">
 																			<tr>
 																				<td valign="top" class="textContent">
-																					<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">Order Comments</h3>
+																					<h3 style="color:#5F5F5F;line-height:125%;font-family:Helvetica,Arial,sans-serif;font-size:20px;font-weight:normal;margin-top:0;margin-bottom:3px;text-align:left;">Order Comments:</h3>
 																					<div style="text-align:left;font-family:Helvetica,Arial,sans-serif;font-size:15px;margin-bottom:0;margin-top:3px;color:#5F5F5F;line-height:135%;">
-																						<p>{{comments}}
+																						<p>{{comments}}</p>
 																					</div>
 																				</td>
 																			</tr>
@@ -583,14 +571,27 @@
 												<table border="0" cellpadding="0" cellspacing="0" width="500" class="flexibleContainer">
 													<tr>
 														<td align="center" valign="top" width="500" class="flexibleContainerCell">
-															<table border="0" cellpadding="30" cellspacing="0" width="100%">
+															<table border="0" cellpadding="30" cellspacing="0" width="100%" bgcolor="#E1E1E1">
 																<tr>
 																	<td valign="top" bgcolor="#E1E1E1">
 
 																		<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
 																			<div>Copyright &#169; 2016 <a href="http://www.charlesmudy.com/respmail/" target="_blank" style="text-decoration:none;color:#828282;"><span style="color:#828282;">B2B</span></a>. All&nbsp;rights&nbsp;reserved.</div>
 																		</div>
-
+																	</td>
+																</tr>
+																<tr>
+																	<td align="right" valign="middle" class="flexibleContainerBox" bgcolor="#E1E1E1">
+																		<table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:100%;">
+																			<tr>
+																				<td align="left" class="textContent">
+																					<!-- CONTENT // -->
+																					<div style="font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#828282;text-align:center;line-height:120%;">
+																						If you can't see this message, <a href="#" target="_blank" style="text-decoration:none;border-bottom:1px solid #828282;color:#828282;"><span style="color:#828282;">view&nbsp;it&nbsp;in&nbsp;your&nbsp;browser</span></a>.
+																					</div>
+																				</td>
+																			</tr>
+																		</table>
 																	</td>
 																</tr>
 															</table>
