@@ -46,7 +46,7 @@ function get_orders($filters = NULL)
     }
 
     $query .= " FROM orders o LEFT JOIN users u ON o.user_id = u.id "
-            . " LEFT JOIN delivery_methods dm on delivery_method = dm.id ";
+            . " LEFT JOIN delivery_methods dm ON delivery_method = dm.id ";
 
     if(isset($filters['details']))
     {
