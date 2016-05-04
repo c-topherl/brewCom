@@ -26,7 +26,7 @@ function VerifyToken($token, $user_id = NULL, $username = NULL)
         throw new Exception($sth->errorInfo()[2]);
     }
     $row = $sth->fetch(PDO::FETCH_ASSOC);
-    if(!VerifyLastLogin($row['last_login']))
+    if(VerifyLastLogin($row['last_login']) === FALSE)
     {
         return FALSE;
     }

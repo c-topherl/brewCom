@@ -22,7 +22,7 @@ function verify_user($userArray)
         $user_id = VerifyToken($userArray['token'], $userArray['user_id'], $userArray['username']);
         if($user_id === FALSE)
         {
-            throw new Exception("Invalid token provided.");
+            throw new Exception("Your session has expired.  Please log in again.");
         }
         $token = $userArray['token'];
     }

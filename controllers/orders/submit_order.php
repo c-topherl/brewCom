@@ -19,7 +19,7 @@ function submit_order($values)
     }
     if(FALSE === VerifyToken($values['token'], $values['user_id'], NULL))
     {
-        throw new Exception('Invalid token for user');
+        throw new Exception('Your session has expired.  Please log in again.');
     }
     //set up all data to be passed to add_order()
     $userInfo = get_users(array('id' => $user_id));
