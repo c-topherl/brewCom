@@ -7,7 +7,7 @@ var alertList = [
 	warningAlert,
 	infoAlert,
 	successAlert
-]
+];
 
 var validateQuantity = function(quantityField){
 	var quantity = quantityField.value;
