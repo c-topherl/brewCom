@@ -17,11 +17,10 @@ function add_order($orderInfo)
 
     //default values
     $orderInfo['order_date'] = isset($orderInfo['order_date']) ? $orderInfo['order_date'] : date("Y-m-d");
-    $orderInfo['delivery_method'] = isset($orderInfo['delivery_method']) ? $orderInfo['delivery_method'] : 0; //pickup/delivery
+    $orderInfo['delivery_method'] = isset($orderInfo['delivery_method']) ? $orderInfo['delivery_method'] : 1; //pickup/delivery
     $orderInfo['status'] = isset($orderInfo['status']) ? $orderInfo['status'] : "open";
     $orderInfo['comments'] = isset($orderInfo['comments']) ? $orderInfo['comments']: '';
     $orderInfo['shipping_comments'] = isset($orderInfo['shipping_comments']) ? $orderInfo['shipping_comments'] : '';
-    $orderInfo['total_price'] = 0;
     if(isset($orderInfo['total_price']))
     {
         //if we were given a total price override
@@ -33,6 +32,10 @@ function add_order($orderInfo)
         $orderInfo['total_price'] =  array_sum(array_map(function($row){
                 return $row['quantity'] * $row['price'];
                 }, $orderInfo['lines']));
+    }
+    else
+    {
+        $orderInfo['total_price'] = 0;
     }
 
     $query = "INSERT INTO orders(user_id, order_date,delivery_date,delivery_method,status,comments,shipping_comments, total_price) 

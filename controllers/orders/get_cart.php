@@ -27,7 +27,7 @@ function get_cart($cartInfo)
     $details = get_cart_details($dbh, $user_id);
     //calculate total price
     $cartArray['total_price'] = array_sum(array_map(function($row){
-            return $row['quantity'] * $row['price'];
+            return $row['line_price'];
         }, $details));
     //uncomment if you want details passed in the main get_cart function
     $cartArray['lines'] = $details;
@@ -39,7 +39,7 @@ function get_cart_details($dbh, $user_id)
     $detailArray = array();
     $query = "SELECT product_id, p.code product_code, p.description product_description, 
             unit_id, u.code unit_code, u.description unit_description, 
-            (cd.price / cd.quantity) unit_price, cd.price line_price, quantity, cd.last_updated, cd.line_id
+            cd.price unit_price, (cd.price * cd.quantity) line_price, quantity, cd.last_updated, cd.line_id
         FROM cart_details cd
         LEFT JOIN products p ON p.id = cd.product_id 
         LEFT JOIN units u ON u.id = cd.unit_id
