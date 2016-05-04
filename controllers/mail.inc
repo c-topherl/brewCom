@@ -5,13 +5,18 @@ define('DEFAULT_EMAIL','joelmeister1209@gmail.com');
 define('NOREPLY_EMAIL','noreply@joelmeister.net');
 function order_confirmation_email($information)
 {
-    /*
-    $body = "<html><body>
-        Order received!
-        order id: ".$information['order_id']."
-        </body></html>";
-    */
-    $body = file_get_contents('../views/penrose/email_confirmation.html');
+    //$body = file_get_contents('../views/penrose/email_confirmation.html');
+    require '../mustache.php/src/Mustache/Autoloader.php';
+    Mustache_Autoloader::register();
+
+    $options =  array('extension' => '.html');
+    $mustache = new Mustache_Engine(array(
+        'loader' => new Mustache_Loader_FilesystemLoader('../views/penrose', $options),
+        ));
+
+    $tpl = $mustache->loadTemplate('email_confirmation');
+    //$body = $tpl->render(array('order_number' => 'test number'));
+    $body = $tpl->render($information);
     $subject = 'order received';
     return send_mail($information['email'], $subject, $body);
 }
