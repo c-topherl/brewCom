@@ -210,7 +210,7 @@ var setCookie = function(name, val, numDays){
 	return;
 }
 
-var getCookie = function(name) {
+var getCookie = function(cname) {
 	var name = cname + "=";
     var ca = document.cookie.split(';');
     for(var i = 0; i < ca.length; i++) {

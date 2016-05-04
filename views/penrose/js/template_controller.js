@@ -34,26 +34,53 @@ var forgotPasswordSubmit = function(){
 	showAlert(infoAlert, "You will receive instructions to reset your password shortly.");
 }
 
-var verifyLogin = function(){
-	var user = document.getElementById("username");
-	var pass = document.getElementById("password");
-	hideAlerts();
+var sessionExists = function(){
+	var userId = getCookie('userId');
+	if (!userId || userId === ""){
+		userId = null;
+		return false;
+	}
 
-	if (!user.value || !pass.value){
-		showAlert(errorAlert, "You must enter a username and password!");
-		return;
+	var token = getCookie('token');
+	if (!token || token === ""){
+		userId = null;
+		token = null;
+		return false;
+	}
+	
+	return true;
+}
+
+var verifyLogin = function(){
+	var requestData = {
+    	"function": "verify_user"
+    };
+    
+    var userId = getCookie('userId');
+    var token = getCookie('token');
+
+    if (userId && token){
+    	requestData.user_id = userId;
+    	requestData.token = token;
+    } else {
+		var user = document.getElementById("username");
+		var pass = document.getElementById("password");
+		
+		if (!user.value || !pass.value){
+			showAlert(errorAlert, "You must enter a username and password!");
+			return;
+		}
+
+		requestData.username = user.value;
+		requestData.password = pass.value;
+		hideAlerts();
 	}
 
 	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
 
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
-    var requestData = {
-    	"function": "verify_user",
-    	"username": user.value,
-    	"password": pass.value
-    };
-
+    
     var template;
     var data;
     var userId;
@@ -65,13 +92,14 @@ var verifyLogin = function(){
         	var responseObj = JSON.parse(req.responseText);
         	if (responseObj.status === "success"){
         		data = responseObj.response;
+
+        		removeCookies();
         		userId = responseObj.response.user_id;
-        		userDiv = document.getElementById("user-id");
-        		if (userId && userDiv){
-        			userDiv.innerHTML = userId;
-        		}
+        		token = responseObj.response.token;
+        		setCookie("userId", userId, 1);
+        		setCookie("token", token, 1);
 			
-			lines = data.lines;
+				lines = data.lines;
         		if (!lines){
         			template = templatePath + "delivery_date.html";
         			loadTemplate(template, data);
@@ -100,7 +128,7 @@ var verifyLogin = function(){
 
 
 var getOpenOrders = function(){
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var template = templatePath + "open_orders.html";
 
@@ -138,7 +166,7 @@ var getDeliveryOptions = function(){
 		return;
 	}
 
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var template = templatePath + "delivery_date.html";
 
@@ -153,7 +181,7 @@ var getDeliveryOptions = function(){
 }
 
 var buildCartHeader = function(){
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var shipDate = document.getElementById("delivery-date");
 	shipDate = shipDate.options[shipDate.selectedIndex].text;
 	var deliveryMethod = document.getElementById("delivery-method");
@@ -175,7 +203,7 @@ var buildCartHeader = function(){
 
 var getOrderPage = function(){
 	var temp = userCart;
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var template = templatePath + "order.html";
 	url = "http://joelmeister.net/brewCom/controllers/product_controller.php";
 
@@ -212,7 +240,7 @@ Handlebars.registerHelper('getQuantity', function(productId, unitId){
 
 var buildCart = function(){
 	var template = templatePath + "cart.html";
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 
 	var lineId;
 	var lineCounter = 0;
@@ -274,7 +302,7 @@ var buildCart = function(){
 
 var getCart = function() {
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var template = templatePath + "cart.html";
 
 	var requestData = {
@@ -293,7 +321,7 @@ var buildCheckoutPage = function(){
 }
 
 var submitOrder = function(){
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 	var template = templatePath + "confirmation.html";
 
@@ -374,7 +402,7 @@ var updateCustomerInfo = function(){
 	*/
 
 	//temporary - this will go away
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var message = "Your information has been updated successfully!";
 	showConfirmation(message);
 
@@ -382,7 +410,7 @@ var updateCustomerInfo = function(){
 }
 
 var deleteLine = function(lineNumber){
-	var userId = document.getElementById("user-id").innerHTML;
+	var userId = getCookie('userId');
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 
 	var requestData = {
@@ -419,5 +447,11 @@ var removeRow = function(lineNumber){
 		getOrderPage();
 	}
 
+	return;
+}
+
+var logout = function(){
+	removeCookies();
+	location.reload();
 	return;
 }

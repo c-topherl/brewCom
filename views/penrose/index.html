@@ -55,7 +55,7 @@
                 <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getOpenOrders();">View Orders</a></li>
                 <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)">&nbsp;</a></li>
                 <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getCustomerInfoForm();">Update Info</a></li>
-                <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="location.reload();">Log Out</a></li>
+                <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="logout();">Log Out</a></li>
             </ul>
         </nav>
     </div>   
@@ -84,7 +84,6 @@
 
 		<header class="header-simple">
 			<h2 class="header-fade fade-in">Online Ordering</h2>
-			<p id="user-id" class="hidden"></p>
 		</header>
 
 		<!-- BEER LISTING -->
@@ -203,11 +202,9 @@
 
             $(document).ready(function () {
             	$('#main-content').bind('DOMNodeInserted', showTables);
-                var userId = getCookie('userId');
-                if (userId === ""){
-                    return;
-                } else {
-                    document.getElementById("user-id").innerHTML = userId;
+                
+                if (sessionExists()){
+                    verifyLogin();
                 }
 
 
