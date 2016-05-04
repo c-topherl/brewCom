@@ -37,7 +37,11 @@ var comparePasswords = function(password2){
 	var password1 = document.getElementById("password");
 	if (password1.value !== password2.value){
 		alert("Passwords do not match!");
-		password2.focus();
+		if (password1.value === ""){
+			password1.focus();
+		} else {
+			password2.focus();
+		}
 	}
 
 	return;
