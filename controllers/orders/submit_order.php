@@ -29,7 +29,7 @@ function submit_order($values)
     $order = get_cart_information($dbh, $values);
 
     $orderInfo = add_order($order);
-    order_confirmation_email(array('email' => $email, 'order_id' => $orderInfo['id']));
+    order_confirmation_email(array_merge($orderInfo,array('email' => $email)));
 
     //delete cart
     delete_cart_by_user_id($dbh, $values['user_id']);
