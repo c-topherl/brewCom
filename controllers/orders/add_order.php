@@ -10,6 +10,7 @@ comments?
 shipping_comments?
 */
 require_once "PDOConnection.php";
+require_once "orders/get_orders.php";
 function add_order($orderInfo)
 {
     $dbh = new PDOConnection();
@@ -53,11 +54,11 @@ function add_order($orderInfo)
     $order_id = $dbh->lastInsertId();
     if(isset($orderInfo['lines']))
     {
-        add_order_detail($dbh,$order_id,$orderInfo['lines']);
+        add_order_detail($dbh, $order_id, $orderInfo['lines']);
     }
 
     //return all order data to display on the order confirmation page
-    $orderConf = get_orders(array('details' => 1, 'order_id' => $order_id));
+    $orderConf = get_order_detail(array('details' => 1, 'order_id' => $order_id));
     return $orderConf;
 }
 function add_order_detail($dbh, $order_id, $detailArray)
