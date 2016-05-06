@@ -29,6 +29,10 @@
 <link rel="stylesheet" href="css/dataTables.min.css">
 <link rel="stylesheet" href="css/brewery.css">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.sidr/2.2.1/stylesheets/jquery.sidr.dark.min.css">
+
+
+
 
 
 	</head>
@@ -47,40 +51,32 @@
         <h1><a class="logo" href="/">Penrose Brewing Company</a></h1>
         
         <!-- Main Nav -->
-        <a href="#menu-main" class="nav-mobile-toggle menu-trigger">Menu</a>
+        <a href="#sidr" id="simple-menu" class="nav-mobile-toggle menu-trigger hidden">☰</a>
+        
+
         <nav id="nav-main" class="nav-main nav-header col-xs-12">
-            <ul>
-                <li class="nav-link col-xs-1 hidden"><a href="javascript:void(0)">&nbsp;</a></li>
-                <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getDeliveryOptions();">Place Order</a></li>
-                <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getOpenOrders();">View Orders</a></li>
-                <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)">&nbsp;</a></li>
-                <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getCustomerInfoForm();">Update Info</a></li>
-                <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="logout();">Log Out</a></li>
-            </ul>
+                <ul id="menu-list">
+                    <li class="nav-link col-xs-1 hidden"><a href="javascript:void(0)">&nbsp;</a></li>
+                    <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getDeliveryOptions();">Place Order</a></li>
+                    <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getOpenOrders();">View Orders</a></li>
+                    <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)">&nbsp;</a></li>
+                    <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="getCustomerInfoForm();">Update Info</a></li>
+                    <li class="nav-link col-xs-2 hidden"><a href="javascript:void(0)" onclick="logout();">Log Out</a></li>
+                </ul>
         </nav>
-    </div>   
+    </div>
+
+    <div id="sidr-div" class="hidden">
+    	<div id="sidr">
+	        <ul>  
+            	<li><a href="javascript:void(0)" onclick="getDeliveryOptions();">Place Order</a></li>
+            	<li><a href="javascript:void(0)" onclick="getOpenOrders();">View Orders</a></li>
+            	<li><a href="javascript:void(0)" onclick="getCustomerInfoForm();">Update Info</a></li>
+            	<li><a href="javascript:void(0)" onclick="logout();">Log Out</a></li>
+        	</ul>
+    	</div>
+    </div>
 </header>
-
-
-<!-- Main Nav 
-<nav class="nav-main nav-header nav-short">
-    <ul>
-         Left Side 
-        <li class="about"><a href="/about">About</a></li>
-        <li class="beer"><a href="/beer">Beer</a></li>
-        <li class="news"><a href="/news">News</a></li>
-        <li class="events"><a href="/events">Events</a></li>
-        <li class="shop"><a href="https://estore.bfcprint.com/penrose/start_new_order.cgi">Shop</a></li>
-         Logo
-        <li class="home"><a href="/">Penrose Brewing Company</a></li>
-         Right Side 
-        <li class="tasting-room"><a href="/taproom">Taproom</a></li>
-        <li class="tours is-short"><a href="/taproom/detail/brewery-tours">Test</a></li>
-        <li class="pritave-events is-short"><a href="/taproom/detail/private-events">Private Events</a></li>
-        <li class="contact is-short"><a href="/contact">Contact</a></li>
-    </ul>
-</nav>
--->
 
 		<header class="header-simple">
 			<h2 class="header-fade fade-in">Online Ordering</h2>
@@ -190,6 +186,7 @@
 <script src="js/site.js"></script>
 <script src="js/handlebars.min.js"></script>
 <script src="js/template_controller.js"></script>
+<script src="//cdn.jsdelivr.net/jquery.sidr/2.2.1/jquery.sidr.min.js"></script>
 
 		 <script type="text/javascript">
             var showTables = function() {
@@ -200,6 +197,10 @@
             	});
             }
 
+            var mobileMenu = function(){
+                document.getElementById('menu-list').classList.toggle("responsive");
+            }
+
             $(document).ready(function () {
             	$('#main-content').bind('DOMNodeInserted', showTables);
                 
@@ -207,7 +208,7 @@
                     verifyLogin();
                 }
 
-
+                $("#simple-menu").sidr();
     		});
         </script>
 

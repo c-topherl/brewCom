@@ -105,6 +105,28 @@ var displayTable = function(tableName){
 	$(tableName).dataTable();
 }
 
+var hideMobileNav = function() {
+	var mobileNav = document.getElementById('simple-menu');
+	mobileNav.className += " hidden";
+
+	mobileNav = document.getElementById('sidr-div');
+	mobileNav.className = "hidden";
+
+	return;
+}
+
+var showMobileNav = function() {
+	var mobileNav = document.getElementById('simple-menu');
+	var classes = mobileNav.className.split(" ");
+	classes.pop();
+	mobileNav.className = classes.join(" ");
+
+	mobileNav = document.getElementById('sidr-div');
+	mobileNav.className = "";
+
+	return;
+}
+
 //add "hidden" class to all navlinks
 var hideNavLinks = function(){
 	var navLinks = document.getElementsByClassName("nav-link");
@@ -132,6 +154,8 @@ var showNavLinks = function(){
 		}
 		navLinks[i].className = classes.join(" ");
 	}
+
+	showMobileNav();
 	
 	return;
 }

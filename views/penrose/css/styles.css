@@ -39,14 +39,6 @@ textarea {
 	}
 }
 
-/*
-@media screen and (min-width: 1000px) {
-	textarea {
-		width: 20%;
-	}
-}
-*/
-
 ul li {
 	display: inline;
 }
@@ -66,3 +58,10 @@ ul li {
 	background: 0 0;
 	outline: 0;
 }
+
+
+#sidr {
+	background-color: black;
+}
+
+

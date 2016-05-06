@@ -413,6 +413,7 @@ var removeRow = function(lineNumber){
 
 var logout = function(){
 	removeCookies();
+	hideMobileNav();
 	location.reload();
 	return;
 }
