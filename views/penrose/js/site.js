@@ -262,6 +262,7 @@ var getCookie = function(cname) {
 }
 
 var removeCookies = function() {
-	document.cookie = "";
+	setCookie("userId", "", -1);
+	setCookie("token", "", -1);
 	return;
 }
