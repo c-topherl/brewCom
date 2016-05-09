@@ -358,9 +358,6 @@ var submitOrder = function(){
 
 	userCart = null;
 	buildHttpRequestForTemplate(method, url, template, requestData);
-
-	var successMessage = "Thank you! Your order has been placed. You will receive an email confirmation shortly.";
-	showConfirmation(successMessage);
 	
     return;
 }
