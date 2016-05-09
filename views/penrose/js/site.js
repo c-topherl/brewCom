@@ -67,13 +67,17 @@ var buildHttpRequestForTemplate = function(method, url, templatePath, data){
     hideAlerts();
 
     req.onreadystatechange = function(){
-        if (req.readyState == 4 && req.status == 200){
-        	var resp = JSON.parse(req.responseText);
-        	if (resp.status === "success"){
-        		loadTemplate(templatePath, resp.response);
-        	} else {
-        		showAlert(errorAlert, resp.message);
+    	try {
+        	if (req.readyState == 4 && req.status == 200){
+        		var resp = JSON.parse(req.responseText);
+        		if (resp.status === "success"){
+	        		loadTemplate(templatePath, resp.response);
+        		} else {
+	        		showAlert(errorAlert, resp.message);
+        		}
         	}
+        } catch(err) {
+        	showAlert(errorAlert, "An error occurred. Please try again or contact customer service.");
         }
     };
 
@@ -86,15 +90,19 @@ var buildHttpRequest = function(method, url, data, callback, callbackParam){
     hideAlerts();
 
     req.onreadystatechange = function(){
-    	if (req.readyState == 4 && req.status == 200){
-    		var resp = JSON.parse(req.responseText);
-    		if (resp.status === "success"){
-        		if (callback){
-        			callback(callbackParam);
+    	try {
+    		if (req.readyState == 4 && req.status == 200){
+	    		var resp = JSON.parse(req.responseText);
+    			if (resp.status === "success"){
+	        		if (callback){
+        				callback(callbackParam);
+        			}
+        		} else {
+	        		showAlert(errorAlert, resp.message);
         		}
-        	} else {
-        		showAlert(errorAlert, resp.message);
-        	}
+    		}
+    	} catch(err) {
+    		showAlert(errorAlert, "An error occurred. Please try again or contact customer service.");
     	}
     }
     req.send(JSON.stringify(data));
