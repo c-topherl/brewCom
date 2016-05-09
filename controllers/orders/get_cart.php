@@ -6,8 +6,7 @@ require_once("PDOConnection.php");
 function get_cart($cartInfo)
 {
     $dbh = new PDOConnection();
-    $query = "SELECT u.id user_id, u.username, u.email,
-            delivery_date, delivery_method, shipping_type, comments, shipping_comments, h.last_updated 
+    $query = "SELECT u.id user_id, u.username, u.email, h.address_id, delivery_date, delivery_method, shipping_type, comments, shipping_comments, h.last_updated 
         FROM cart_headers h 
         LEFT JOIN users u ON u.id = h.user_id 
         WHERE user_id = :user_id ";
