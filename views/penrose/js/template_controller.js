@@ -324,7 +324,7 @@ var submitOrder = function(){
 	var userId = getCookie('userId');
 	var token = getCookie('token');
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-	var template = templatePath + "confirmation.html";
+	var template = templatePath + "order_detail.html";
 
 	var comments = document.getElementById("comments").value;
 	var email = document.getElementById("email").value;
@@ -339,6 +339,9 @@ var submitOrder = function(){
 
 	userCart = null;
 	buildHttpRequestForTemplate(method, url, template, requestData);
+
+	var successMessage = "Thank you! Your order has been placed. You will receive an email confirmation shortly.";
+	showConfirmation(successMessage);
 	
     return;
 }
@@ -351,16 +354,6 @@ var getCustomerInfoForm = function(){
 }
 
 var updateCustomerInfo = function(){
-	/*
-	REQUEST TO UPDATE CUSTOMER INFO
-	
-	var method = "post";
-	var url = "update_customer_info.php";
-	var templatePath = "http://localhost/brewCom/views/penrose/confirmation.html";
-	var successMessage = "Your information has been updated successfully!";
-
-	buildHttpRequest(method, url, showConfirmation, successMessage);
-	*/
 
 	//temporary - this will go away
 	var userId = getCookie('userId');
