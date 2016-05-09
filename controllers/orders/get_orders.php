@@ -14,8 +14,8 @@ function get_orders($filters = NULL)
 
     $query = "SELECT o.order_id, 
             total_price, 
-            order_date,
-            ship_date,
+            date(order_date) order_date,
+            date(ship_date) ship_date,
             delivery_date,
             dm.id delivery_method_id,
             dm.description delivery_method,
