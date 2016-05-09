@@ -161,7 +161,7 @@ var getOrderDetail = function(orderNumber){
 
 var getDeliveryOptions = function(){
 	if (userCart){
-		getCart();
+		getOrderPage();
 		showAlert(warningAlert, "You already have an order in progress.");
 		return;
 	}
@@ -196,13 +196,13 @@ var buildCartHeader = function(){
     	"shipping_type": "standard"
     };
 
+    userCart = {};
 	buildHttpRequest(method, url, requestData, getOrderPage, null);
 
     return;
 }
 
 var getOrderPage = function(){
-	var temp = userCart;
 	var userId = getCookie('userId');
 	var template = templatePath + "order.html";
 	url = "http://joelmeister.net/brewCom/controllers/product_controller.php";
@@ -213,12 +213,13 @@ var getOrderPage = function(){
     };
 
     buildHttpRequestForTemplate(method, url, template, requestData);
+    return;
 }
 
 Handlebars.registerHelper('getQuantity', function(productId, unitId){
 	var quantity = "";
 
-	if (!userCart){
+	if (!userCart || !userCart.lines){
 		return quantity;
 	}
 
@@ -327,6 +328,7 @@ var deleteCart = function() {
     	"user_id": userId,
     };
 
+    userCart = null;
     buildHttpRequest(method, url, requestData, getDeliveryOptions);
 
     return;
