@@ -36,8 +36,8 @@ function add_cart_header($cartHeader)
         $address_id = isset($addresses[0]['address_id']) ? $addresses[0]['address_id'] : -1; //no address
     }
 
-    $query = "INSERT INTO cart_headers(user_id, delivery_date, delivery_method, shipping_type, address_id, comments, shipping_comments) ";
-    $query .= "VALUES(:user_id, :delivery_date, :delivery_method, :shipping_type, :address_id, :comments, :shipping_comments)";
+    $query = "INSERT INTO cart_headers(user_id, delivery_date, delivery_method, shipping_type, address_id, comments, shipping_comments, created) ";
+    $query .= "VALUES(:user_id, :delivery_date, :delivery_method, :shipping_type, :address_id, :comments, :shipping_comments, now())";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':user_id', $user_id);
     $sth->bindParam(':delivery_date', $delivery_date);
