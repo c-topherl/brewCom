@@ -183,9 +183,9 @@ var getDeliveryOptions = function(){
 var buildCartHeader = function(){
 	var userId = getCookie('userId');
 	var shipDate = document.getElementById("delivery-date");
-	shipDate = shipDate.options[shipDate.selectedIndex].text;
+	shipDate = shipDate.options[shipDate.selectedIndex].value;
 	var deliveryMethod = document.getElementById("delivery-method");
-	deliveryMethod = deliveryMethod.options[deliveryMethod.selectedIndex].text;
+	deliveryMethod = deliveryMethod.options[deliveryMethod.selectedIndex].value;
 	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
 
 	var requestData = {
