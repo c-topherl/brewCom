@@ -25,7 +25,7 @@ function get_orders($filters = NULL)
 
     if(isset($filters['details']))
     {
-        $query .= ",comments order_comments, 
+        $query .= ",comments comments, 
                 shipping_comments,
                 u.username,
                 dm.code delivery_method_code,

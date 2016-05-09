@@ -13,7 +13,23 @@ require_once "PDOConnection.php";
 require_once "orders/get_orders.php";
 function add_order($orderInfo)
 {
+    $orderInfo = GetDefaultOrderInfo($orderInfo);
+
     $dbh = new PDOConnection();
+    $order_id = AddOrderFromInfo($dbh, $orderInfo);
+
+    if(isset($orderInfo['lines']))
+    {
+        add_order_detail($dbh, $order_id, $orderInfo['lines']);
+    }
+
+    //return all order data to display on the order confirmation page
+    $orderConf = get_order_detail(array('details' => 1, 'order_id' => $order_id));
+    return $orderConf;
+}
+
+function GetDefaultOrderInfo($orderInfo)
+{
 
     //default values
     $orderInfo['order_date'] = isset($orderInfo['order_date']) ? $orderInfo['order_date'] : date("Y-m-d");
@@ -30,40 +46,53 @@ function add_order($orderInfo)
     {
         //Get the total price from the lines
         $orderInfo['total_price'] =  array_sum(array_map(function($row){
-                return $row['quantity'] * $row['price'];
-                }, $orderInfo['lines']));
+                    return $row['quantity'] * $row['price'];
+                    }, $orderInfo['lines']));
     }
     else
     {
         $orderInfo['total_price'] = 0;
     }
+    return $orderInfo;
+}
 
+function AddOrderFromInfo($dbh, $orderInfo)
+{
     $query = "INSERT INTO orders(user_id, order_date,delivery_date,delivery_method,status,comments,shipping_comments, total_price) 
         VALUES(:user_id, :order_date, :delivery_date, :delivery_method, :status, :comments, :shipping_comments, :total_price)";
 
     $sth = $dbh->prepare($query);
     $orderExecArr = array(':user_id' => $orderInfo['user_id'], 
-        ':order_date' => $orderInfo['order_date'], 
-        ':delivery_date' => $orderInfo['delivery_date'], 
-        ':delivery_method' => $orderInfo['delivery_method'], 
-        ':status'=> $orderInfo['status'], 
-        ':comments' => $orderInfo['comments'], 
-        ':shipping_comments' => $orderInfo['shipping_comments'],
-        ':total_price' => $orderInfo['total_price']);
+            ':order_date' => $orderInfo['order_date'], 
+            ':delivery_date' => $orderInfo['delivery_date'], 
+            ':delivery_method' => $orderInfo['delivery_method'], 
+            ':status'=> $orderInfo['status'], 
+            ':comments' => $orderInfo['comments'], 
+            ':shipping_comments' => $orderInfo['shipping_comments'],
+            ':total_price' => $orderInfo['total_price']);
     if(!$sth->execute($orderExecArr))
     {
         throw new Exception($sth->errorInfo()[2]);
     }
     $order_id = $dbh->lastInsertId();
-    if(isset($orderInfo['lines']))
-    {
-        add_order_detail($dbh, $order_id, $orderInfo['lines']);
-    }
-
-    //return all order data to display on the order confirmation page
-    $orderConf = get_order_detail(array('details' => 1, 'order_id' => $order_id));
-    return $orderConf;
+    AddOrderAddress($dbh, $order_id, $orderInfo['shipping_address_id']);
+    AddOrderAddress($dbh, $order_id, $orderInfo['billing_address_id']);
+    return $order_id;
 }
+function AddOrderAddress($dbh, $order_id, $address_id)
+{
+    //TODO billing and shipping addresses
+    $query = "INSERT INTO order_addresses(order_id, type, name, address1, address2, city, state, zipcode) SELECT :order_id, type, name, address1, address2, city, state, zipcode FROM addresses WHERE id = :address_id";
+    $sth = $dbh->prepare($query);
+    $sth->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+    $sth->bindParam(':address_id', $address_id, PDO::PARAM_INT);
+    if(!$sth->execute($orderExecArr))
+    {
+        throw new Exception($sth->errorInfo()[2]);
+    }
+    return TRUE;
+}
+
 function add_order_detail($dbh, $order_id, $detailArray)
 {
     //initialize parameters for binding 
