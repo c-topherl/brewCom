@@ -2,6 +2,11 @@
 define('ADDRESS_TYPE_SHIP',0);
 define('ADDRESS_TYPE_BILL',1);
 
+define('STATUS_OPEN',1);
+define('STATUS_SHIPPED',2);
+define('STATUS_CLOSED',3);
+define('STATUS_VOID',4);
+
 function output_error($errormessage){
     http_response_code(400);
     echo json_encode(array('error' => $errormessage));

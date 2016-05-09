@@ -34,7 +34,7 @@ function GetDefaultOrderInfo($orderInfo)
     //default values
     $orderInfo['order_date'] = isset($orderInfo['order_date']) ? $orderInfo['order_date'] : date("Y-m-d");
     $orderInfo['delivery_method'] = isset($orderInfo['delivery_method']) ? $orderInfo['delivery_method'] : 1; //pickup/delivery
-    $orderInfo['status'] = isset($orderInfo['status']) ? $orderInfo['status'] : "open";
+    $orderInfo['status'] = isset($orderInfo['status']) ? $orderInfo['status'] : STATUS_OPEN;
     $orderInfo['comments'] = isset($orderInfo['comments']) ? $orderInfo['comments']: '';
     $orderInfo['shipping_comments'] = isset($orderInfo['shipping_comments']) ? $orderInfo['shipping_comments'] : '';
     if(isset($orderInfo['total_price']))
