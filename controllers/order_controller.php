@@ -60,11 +60,17 @@ switch($function)
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart successfully updated';
         break;
+    case "delete_cart":
+        include "orders/delete_cart.php";
+        $responseArray['response'] = delete_cart($values);
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'Successfully deleted cart';
+        break;
     case "delete_cart_detail":
         include "orders/delete_cart.php";
         $responseArray['response'] = delete_cart_detail($values);
         $responseArray['status'] = 'success';
-        $responseArray['message'] = 'Successfully delete cart line';
+        $responseArray['message'] = 'Successfully deleted cart line';
         break;
     case "submit_order":
         include "orders/submit_order.php";
