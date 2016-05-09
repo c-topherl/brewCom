@@ -313,6 +313,25 @@ var getCart = function() {
     buildHttpRequestForTemplate(method, url, template, requestData);
 }
 
+var deleteCart = function() {
+	var warningMessage = "WARNING: this will erase your current order progress. Are you sure you want to continue?";
+	if (!confirm(warningMessage)){
+		return;
+	}
+
+	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var userId = getCookie('userId');
+
+	var requestData = {
+    	"function": "delete_cart",
+    	"user_id": userId,
+    };
+
+    buildHttpRequest(method, url, requestData, getDeliveryOptions);
+
+    return;
+}
+
 var buildCheckoutPage = function(){
 	var template = templatePath + "checkout.html";
     loadTemplate(template, null);
