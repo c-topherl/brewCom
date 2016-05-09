@@ -35,7 +35,7 @@ function AddToUsers($dbh, $userInfo)
     $email = $userInfo['email'];;
     $password = hash_password($userInfo['password'],$username);
 
-    $query = "INSERT INTO users(username,email,password) VALUES(:username, :email, :password)";
+    $query = "INSERT INTO users(username,email,password,created) VALUES(:username, :email, :password, NOW())";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
