@@ -23,29 +23,10 @@ function add_address($addressInfo)
         throw new Exception("ERROR: name, address1, city, state, zipcode, type, and customer_id or user_id required");
     }
 
-    $address2 = isset($addressInfo['address2']) ? $addressInfo['address2'] : '';
+    $addressInfo['address2'] = isset($addressInfo['address2']) ? $addressInfo['address2'] : '';
 
     $dbh = new PDOConnection();
-
-    $query = "INSERT INTO addresses(name, address1, address2, city, state, zipcode, type) "
-            . "VALUES(:name, :address1, :address2, :city, :state, :zipcode, :type)";
-
-    $sth = $dbh->prepare($query);
-
-    $sth->bindParam(':name', $addressInfo['name']);
-    $sth->bindParam(':address1', $addressInfo['address1']);
-    $sth->bindParam(':address2', $address2);
-    $sth->bindParam(':city', $addressInfo['city']);
-    $sth->bindParam(':state', $addressInfo['state']);
-    $sth->bindParam(':zipcode', $addressInfo['zipcode']);
-    $sth->bindParam(':type', $addressInfo['type'], PDO::PARAM_INT);
-
-    if(!$sth->execute())
-    {
-        throw new Exception("ERROR: could not add address - " . $sth->errorInfo()[2]);
-    }
-
-    $address_id = $dbh->lastInsertId();
+    $address_id = AddAddress($dbh, $addressInfo);
 
     if(isset($addressInfo['user_id']))
     {
@@ -55,7 +36,7 @@ function add_address($addressInfo)
         $sth->bindParam(':address_id', $address_id, PDO::PARAM_INT);
         if(!$sth->execute())
         {
-            throw new Exception("ERROR: could not add address - " . $sth->errorInfo()[2]);
+            throw new Exception("ERROR: could not add user address - " . $sth->errorInfo()[2]);
         }
     }
     elseif(isset($addressInfo['customer_id']))
@@ -66,9 +47,33 @@ function add_address($addressInfo)
         $sth->bindParam(':address_id', $address_id, PDO::PARAM_INT);
         if(!$sth->execute())
         {
-            throw new Exception("ERROR: could not add address - " . $sth->errorInfo()[2]);
+            throw new Exception("ERROR: could not add customer address - " . $sth->errorInfo()[2]);
         }
     }
 
-    return array('id' => $address_id);
+    return array('address_id' => $address_id);
+}
+
+function AddAddress($dbh, $addressInfo)
+{
+
+    $query = "INSERT INTO addresses(name, address1, address2, city, state, zipcode, type) "
+        . "VALUES(:name, :address1, :address2, :city, :state, :zipcode, :type)";
+
+    $sth = $dbh->prepare($query);
+
+    $sth->bindParam(':name', $addressInfo['name']);
+    $sth->bindParam(':address1', $addressInfo['address1']);
+    $sth->bindParam(':address2', $addressInfo['address2']);
+    $sth->bindParam(':city', $addressInfo['city']);
+    $sth->bindParam(':state', $addressInfo['state']);
+    $sth->bindParam(':zipcode', $addressInfo['zipcode']);
+    $sth->bindParam(':type', $addressInfo['type'], PDO::PARAM_INT);
+
+    if(!$sth->execute())
+    {
+        throw new Exception("ERROR: could not add address - " . $sth->errorInfo()[2]);
+    }
+
+    return $dbh->lastInsertId();
 }

@@ -17,7 +17,7 @@ function get_addresses($values = NULL)
 
     if(isset($values['address_id']))
     {
-        $query .= " AND address_id = :address_id ";
+        $query .= " AND a.id = :address_id ";
         $execArray['address_id'] = (int)$values['address_id'];
     }
 

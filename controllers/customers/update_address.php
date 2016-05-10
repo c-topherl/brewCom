@@ -19,10 +19,10 @@ function update_address($addressInfo)
         throw new Exception("ERROR: address_id and customer_id or user_id required");
     }
 
-    $oldInfo = get_addresses($addressInfo)['addresses'][0]; //takes customer/user id and address id
+    $oldInfo = get_addresses($addressInfo)[0]; //takes customer/user id and address id
     if(empty($oldInfo))
     {
-        throw new Exception("Could not find address for user");
+        throw new Exception("Could not find address id for customer or user.");
     }
     $addressInfo = array_replace($oldInfo,$addressInfo);
 
