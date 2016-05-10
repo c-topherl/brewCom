@@ -57,6 +57,21 @@ switch($function)
         $responseArray['response'] = update_user($values);
         $responseArray['message'] = "User updated.";
         break;
+    case "add_customer":
+        include "customers/add_customer.php";
+        $responseArray['response'] = add_customer($values);
+        $responseArray['message'] = "Customer successfully added";
+        break;
+    case "update_customer":
+        include "customers/update_customer.php";
+        $responseArray['response'] = update_customer($values);
+        $responseArray['message'] = "Customer updated.";
+        break;
+    case "get_customers":
+        include "customers/get_customers.php";
+        $responseArray['response'] = get_customers($values);
+        $responseArray['message'] = "Customers successfully read";
+        break;
     case "verify_user":
         include "customers/verify_user.php";
         $responseArray['response'] = verify_user($values);
