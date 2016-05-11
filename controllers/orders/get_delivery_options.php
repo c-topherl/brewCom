@@ -25,8 +25,7 @@ TODO: implement warehouses
 */
 function GetWarehouses($dbh)
 {
-    $query = "SELECT id, description, name
-            FROM warehouses";
+    $query = "SELECT id, code, name FROM warehouses";
     $sth = $dbh->prepare($query);
     if(!$sth->execute())
     {
@@ -36,7 +35,7 @@ function GetWarehouses($dbh)
     foreach($sth->fetchAll(PDO::FETCH_ASSOC) as $row)
     {
         $warehouses[] = array(
-            'title' => $row['description'],
+            'title' => $row['name'],
             'value' => $row['id']
             );
     }
@@ -48,8 +47,7 @@ function GetWarehouses($dbh)
 */
 function GetDeliveryMethods($dbh)
 {
-    $query = "SELECT id, code, description, last_updated 
-            FROM delivery_methods";
+    $query = "SELECT id, code, description, last_updated FROM delivery_methods";
     $sth = $dbh->prepare($query);
     if(!$sth->execute())
     {

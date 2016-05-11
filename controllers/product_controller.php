@@ -88,10 +88,20 @@ switch($function)
         $responseArray['response'] = update_inventory($values);
         $responseArray['message'] = "Inventory updated";
         break;
+    case "add_warehouse":
+        include "products/add_warehouse.php";
+        $responseArray['response'] = add_warehouse($values);
+        $responseArray['message'] = "Added warehouse";
+        break;
     case "get_warehouses":
         include "products/get_warehouses.php";
         $responseArray['response'] = get_warehouses($values);
         $responseArray['message'] = "Got warehouses";
+        break;
+    case "update_warehouse":
+        include "products/update_warehouse.php";
+        $responseArray['response'] = update_warehouse($values);
+        $responseArray['message'] = "Updated warehouse";
         break;
     default:
         throw new Exception("Unknown function: $function.");
