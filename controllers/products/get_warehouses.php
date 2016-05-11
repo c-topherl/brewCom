@@ -8,7 +8,7 @@ function get_warehouses($opts = NULL)
     $customer_id = isset($opts['customer_id']) ? $opts['customer_id'] : '';
 
     //not supported yet
-    $query = "SELECT id, description, name FROM warehouses ";
+    $query = "SELECT id, code, name, address1, address2, city, state, zipcode, delivery_allowed, active, last_updated FROM warehouses ";
     if(isset($opts['id']))
     {
         $query .= " WHERE id = :id";
