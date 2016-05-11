@@ -1,85 +1,85 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Order Search</h1>
+    </div>
+</div>
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Order Search
-                        </h1>
-                    </div>
-                </div>
-                <!-- /.row -->
-
-                <div class="row">
-                    <div class="text-left">
-                        <a href="javascript:void(0)" onclick="getOpenOrders()" class="back-button">Back <i class="fa fa-arrow-circle-left"></i></a>
-                    </div>
+<div class="row">
+    <div class="col-xs-1">
+        <a href="javascript:void(0)" onclick="getOpenOrders()" class="btn btn-primary">Back</a>
+    </div>
                     
-                    <br><br>
+    <br><br>
 
-                    <div class="col-lg-3">
+    <div class="col-xs-12">&nbsp;</div>
+    <div class="col-xs-12">&nbsp;</div>
 
-                        <div class="form-group">
-                                <label>Customer Code</label>
-                                <input class="form-control">
+    <div class="col-lg-3">
 
-                                <br><br><br>
+        <div class="form-group">
+            <label for="customer">Customer Code</label>
+            <input name="customer" id="customer" class="form-control">
 
-                                <div class="col-lg-6" style="padding-left: 0px;">
-                                    <label>Start delivery date</label>
-                                    <input class="form-control">
-                                </div>
+            <br><br><br>
 
-                                <div class="col-lg-6" style="padding-left: 0px;">
-                                    <label>End delivery date</label>
-                                    <input class="form-control">
-                                </div>
-                                <p class="help-block">Format MM/DD/YYYY. Example: 03/24/2016.</p>
+            <div class="col-lg-6" style="padding-left: 0px;">
+                <label for="start-date">Start delivery date</label>
+                <input id="start-date" name="start-date" class="form-control">
+            </div>
+            
+            <div class="col-lg-6" style="padding-left: 0px;">
+                <label for="end-date">End delivery date</label>
+                <input id="end-date" name="end-date" class="form-control">
+            </div>
+            <p class="help-block">Format MM/DD/YYYY. Example: 03/24/2016.</p>
 
-                                <br><br>
+            <br><br>
 
-                                <label>Delivery Type</label>
-                                <select class="form-control">
-                                    <option>All</option>
-                                    <option>Delivery</option>
-                                    <option>Pickup</option>
-                                </select>
+            <label for="delivery-type">Delivery Type</label>
+            <select id="delivery-type" name="delivery-type" class="form-control">
+                <option>All</option>
+                <option>Delivery</option>
+                <option>Pickup</option>
+            </select>
 
-                                <br><br><br>
+            <br><br><br>
 
+            <label for="status">Order Status</label>
 
-                                <label>Order Status</label>
-                                <label class="checkbox-inline first-checkbox">
-                                    <input type="checkbox">Open
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox">Shipped
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox">Void
-                                </label>
-                                <label class="checkbox-inline">
-                                    <input type="checkbox">Test
-                                </label>
+            <div class="col-xs-12">&nbsp;</div>
+            <div class="col-xs-12">&nbsp;</div>
 
-                                <br><br><br><br>
+            <label class="checkbox-inline">
+                <input name="status" type="checkbox">Open
+            </label>
+            <label class="checkbox-inline">
+                <input name="status" type="checkbox">Shipped
+            </label>
+            <label class="checkbox-inline">
+                <input name="status" type="checkbox">Void
+            </label>
+            <label class="checkbox-inline">
+                <input name="status" type="checkbox">Test
+            </label>
 
-                                <div class="col-lg-6" style="padding-left: 0px;">
-                                    <label>Minimum order total</label>
-                                    <input class="form-control">
-                                </div>
+            <br><br><br><br>
+            
+            <div class="col-lg-6" style="padding-left: 0px;">
+                <label for="min-amount">Minimum order total</label>
+                <input name="min-amount" id="min-amount" class="form-control">
+            </div>
 
-                                <div class="col-lg-6" style="padding-left: 0px;">
-                                    <label>Maximum order total</label>
-                                    <input class="form-control">
-                                </div>
-                            </div>
+            <div class="col-lg-6" style="padding-left: 0px;">
+                <label for="max-amount">Maximum order total</label>
+                <input name="max-amount" id="max-amount" class="form-control">
+            </div>
+        </div>
 
-                            <br><br><br><br><br>
+        <br><br><br><br><br>
 
-                            <button type="submit" class="btn btn-default" onclick="searchOrders()">Submit</button>
-                            <button type="reset" class="btn btn-default">Reset</button>
-                    </div>
-                </div>
-                <!-- /.row -->
+        <button type="submit" class="btn btn-primary" onclick="searchOrders()">Submit</button>
+        <button type="reset" class="btn btn-primary">Reset</button>
+    </div>
+</div>
 
  

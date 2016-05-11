@@ -1,3 +1,14 @@
+var errorAlert = "error-message";
+var warningAlert = "warning-message";
+var infoAlert = "info-message";
+var successAlert = "success-message";
+var alertList = [
+	errorAlert,
+	warningAlert,
+	infoAlert,
+	successAlert
+];
+
 var validateQuantity = function(quantityField){
 	var quantity = quantityField.value;
 	if (isNaN(quantity) || quantity < 0){
@@ -65,33 +76,18 @@ var displayTable = function(tableName){
 	$(tableName).dataTable();
 }
 
-//add "hidden" class to all navlinks
 var hideNavLinks = function(){
-	var navLinks = document.getElementsByClassName("nav-link");
-	var i;
-
-	for (i = 0; i < navLinks.length; i++){
-		navLinks[i].className = navLinks[i].className + " hidden";
-	}
+	var nav = document.getElementById('main-nav');
+	nav.className += " hidden";
 
 	return;
 }
 
-//remove "hidden" class from all navlinks
 var showNavLinks = function(){
-	var navLinks = document.getElementsByClassName("nav-link");
-	var i;
-	var classes;
-	var index;
-
-	for (i = 0; i < navLinks.length; i++){
-		classes = navLinks[i].className.split(" ");
-		index = classes.indexOf("hidden");
-		if (index > -1){
-			classes.splice(index, 1);
-		}
-		navLinks[i].className = classes.join(" ");
-	}
+	var nav = document.getElementById('main-nav');
+	var classes = nav.className.split(" ");
+	classes.pop();
+	nav.className = classes.join(" ");
 
 	return;
 }
@@ -105,19 +101,88 @@ var updateLine = function(lineNumber) {
 	var price = document.getElementById("price_" + lineNumber).value;
 	var newTotal = qty * price;
 	newTotal = parseFloat(Math.round(newTotal * 100) / 100).toFixed(2);
+	document.getElementById("total_" + lineNumber).innerHTML = "$" + newTotal;
+	
+	return;
+}
 
-	/*
-	var pattern = /[0-9]*(?![.]+)/;
-	if (pattern.test(newTotal)){
-		newTotal += ".00";
-	} else {
-		pattern = /[0-9]*[.][0-9](?![0-9])/;
-		if (pattern.test(newTotal)){
-			newTotal += "0";
+var showConfirmation = function(message){
+	showAlert(successAlert, message);
+	return;
+}
+
+var showAlert = function(alertId, message){
+	if (isAlertDisplayed(errorAlert)){
+		hideAlert(errorAlert);
+	}
+
+	var alert = document.getElementById(alertId);
+	if (alert){
+		var classes = alert.className.split(" ");
+		classes.pop();
+		alert.className = classes.join(" ");
+		alert.innerHTML = message;
+	}
+	return;
+}
+
+var hideAlerts = function(){
+	var i;
+	var alert;
+
+	for (i = 0; i < alertList.length; i++){
+		alert = alertList[i];
+		if (isAlertDisplayed(alert)){
+			hideAlert(alert);
 		}
 	}
-	*/
+	return;
+}
 
-	document.getElementById("total_" + lineNumber).innerHTML = "$" + newTotal;
+var hideAlert = function(alertId){
+	var alert = document.getElementById(alertId);
+	if (alert){
+		var classes = alert.className.split(" ");
+		classes.push("hidden");
+		alert.className = classes.join(" ");
+	}
+	return;
+}
+
+var isAlertDisplayed = function(alertId){
+	var alert = document.getElementById(alertId);
+	if (alert && alert.className.split(" ").indexOf("hidden") == -1){
+		return true;
+	}
+
+	return false;
+}
+
+var setCookie = function(name, val, numDays){
+	var d = new Date();
+	d.setTime(d.getTime() + (numDays*24*60*60*1000));
+	var expires = "expires=" + d.toUTCString();
+	document.cookie = name + "=" + val + "; " + expires;
+	return;
+}
+
+var getCookie = function(cname) {
+	var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length,c.length);
+        }
+    }
+    return "";
+}
+
+var removeCookies = function() {
+	setCookie("userId", "", -1);
+	setCookie("token", "", -1);
 	return;
 }

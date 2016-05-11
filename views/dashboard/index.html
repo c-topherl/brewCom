@@ -13,18 +13,10 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
     <link href="css/plugins/morris.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
     <link href="css/dataTables.min.css" rel="stylesheet" type="text/css">
-
     <link href="css/styles.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -54,19 +46,19 @@
             </div>
            
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <div class="collapse navbar-collapse navbar-ex1-collapse hidden" id="main-nav">
                 <ul class="nav navbar-nav side-nav">
                     <li>
-                        <a href="javascript:void(0)"><i class="fa fa-fw"></i>Orders</a>
+                        <a href="javascript:void(0)" onclick="getOpenOrders();"><i class="fa fa-fw"></i>Orders</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="fa fa-fw"></i>Customer Info</a>
+                        <a href="javascript:void(0)" onclick="getCustomerList();"><i class="fa fa-fw"></i>Customer Info</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="fa fa-fw"></i>Product Info</a>
+                        <a href="javascript:void(0)" onclick="getProductList();"><i class="fa fa-fw"></i>Product Info</a>
                     </li>
                     <li>
-                        <a href="javascript:void(0)"><i class="fa fa-fw"></i>Settings</a>
+                        <a href="javascript:void(0)" onclick="getSettings();"><i class="fa fa-fw"></i>Settings</a>
                     </li>
                     
                 </ul>
@@ -78,20 +70,32 @@
 
             <div class="container-fluid">
                 <div id="main-content">
-                    <div id="login-div">
-                        <div id="login-forms">
-                            Username: <input type="text" id="username"><br><br>
-                            Password: &nbsp;&nbsp;<input type="password" id="password">
-                            
-                            <br><br>
-                            
-                            <a id="forgot-pass-link" href="#">Forgot password</a>
-                                
-                            <br><br>
-                                
-                            <input type="button" id="login-btn" onclick="verifyLogin();" value="Submit">
+                    <div class="col-xs-12">&nbsp;</div>
+                    <div class="col-xs-12">&nbsp;</div>
+                    <div class="col-xs-12">&nbsp;</div>
+
+                    <form role="form" class="col-xs-6 text-center">
+                        <div class="form-group">
+                            <label for="username">Username: </label> 
+                            <input type="text" name="username" id="username">
                         </div>
-                </div>
+                        <div class="form-group">
+                            <label for="password">Password: </label>
+                            <input type="password" name="password" id="password">
+                        </div>
+
+                        <div class="col-xs-12">&nbsp;</div>
+                        
+                        <div class="col-xs-12">
+                            <input class="btn btn-primary" type="button" onclick="verifyLogin();" value="Submit">               
+                        </div>
+                        
+                    </form>
+
+                    <div class="col-xs-12">&nbsp;</div>
+                    <div class="col-xs-12">&nbsp;</div>
+                    <div class="col-xs-12">&nbsp;</div>
+                    <div class="col-xs-12">&nbsp;</div>
                 </div>
 
             </div>
@@ -110,6 +114,26 @@
     <script src="js/handlebars.min.js"></script>
     <script src="js/template_controller.js"></script>
     <script src="js/site.js"></script>
+
+    <script type="text/javascript">
+        var showTables = function() {
+            $(".dtable").each(function(i, obj) {
+                if (! $.fn.DataTable.fnIsDataTable(obj)){
+                    $(this).dataTable();                    
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#main-content').bind('DOMNodeInserted', showTables);
+                
+            if (sessionExists()){
+                verifyLogin();
+            }
+
+            $("#simple-menu").sidr();
+        });
+    </script>
 
 </body>
 

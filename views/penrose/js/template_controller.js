@@ -14,7 +14,6 @@ var loadTemplate = function(templateName, content){
     		var compiledTemplate = Handlebars.compile(req.responseText);
     		var compiledHtml = compiledTemplate(content);
     		$(targetDiv).html(compiledHtml);
-    		displayTables();
         }
     };
 
@@ -90,10 +89,11 @@ var verifyLogin = function(){
     req.onreadystatechange = function(){
         if (req.readyState == 4 && req.status == 200){
         	var responseObj = JSON.parse(req.responseText);
+        	removeCookies();
+
         	if (responseObj.status === "success"){
         		data = responseObj.response;
 
-        		removeCookies();
         		userId = responseObj.response.user_id;
         		token = responseObj.response.token;
         		setCookie("userId", userId, 1);
@@ -116,7 +116,6 @@ var verifyLogin = function(){
 
         		showNavLinks();
         	} else {
-        		removeCookies();
         		showAlert(errorAlert, responseObj.message);
         		return;
         	}
@@ -156,8 +155,7 @@ var getOrderDetail = function(orderNumber){
     };
 
 	buildHttpRequestForTemplate(method, url, template, requestData);
-    
-    displayTable("order-table");
+
     return;
 }
 
@@ -375,7 +373,6 @@ var getCustomerInfoForm = function(){
 
 var updateCustomerInfo = function(){
 
-	//temporary - this will go away
 	var userId = getCookie('userId');
 	var message = "Your information has been updated successfully!";
 	showConfirmation(message);

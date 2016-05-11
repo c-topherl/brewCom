@@ -108,11 +108,6 @@ var buildHttpRequest = function(method, url, data, callback, callbackParam){
     req.send(JSON.stringify(data));
 }
 
-var displayTable = function(tableName){
-	tableName = "#" + tableName;
-	$(tableName).dataTable();
-}
-
 var hideMobileNav = function() {
 	var mobileNav = document.getElementById('simple-menu');
 	mobileNav.className += " hidden";
@@ -165,24 +160,6 @@ var showNavLinks = function(){
 
 	showMobileNav();
 	
-	return;
-}
-
-var displayTables = function(){
-	var tableList = [
-		"order-table",
-		"cart-table"
-	];
-
-	var table;
-	for (var i = 0; i < tableList.length; i++){
-		table = document.getElementById(tableList[i]);
-		if (table){
-			displayTable(tableList[i]);
-			break;
-		}
-	}
-
 	return;
 }
 
