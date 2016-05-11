@@ -116,7 +116,9 @@ var verifyLogin = function(){
 
         		showNavLinks();
         	} else {
+        		removeCookies();
         		showAlert(errorAlert, responseObj.message);
+        		return;
         	}
         }
     };
