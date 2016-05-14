@@ -2,6 +2,7 @@
 /**/
 include_once "common.inc";
 require_once "PDOConnection.php";
+include_once "token.inc";
 function update_user($user)
 {
     if(!(isset($user['email']) || isset($user['username']) || isset($user['password'])))
@@ -9,7 +10,7 @@ function update_user($user)
         throw new Exception("Nothing changed!");
     }
     $dbh = new PDOConnection();
-    $query = "SELECT id,username,email,password,last_updated FROM users WHERE id = :id";
+    $query = "SELECT id,username,email,password,token,last_updated FROM users WHERE id = :id";
     $sth = $dbh->prepare($query);
     $id = $user['id'];
     $sth->bindParam(':id', $id, PDO::PARAM_INT);
@@ -31,6 +32,7 @@ function update_user($user)
     $email = isset($user['email'])? $user['email'] : $oldValues['email'];
     $username = isset($user['username'])? $user['username'] : $oldValues['username'];
     $password = isset($user['password'])? hash_password($user['password'],$username) : $oldValues['password'];
+    $token = $oldValues['token'];
 
     $query = "UPDATE users 
         SET username = :username, email = :email, password = :password 
@@ -45,5 +47,10 @@ function update_user($user)
     {
         throw new Exception($sth->errorInfo()[2]);
     }
-    return $id;
+    if(isset($user['password']))
+    {
+        $token = GenerateToken($username, $user['password']);
+        StoreToken($username, $token);
+    }
+    return array('id' => $id, 'email' => $email, 'username' => $username, 'token' => $token);
 }
