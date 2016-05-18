@@ -33,6 +33,43 @@ var forgotPasswordSubmit = function(){
 	showAlert(infoAlert, "You will receive instructions to reset your password shortly.");
 }
 
+var resetPassword = function(){
+	hideAlerts();
+	//TODO-find out name of get variable
+	var resetToken = parseGetVariable('reset_id');
+	if(!resetToken){
+		showAlert(errorAlert, "Something went wrong. Please try getting a new password reset link.");
+		return;
+	}
+
+	var email = document.getElementById("email").value;
+	if (email === ""){
+		showAlert(errorAlert, "You must enter the email tied to your account.");
+		$('email').focus();
+		return;
+	}
+
+	var password = document.getElementById("password").value;
+	if (password === ""){
+		showAlert(errorAlert, "You must enter a new password.");
+		$('password').focus();
+		return;
+	}
+
+	//TODO - find out request format
+	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
+	var requestData = {
+		"function": "password_reset",
+		"reset_id": "reset_id",
+		"email": email,
+		"password": password
+	};
+
+	//This might reload with get data variable-endless loop of this page?
+	buildHttpRequest(method, url, requestData, location.reload);
+	return;
+}
+
 var sessionExists = function(){
 	var userId = getCookie('userId');
 	if (!userId || userId === ""){

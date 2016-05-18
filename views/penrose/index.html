@@ -206,6 +206,8 @@
                 
                 if (sessionExists()){
                     verifyLogin();
+                } else if (parseGetVariable('reset_id')){
+                    loadTemplate('reset_password', null);
                 }
 
                 $("#simple-menu").sidr();
