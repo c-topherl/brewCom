@@ -33,17 +33,30 @@ var validateEmail = function(emailField){
 	return;
 }
 
-var comparePasswords = function(password2){
-	var password1 = document.getElementById("password");
-	if (password1.value !== password2.value){
-		alert("Passwords do not match!");
-		if (password1.value === ""){
-			password1.focus();
-		} else {
-			password2.focus();
-		}
+var comparePasswords = function(password, password2){
+	if (password === "" && password2 !== ""){
+		showAlert(errorAlert, "Passwords do not match!");
+		$('password').focus();
+		return false;
+	} else if (password !== "" && password2 === ""){
+		showAlert(errorAlert, "Passwords do not match!");
+		$('password2').focus();
+		return false;
+	} else if (password !== "" && password2 !== "" 
+		&& password !== password2){
+		showAlert(errorAlert, "Passwords do not match!");
+		$('password2').focus();
+		return false;
 	}
 
+	return true;
+}
+
+var clearUpdateInfoForm = function(){
+	$('email').value = "";
+	$('password').value = "";
+	$('password2').value = "";
+	$('username').value = "";
 	return;
 }
 

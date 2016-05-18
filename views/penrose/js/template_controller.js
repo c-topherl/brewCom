@@ -372,10 +372,38 @@ var getCustomerInfoForm = function(){
 }
 
 var updateCustomerInfo = function(){
+	hideAlerts();
 
 	var userId = getCookie('userId');
+	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
+	var requestData = {
+		"function": "update_user",
+		"user_id": userId
+	};
+
+	var username = document.getElementById("username").value;
+	var email = document.getElementById("email").value;
+	var password = document.getElementById("password").value;
+	var password2 = document.getElementById("password2").value;
+	if (!comparePasswords(password, password2)){
+		return;
+	}
+
+	if (username !== ""){
+		requestData.username = username;
+	}
+
+	if (email !== ""){
+		requestData.email = email;
+	}
+
+	if (password !== "" && password2 !== ""){
+		requestData.password = password;
+	}
+
 	var message = "Your information has been updated successfully!";
-	showConfirmation(message);
+	buildHttpRequest(method, url, requestData, showConfirmation, message);
+	clearUpdateInfoForm();
 
     return;
 }
