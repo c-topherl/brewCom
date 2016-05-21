@@ -12,7 +12,7 @@ function update_user($user)
     $dbh = new PDOConnection();
     $query = "SELECT id,username,email,password,token,last_updated FROM users WHERE id = :id";
     $sth = $dbh->prepare($query);
-    $id = $user['id'];
+    $id = $user['user_id'];
     $sth->bindParam(':id', $id, PDO::PARAM_INT);
 
     if(!($sth->execute()))
