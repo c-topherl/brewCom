@@ -24,7 +24,8 @@ function debug_to_console($data) {
         echo("<script>console.log('php: $data');</script>");
     }
 }
+
 function hash_password($p, $u)
 {
-    return hash('sha256',hash('sha256',$p).$u);
+    return hash('sha256', hash('sha256',$p).$u);
 }
