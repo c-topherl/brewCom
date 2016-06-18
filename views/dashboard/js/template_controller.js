@@ -88,7 +88,7 @@ var verifyLogin = function(){
                     setCookie("token", token, 1);
                 }
                 showNavLinks();
-                getOpenOrders();
+                getOrderList();
                 return;
             } else {
                 showError(responseObj.message);
@@ -103,9 +103,9 @@ var verifyLogin = function(){
 } 
 
 
-var getOpenOrders = function(){
+var getOrderList = function(){
     var url = requestUrl + "order_controller.php";
-    var template = templatePath + "order_headers.html";
+    var template = templatePath + "order_list.html";
 
     var requestData = {
         "function": "get_orders",
@@ -115,6 +115,34 @@ var getOpenOrders = function(){
     buildHttpRequestForTemplate(method, url, template, requestData);
     
     displayTable("order-table");
+    return;
+}
+
+var getCustomerList = function(){
+    var url = requestUrl + "customer_controller.php";
+    var template = templatePath + "customer_list.html";
+    var requestData = {
+        "function": "get_customers"
+    };
+
+    buildHttpRequestForTemplate(method, url, template, requestData);
+    return;
+}
+
+var getProductList = function(){
+    var url = requestUrl + "product_controller.php";
+    var template = templatePath + "product_list.html";
+    var requestData = {
+        "function": "get_products"
+    };
+
+    buildHttpRequestForTemplate(method, url, template, requestData);
+    return;
+}
+
+var getSettings = function(){
+    var url = templatePath + "settings.html";
+    loadTemplate(url, null);
     return;
 }
 
@@ -133,51 +161,85 @@ var getOrderDetail = function(orderNumber){
     return;
 }
 
+var getCustomerDetail = function(customerId){
+    var url = requesturl + "customer_controller.php";
+    var template = templatePath + "customer_detail.html"
+
+    var requestData = {
+        "function": "get_customer_detail",
+        "customer_id": customerId
+    };
+
+    //buildHttpRequestForTemplate(method, url, template, requestData);
+    //displayTable("customer_table");
+    alert("Not yet implemented");
+    return;
+}
+
+var getProductDetail = function(productId){
+    var url = requestUrl + "product_controller.php";
+    var template = templatePath + "product_detail.html"
+
+    var requestData = {
+        "function": "get_product_detail",
+        "product_id": productId
+    };
+
+    //buildHttpRequestForTemplate(method, url, template, requestData);
+    //displayTable("product_table");
+    alert("Not yet implemented");
+    return;
+}
+
 var loadOrderSearch = function(){
     var url = templatePath + "order_search.html";
     loadTemplate(url, null);
     return;
 }
 
+var loadCustomerSearch = function(){
+    alert("Not yet implemented.");
+}
+
 var searchOrders = function(){
+    var url = requestUrl + "order_controller.php";
+    var template = templatePath + "order_list.html";
+
     var customerCode = document.getElementById("customer").value;
     var startDate = document.getElementById("start-date").value;
     var endDate = document.getElementById("end-date").value;
     //var deliveryType = document.getElementById("delivery-type").value;
     //var status = document.querySelector("status").value;
-    var minAmount = documnet.getElementById("min-amount").value;
-    var maxAmount = documnet.getElementById("max-amount").value;
+    var minAmount = document.getElementById("min-amount").value;
+    var maxAmount = document.getElementById("max-amount").value;
 
     var requestData = {
         "function": "get_orders",
         "customer": customerCode,
         "start_date": startDate,
         "end_date": endDate,
-        "delivery_method": deliveryType,
-        "status": status,
+        //"delivery_method": deliveryType,
+        //"status": status,
         "minimum_amount": minAmount,
         "maximum_amount": maxAmount
     };
-
-    var url = requestUrl + "order_controller.php";
-    var template = templatePath + "order_search_results.html";
 
     buildHttpRequestForTemplate(method, url, template, requestData);
 
     return;
 }
 
-var getCustomerList = function(){
-    alert("Not yet implemented!");
+var searchCustomers = function(){
+    var url = requestUrl + "customer_controller.php";
+    var template = templatePath + "order_list.html";
+
+    var requestData = {
+        "function": "get_customers"
+    };
+
+    //buildHttpRequestForTemplate(method, url, template, requestData);
+    alert("Not yet implemented.");
     return;
-}
-
-var getProductList = function(){
-    alert("Not yet implemented!");
-}
-
-var getSettings = function(){
-    alert("Not yet implemented!");
 }
 
 var deleteLine = function(lineNumber){
