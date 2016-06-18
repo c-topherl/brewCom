@@ -19,7 +19,7 @@ var validateQuantity = function(quantityField){
 }
 
 var validateEmail = function(emailField){
-	var pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+	var pattern = /^\w+@[0-9a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 	var email = emailField.value;
 	if (!email){
 		return;
