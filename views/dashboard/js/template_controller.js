@@ -1,5 +1,6 @@
 var targetDiv = "#main-content";
-var method="post";
+var method = "post";
+var templatePath = "http://localhost:8888/brewCom/views/dashboard/";
 
 var loadTemplate = function(templateName, content){
 
@@ -103,14 +104,14 @@ var verifyLogin = function(){
 
 var getOpenOrders = function(){
     var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-    var templatePath = "http://localhost/brewCom/views/dashboard/order_headers.html";
+    var template = templatePath + "order_headers.html";
 
     var requestData = {
         "function": "get_orders",
         "status": "open"
     };
 
-    buildHttpRequestForTemplate(method, url, templatePath, requestData);
+    buildHttpRequestForTemplate(method, url, template, requestData);
     
     displayTable("order-table");
     return;
@@ -118,21 +119,21 @@ var getOpenOrders = function(){
 
 var getOrderDetail = function(orderNumber){
     var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-    var templatePath = "http://localhost/brewCom/views/dashboard/order_detail.html";
+    var template = templatePath + "order_detail.html";
 
     var requestData = {
         "function": "get_order_detail",
         "order_id": orderNumber
     };
 
-    buildHttpRequestForTemplate(method, url, templatePath, requestData);
+    buildHttpRequestForTemplate(method, url, template, requestData);
     
     displayTable("order-table");
     return;
 }
 
 var loadOrderSearch = function(){
-    var url = "http://localhost/brewCom/views/dashboard/order_search.html";
+    var url = templatePath + "order_search.html";
     loadTemplate(url, null);
     return;
 }
@@ -158,9 +159,9 @@ var searchOrders = function(){
     };
 
     var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-    var templatePath = "http://localhost/brewCom/views/dashboard/order_search_results.html";
+    var template = templatePath + "order_search_results.html";
 
-    buildHttpRequestForTemplate(method, url, templatePath, requestData);
+    buildHttpRequestForTemplate(method, url, template, requestData);
 
     return;
 }
