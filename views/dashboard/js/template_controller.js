@@ -1,6 +1,7 @@
 var targetDiv = "#main-content";
 var method = "post";
 var templatePath = "http://localhost:8888/brewCom/views/dashboard/";
+var requestUrl = "http://joelmeister.net/brewCom/controllers/"
 
 var loadTemplate = function(templateName, content){
 
@@ -63,7 +64,7 @@ var verifyLogin = function(){
         hideAlerts();
     }
 
-    var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
+    var url = requestUrl + "customer_controller.php";
 
     var req = new XMLHttpRequest();
     req.open(method, url, true);
@@ -103,7 +104,7 @@ var verifyLogin = function(){
 
 
 var getOpenOrders = function(){
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var url = requestUrl + "order_controller.php";
     var template = templatePath + "order_headers.html";
 
     var requestData = {
@@ -118,7 +119,7 @@ var getOpenOrders = function(){
 }
 
 var getOrderDetail = function(orderNumber){
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var url = requestUrl + "order_controller.php";
     var template = templatePath + "order_detail.html";
 
     var requestData = {
@@ -158,7 +159,7 @@ var searchOrders = function(){
         "maximum_amount": maxAmount
     };
 
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var url = requestUrl + "order_controller.php";
     var template = templatePath + "order_search_results.html";
 
     buildHttpRequestForTemplate(method, url, template, requestData);
@@ -181,7 +182,7 @@ var getSettings = function(){
 
 var deleteLine = function(lineNumber){
     var userId = getCookie('userId');
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var url = requestUrl + "order_controller.php";
 
     var requestData = {
         "function": "delete_cart_detail",
