@@ -51,5 +51,5 @@ function get_customers($values = NULL)
     {
         $customerArray[] = $row;
     }
-    return $customerArray;
+    return array('customers' => $customerArray);
 }
