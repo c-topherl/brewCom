@@ -1,6 +1,7 @@
 var targetDiv = "#main-content";
 var method = "post";
-var templatePath = "http://localhost/brewCom/views/penrose/";
+var templatePath = "http://localhost:8888/brewCom/views/penrose/";
+var requestUrl = "http://joelmeister.net/brewCom/controllers/"
 var userCart;
 
 var loadTemplate = function(templateName, content){
@@ -75,7 +76,7 @@ var verifyLogin = function(){
 		hideAlerts();
 	}
 
-	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
+	var url = "customer_controller.php";
 
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
@@ -130,7 +131,7 @@ var verifyLogin = function(){
 
 var getOpenOrders = function(){
 	var userId = getCookie('userId');
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 	var template = templatePath + "open_orders.html";
 
 	var requestData = {
@@ -146,7 +147,7 @@ var getOpenOrders = function(){
 }
 
 var getOrderDetail = function(orderNumber){	
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 	var template = templatePath + "order_detail.html";
 
 	var requestData = {
@@ -167,7 +168,7 @@ var getDeliveryOptions = function(){
 	}
 
 	var userId = getCookie('userId');
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 	var template = templatePath + "delivery_date.html";
 
 	var requestData = {
@@ -186,7 +187,7 @@ var buildCartHeader = function(){
 	shipDate = shipDate.options[shipDate.selectedIndex].value;
 	var deliveryMethod = document.getElementById("delivery-method");
 	deliveryMethod = deliveryMethod.options[deliveryMethod.selectedIndex].value;
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 
 	var requestData = {
     	"function": "add_cart_header",
@@ -205,7 +206,7 @@ var buildCartHeader = function(){
 var getOrderPage = function(){
 	var userId = getCookie('userId');
 	var template = templatePath + "order.html";
-	url = "http://joelmeister.net/brewCom/controllers/product_controller.php";
+	url = requestUrl + "product_controller.php";
 
 	requestData = {
     	"function": "get_product_units",
@@ -294,7 +295,7 @@ var buildCart = function(){
 	userCart = data;
     loadTemplate(template, data);
 
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var url = requestUrl + "order_controller.php";
 
     buildHttpRequest(method, url, data);
     
@@ -302,7 +303,7 @@ var buildCart = function(){
 }
 
 var getCart = function() {
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 	var userId = getCookie('userId');
 	var template = templatePath + "cart.html";
 
@@ -320,7 +321,7 @@ var deleteCart = function() {
 		return;
 	}
 
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 	var userId = getCookie('userId');
 
 	var requestData = {
@@ -344,7 +345,7 @@ var buildCheckoutPage = function(){
 var submitOrder = function(){
 	var userId = getCookie('userId');
 	var token = getCookie('token');
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 	var template = templatePath + "order_detail.html";
 
 	var comments = document.getElementById("comments").value;
@@ -375,7 +376,7 @@ var updateCustomerInfo = function(){
 	hideAlerts();
 
 	var userId = getCookie('userId');
-	var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
+	var url = requestUrl + "customer_controller.php";
 	var requestData = {
 		"function": "update_user",
 		"user_id": userId
@@ -410,7 +411,7 @@ var updateCustomerInfo = function(){
 
 var deleteLine = function(lineNumber){
 	var userId = getCookie('userId');
-	var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+	var url = requestUrl + "order_controller.php";
 
 	var requestData = {
     	"function": "delete_cart_detail",

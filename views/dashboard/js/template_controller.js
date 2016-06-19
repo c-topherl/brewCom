@@ -1,5 +1,7 @@
 var targetDiv = "#main-content";
-var method="post";
+var method = "post";
+var templatePath = "http://localhost:8888/brewCom/views/dashboard/";
+var requestUrl = "http://joelmeister.net/brewCom/controllers/"
 
 var loadTemplate = function(templateName, content){
 
@@ -62,7 +64,7 @@ var verifyLogin = function(){
         hideAlerts();
     }
 
-    var url = "http://joelmeister.net/brewCom/controllers/customer_controller.php";
+    var url = requestUrl + "customer_controller.php";
 
     var req = new XMLHttpRequest();
     req.open(method, url, true);
@@ -86,7 +88,7 @@ var verifyLogin = function(){
                     setCookie("token", token, 1);
                 }
                 showNavLinks();
-                getOpenOrders();
+                getOrderList();
                 return;
             } else {
                 showError(responseObj.message);
@@ -101,86 +103,148 @@ var verifyLogin = function(){
 } 
 
 
-var getOpenOrders = function(){
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-    var templatePath = "http://localhost/brewCom/views/dashboard/order_headers.html";
+var getOrderList = function(){
+    var url = requestUrl + "order_controller.php";
+    var template = templatePath + "order_list.html";
 
     var requestData = {
         "function": "get_orders",
         "status": "open"
     };
 
-    buildHttpRequestForTemplate(method, url, templatePath, requestData);
+    buildHttpRequestForTemplate(method, url, template, requestData);
     
     displayTable("order-table");
     return;
 }
 
+var getCustomerList = function(){
+    var url = requestUrl + "customer_controller.php";
+    var template = templatePath + "customer_list.html";
+    var requestData = {
+        "function": "get_customers"
+    };
+
+    buildHttpRequestForTemplate(method, url, template, requestData);
+    return;
+}
+
+var getProductList = function(){
+    var url = requestUrl + "product_controller.php";
+    var template = templatePath + "product_list.html";
+    var requestData = {
+        "function": "get_products"
+    };
+
+    buildHttpRequestForTemplate(method, url, template, requestData);
+    return;
+}
+
+var getSettings = function(){
+    var url = templatePath + "settings.html";
+    loadTemplate(url, null);
+    return;
+}
+
 var getOrderDetail = function(orderNumber){
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-    var templatePath = "http://localhost/brewCom/views/dashboard/order_detail.html";
+    var url = requestUrl + "order_controller.php";
+    var template = templatePath + "order_detail.html";
 
     var requestData = {
         "function": "get_order_detail",
         "order_id": orderNumber
     };
 
-    buildHttpRequestForTemplate(method, url, templatePath, requestData);
+    buildHttpRequestForTemplate(method, url, template, requestData);
     
     displayTable("order-table");
     return;
 }
 
+var getCustomerDetail = function(customerId){
+    var url = requesturl + "customer_controller.php";
+    var template = templatePath + "customer_detail.html"
+
+    var requestData = {
+        "function": "get_customer_detail",
+        "customer_id": customerId
+    };
+
+    //buildHttpRequestForTemplate(method, url, template, requestData);
+    //displayTable("customer_table");
+    alert("Not yet implemented");
+    return;
+}
+
+var getProductDetail = function(productId){
+    var url = requestUrl + "product_controller.php";
+    var template = templatePath + "product_detail.html"
+
+    var requestData = {
+        "function": "get_product_detail",
+        "product_id": productId
+    };
+
+    //buildHttpRequestForTemplate(method, url, template, requestData);
+    //displayTable("product_table");
+    alert("Not yet implemented");
+    return;
+}
+
 var loadOrderSearch = function(){
-    var url = "http://localhost/brewCom/views/dashboard/order_search.html";
+    var url = templatePath + "order_search.html";
     loadTemplate(url, null);
     return;
 }
 
+var loadCustomerSearch = function(){
+    alert("Not yet implemented.");
+}
+
 var searchOrders = function(){
+    var url = requestUrl + "order_controller.php";
+    var template = templatePath + "order_list.html";
+
     var customerCode = document.getElementById("customer").value;
     var startDate = document.getElementById("start-date").value;
     var endDate = document.getElementById("end-date").value;
     //var deliveryType = document.getElementById("delivery-type").value;
     //var status = document.querySelector("status").value;
-    var minAmount = documnet.getElementById("min-amount").value;
-    var maxAmount = documnet.getElementById("max-amount").value;
+    var minAmount = document.getElementById("min-amount").value;
+    var maxAmount = document.getElementById("max-amount").value;
 
     var requestData = {
         "function": "get_orders",
         "customer": customerCode,
         "start_date": startDate,
         "end_date": endDate,
-        "delivery_method": deliveryType,
-        "status": status,
+        //"delivery_method": deliveryType,
+        //"status": status,
         "minimum_amount": minAmount,
         "maximum_amount": maxAmount
     };
 
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
-    var templatePath = "http://localhost/brewCom/views/dashboard/order_search_results.html";
-
-    buildHttpRequestForTemplate(method, url, templatePath, requestData);
+    buildHttpRequestForTemplate(method, url, template, requestData);
 
     return;
 }
 
-var getCustomerList = function(){
-    alert("Not yet implemented!");
+var searchCustomers = function(){
+    var url = requestUrl + "customer_controller.php";
+    var template = templatePath + "order_list.html";
+
+    var requestData = {
+        "function": "get_customers"
+    };
+
+    //buildHttpRequestForTemplate(method, url, template, requestData);
+    alert("Not yet implemented.");
     return;
-}
-
-var getProductList = function(){
-    alert("Not yet implemented!");
-}
-
-var getSettings = function(){
-    alert("Not yet implemented!");
 }
 
 var deleteLine = function(lineNumber){
     var userId = getCookie('userId');
-    var url = "http://joelmeister.net/brewCom/controllers/order_controller.php";
+    var url = requestUrl + "order_controller.php";
 
     var requestData = {
         "function": "delete_cart_detail",
