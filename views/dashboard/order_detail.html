@@ -9,10 +9,12 @@
 <!-- /.row -->
 
 <div class="row">
-    <div class="text-left">
-        <a href="javascript:void(0)" onclick="loadOrderSearch()">Search Orders</a>
-        <br><br>
-        <a href="javascript:void(0)" onclick="getOrderList()">Open Orders</a>
+    <div class="col-lg-1">
+        <a class="btn btn-default" href="javascript:void(0)" onclick="loadOrderSearch()">Search Orders</a>
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-1">
+        <a class="btn btn-default" href="javascript:void(0)" onclick="getOrderList()">Open Orders</a>
     </div>
 </div>
                     
@@ -22,17 +24,29 @@
     <div class="col-lg-3">
         <div class="form-group">
             <label>Bill To</label>
-            <p class="form-control-static">{{bill_to_name}}</p>
-            <p class="form-control-static">{{bill_to_address_one}}</p>
-            <p class="form-control-static">{{bill_to_address_two}}</p>
+            <p class="form-control-static">
+                <input id="bill_to_name" class="form-control" value="{{bill_to_name}}">
+            </p>
+            <p class="form-control-static">
+                <input id="bill_to_address_one" class="form-control" value="{{bill_to_address_one}}">
+            </p>
+            <p class="form-control-static">
+                <input id="bill_to_address_two" class="form-control" value="{{bill_to_address_two}}">
+            </p>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="form-group">
             <label>Ship To</label>
-            <p class="form-control-static">{{ship_to_name}}</p>
-            <p class="form-control-static">{{ship_to_address_one}}</p>
-            <p class="form-control-static">{{ship_to_address_two}}</p>
+            <p class="form-control-static">
+                <input id="ship_to_name" class="form-control" value="{{ship_to_name}}">
+            </p>
+            <p class="form-control-static">
+                <input id="ship_to_address_one" class="form-control" value="{{ship_to_address_one}}">
+            </p>
+            <p class="form-control-static">
+                <input id="ship_to_address_two" class="form-control" value="{{ship_to_address_two}}">
+            </p>
         </div>
     </div>
 </div>
@@ -49,7 +63,7 @@
                 <br><br>
                 <label>Delivery Date</label>
                 <input class="form-control" value="{{delivery_date}}">
-                <p class="help-block">Format MM/DD/YYYY. Example: 03/24/2016.</p>
+                <p class="help-block">Format MM-DD-YYYY. Example: 03-24-2016.</p>
         </div>
     </div>
     <div class="col-lg-3">
@@ -59,9 +73,11 @@
                 <option>Delivery</option>
                 <option>Pickup</option>
             </select>
-            <br>
+            <br><br>
             <label>Total Amount</label>
-            <p class="form-control-static">${{total_amount}}</p>
+            <p class="form-control-static">
+                <input id="total_amount" class="form-control" value="${{total_amount}}">
+            </p>
         </div>
     </div>
 </div>
@@ -83,13 +99,8 @@
 <br><br>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Order Lines</h3>
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table id="orders-table" class="table table-bordered table-hover table-striped">
+                <h3>Order Lines</h3>
+                    <table id="orders-table" class="dtable table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>Product Code</th>
@@ -116,11 +127,8 @@
                         </tbody>
                     </table>
                     <br><br>
-                    <button class="btn btn-default" onclick="javascript:void(0)">Update Quantities</button>
-                    <button type="reset" class="btn btn-default" onclick="javascript:void(0)">Reset Fields</button>
-                </div>
-            </div>
-        </div>                    
+                    <button class="btn btn-primary" onclick="javascript:void(0)">Save Changes</button>
+                    <button type="reset" class="btn btn-primary" onclick="javascript:void(0)">Reset Fields</button>                   
     </div>
 </div>
 <script>
