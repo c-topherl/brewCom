@@ -33,6 +33,21 @@ var validateEmail = function(emailField){
 	return;
 }
 
+var validateDate = function(dateField){
+	var pattern = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
+	var date = dateField.value;
+	if (!date){
+		return;
+	}
+
+	if (!pattern.test(date)){
+		alert("You must enter a valid delivery date of format YYYY-MM-DD!");
+		dateField.focus();
+	}
+
+	return;
+}
+
 var comparePasswords = function(password2){
 	var password1 = document.getElementById("password");
 	if (password1.value !== password2.value){
@@ -43,6 +58,9 @@ var comparePasswords = function(password2){
 	return;
 }
 
+/*
+ * Sends HTTP request and plugs response directly into template
+ */
 var buildHttpRequestForTemplate = function(method, url, templatePath, data){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
@@ -57,6 +75,9 @@ var buildHttpRequestForTemplate = function(method, url, templatePath, data){
     req.send(JSON.stringify(data));
 }
 
+/*
+ * Sends HTTP request and calls custom function when done
+ */
 var buildHttpRequest = function(method, url, data, callback, callbackParam){
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
@@ -65,6 +86,24 @@ var buildHttpRequest = function(method, url, data, callback, callbackParam){
     	if (req.readyState == 4 && req.status == 200){
     		if (callback){
     			callback(callbackParam);
+    		}
+    	}
+    }
+    req.send(JSON.stringify(data));
+}
+
+
+/*
+ * Sends HTTP request and calls custom function with JSON response
+ */
+var buildHttpRequestCustomParse = function(method, url, data, callback){
+	var req = new XMLHttpRequest();
+	req.open(method, url, true);
+
+	req.onreadystatechange = function(){
+    	if (req.readyState == 4 && req.status == 200){
+    		if (callback){
+    			callback(JSON.parse(req.responseText).response);
     		}
     	}
     }
@@ -92,12 +131,21 @@ var showNavLinks = function(){
 	return;
 }
 
-var removeLine = function(lineNumber) {
-	alert("This doesn't work yet!");
+var removeLine = function(id){
+	table = document.getElementById("lines");
+	row = document.getElementById(id);
+	if(table && row){
+		table.removeChild(row);
+	}
 }
 
 var updateLine = function(lineNumber) {
 	var qty = document.getElementById("quantity_" + lineNumber).value;
+	if (qty === "0"){
+		removeLine(lineNumber);
+		return;
+	}
+	
 	var price = document.getElementById("price_" + lineNumber).value;
 	var newTotal = qty * price;
 	newTotal = parseFloat(Math.round(newTotal * 100) / 100).toFixed(2);

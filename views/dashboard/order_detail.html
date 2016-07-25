@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
-            Order #{{id}}
+            Order #{{orderId}}
         </h1>
     </div>
 </div>
@@ -25,13 +25,22 @@
         <div class="form-group">
             <label>Bill To</label>
             <p class="form-control-static">
-                <input id="bill_to_name" class="form-control" value="{{bill_to_name}}">
+                <input id="bill_to_name" class="form-control" value="{{billToName}}">
             </p>
             <p class="form-control-static">
-                <input id="bill_to_address_one" class="form-control" value="{{bill_to_address_one}}">
+                <input id="bill_to_addr1" class="form-control" value="{{billToAddressOne}}">
             </p>
             <p class="form-control-static">
-                <input id="bill_to_address_two" class="form-control" value="{{bill_to_address_two}}">
+                <input id="bill_to_addr2" class="form-control" value="{{billToAddressTwo}}">
+            </p>
+            <p class="form-control-static">
+                <input id="bill_to_city" class="form-control" value="{{billToCity}}">
+            </p>
+            <p class="form-control-static">
+                <input id="bill_to_state" class="form-control" value="{{billToState}}">
+            </p>
+            <p class="form-control-static">
+                <input id="bill_to_zip" class="form-control" value="{{billToZip}}">
             </p>
         </div>
     </div>
@@ -39,45 +48,55 @@
         <div class="form-group">
             <label>Ship To</label>
             <p class="form-control-static">
-                <input id="ship_to_name" class="form-control" value="{{ship_to_name}}">
+                <input id="ship_to_name" class="form-control" value="{{shipToName}}">
             </p>
             <p class="form-control-static">
-                <input id="ship_to_address_one" class="form-control" value="{{ship_to_address_one}}">
+                <input id="ship_to_addr1" class="form-control" value="{{shipToAddressOne}}">
             </p>
             <p class="form-control-static">
-                <input id="ship_to_address_two" class="form-control" value="{{ship_to_address_two}}">
+                <input id="ship_to_addr2" class="form-control" value="{{shipToAddressTwo}}">
+            </p>
+            <p class="form-control-static">
+                <input id="ship_to_city" class="form-control" value="{{shipToCity}}">
+            </p>
+            <p class="form-control-static">
+                <input id="ship_to_state" class="form-control" value="{{shipToState}}">
+            </p>
+            <p class="form-control-static">
+                <input id="ship_to_zip" class="form-control" value="{{shipToZip}}">
             </p>
         </div>
     </div>
 </div>
 <br><br>
 <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="form-group">
                 <label>Status</label>
-                <select class="form-control">
-                    <option>Open</option>
-                    <option>Shipped</option>
-                    <option>Void</option>
+                <select id="status" class="form-control">
+                    <option>{{status.current}}</option>
+                    {{#each status.options}}
+                    <option>{{this}}</option>
+                    {{/each}}
                 </select>
                 <br><br>
                 <label>Delivery Date</label>
-                <input class="form-control" value="{{delivery_date}}">
-                <p class="help-block">Format MM-DD-YYYY. Example: 03-24-2016.</p>
+                <input class="form-control" onblur="validateDate(this)" id="delivery_date" value="{{deliveryDate}}">
+                <p class="help-block">Format YYYY-MM-DD. <br> Example: 2016-03-24.</p>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
         <div class="form-group">
             <label>Delivery Method</label>
-            <select class="form-control">
-                <option>Delivery</option>
-                <option>Pickup</option>
+            <select id="delivery_method" class="form-control">
+                <option>{{deliveryMethod.current}}</option>
+                {{#each deliveryMethod.options}}
+                <option>{{this}}</option>
+                {{/each}}
             </select>
             <br><br>
             <label>Total Amount</label>
-            <p class="form-control-static">
-                <input id="total_amount" class="form-control" value="${{total_amount}}">
-            </p>
+            <input id="total_amount" class="form-control" value="{{totalAmount}}">
         </div>
     </div>
 </div>
@@ -86,13 +105,13 @@
     <div class="col-lg-3">
         <div class="form-group">
             <label>Shipping Comments</label>
-            <textarea class="form-control" rows="5">{{shipping_comments}}</textarea>
+            <textarea class="form-control" id="shipping_comments" rows="5">{{shippingComments}}</textarea>
         </div>
     </div>
     <div class="col-lg-3">
         <div class="form-group">
             <label>General Comments</label>
-            <textarea class="form-control" rows="5">{{general_comments}}</textarea>
+            <textarea class="form-control" id="comments" rows="5">{{comments}}</textarea>
         </div>
     </div>
 </div>
@@ -100,7 +119,7 @@
 <div class="row">
     <div class="col-lg-12">
                 <h3>Order Lines</h3>
-                    <table id="orders-table" class="dtable table table-hover table-striped">
+                    <table class="table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>Product Code</th>
@@ -112,22 +131,30 @@
                                 <th>Remove</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {{#order_details}}
-                            <tr id="{{id}}">
-                                <td>{{product_code}}</td>
-                                <td>{{product_description}}</td>
-                                <td>{{unit_code}}</td>
-                                <td class="amount"><input id="quantity_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{quantity}}" size="4"/></td>
-                                <td class="amount">$<input id="price_{{id}}" onblur="updateLine({{id}})" class="amount" type="text" value="{{unit_price}}" size="5"/></td>
-                                <td class="amount" id="total_{{id}}">$&nbsp;{{line_amount}}</td>
-                                <td class="remove-link"><a href="#" onclick="removeLine({{id}})">Remove</a></td>
+                        <tbody id="lines">
+                            {{#lines}}
+                            <tr id="{{line_id}}">
+                                <td id="code_{{line_id}}">{{product_code}}</td>
+                                <td id="desc_{{line_id}}">{{product_description}}</td>
+                                <td id="unit_{{line_id}}">{{unit_code}}</td>
+                                <td class="amount">
+                                    <input id="quantity_{{line_id}}" onblur="updateLine({{line_id}})" class="amount" type="text" value="{{quantity}}" size="4"/>
+                                </td>
+                                <td class="amount">
+                                    $<input id="price_{{line_id}}" onblur="updateLine({{line_id}})" class="amount" type="text" value="{{unit_price}}" size="5"/>
+                                </td>
+                                <td class="amount" id="total_{{line_id}}">
+                                    $&nbsp;{{line_price}}
+                                </td>
+                                <td class="remove-link">
+                                    <a href="#" onclick="removeLine({{line_id}})">Remove</a>
+                                </td>
                             </tr>
-                            {{/order_details}}
+                            {{/lines}}
                         </tbody>
                     </table>
                     <br><br>
-                    <button class="btn btn-primary" onclick="javascript:void(0)">Save Changes</button>
+                    <button class="btn btn-primary" onclick="updateOrder()">Save Changes</button>
                     <button type="reset" class="btn btn-primary" onclick="javascript:void(0)">Reset Fields</button>                   
     </div>
 </div>

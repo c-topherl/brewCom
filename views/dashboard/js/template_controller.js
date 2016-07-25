@@ -1,7 +1,28 @@
 var targetDiv = "#main-content";
 var method = "post";
 var templatePath = "http://localhost:8888/brewCom/views/dashboard/";
-var requestUrl = "http://joelmeister.net/brewCom/controllers/"
+var requestUrl = "http://joelmeister.net/brewCom/controllers/";
+var orderStatusOptions = ['Void', 'Shipped', 'Open'];
+var deliveryMethodOptions = ['Delivery', 'Pick-up'];
+var orderDetailFields = [
+    "bill_to_name",
+    "bill_to_address_one",
+    "bill_to_address_two",
+    "bill_to_city",
+    "bill_to_state",
+    "bill_to_zip",
+    "ship_to_name",
+    "ship_to_address_one",
+    "ship_to_address_two",
+    "ship_to_city",
+    "ship_to_state",
+    "ship_to_zip",
+    "delivery_date",
+    "delivery_method",
+    "total_amount",
+    "shipping_comments",
+    "comments"
+];
 
 var loadTemplate = function(templateName, content){
 
@@ -107,10 +128,14 @@ var getOrderList = function(){
     var url = requestUrl + "order_controller.php";
     var template = templatePath + "order_list.html";
 
+    // var requestData = {
+    //     "function": "get_orders",
+    //     "status": "open"
+    // };
+
     var requestData = {
-        "function": "get_orders",
-        "status": "open"
-    };
+        "function": "get_orders"
+    }
 
     buildHttpRequestForTemplate(method, url, template, requestData);
     
@@ -148,21 +173,68 @@ var getSettings = function(){
 
 var getOrderDetail = function(orderNumber){
     var url = requestUrl + "order_controller.php";
-    var template = templatePath + "order_detail.html";
 
     var requestData = {
         "function": "get_order_detail",
         "order_id": orderNumber
     };
 
-    buildHttpRequestForTemplate(method, url, template, requestData);
-    
-    displayTable("order-table");
+    buildHttpRequestCustomParse(method, url, requestData, buildOrderDetail);
     return;
 }
 
+var buildOrderDetail = function(jsonResponse){
+    var template = templatePath + "order_detail.html";
+    var templateData = {
+        "billToName": jsonResponse.bill_to_name,
+        "billToAddressOne": jsonResponse.bill_to_addr1,
+        "billToAddressTwo": jsonResponse.bill_to_addr2,
+        "billToCity": jsonResponse.bill_to_city,
+        "billToState": jsonResponse.bill_to_state,
+        "billToZip": jsonResponse.bill_to_zip,
+        "shipToName": jsonResponse.ship_to_name,
+        "shipToAddressOne": jsonResponse.ship_to_addr1,
+        "shipToAddressTwo": jsonResponse.ship_to_addr2,
+        "shipToCity": jsonResponse.ship_to_city,
+        "shipToState": jsonResponse.ship_to_state,
+        "shipToZip": jsonResponse.ship_to_zip,
+        "deliveryDate": jsonResponse.delivery_date,
+        "totalAmount": jsonResponse.total_price,
+        "shippingComments": jsonResponse.shipping_comments,
+        "comments": jsonResponse.comments,
+        "lines": jsonResponse.lines,
+        "orderId": jsonResponse.order_id
+    };
+
+    templateData.status = {
+        "current": jsonResponse.status_description,
+        "options": parseRemainingOptions(jsonResponse.status_description, orderStatusOptions)
+    };
+
+    templateData.deliveryMethod = {
+        "current": jsonResponse.delivery_method,
+        "options": parseRemainingOptions(jsonResponse.delivery_method, deliveryMethodOptions)
+    };
+
+    loadTemplate(template, templateData);
+
+    return;
+}
+
+var parseRemainingOptions = function(selected, optionsList){
+    var remainingOptions = [];
+    for(var i=0; i < optionsList.length; i++){
+        if(optionsList[i] != selected){
+            remainingOptions.push(optionsList[i]);
+        }
+    }
+
+    return remainingOptions;
+}
+
+
 var getCustomerDetail = function(customerId){
-    var url = requesturl + "customer_controller.php";
+    var url = requestUrl + "customer_controller.php";
     var template = templatePath + "customer_detail.html"
 
     var requestData = {
@@ -242,44 +314,52 @@ var searchCustomers = function(){
     return;
 }
 
-var deleteLine = function(lineNumber){
-    var userId = getCookie('userId');
+var updateOrder = function(id){
     var url = requestUrl + "order_controller.php";
+    var lines = [];
+    var currentLine;
+    var id;
+    var rows = document.getElementById("lines").childNodes;
+    rows = Array.prototype.slice.call(rows);
+    rows.forEach(function(row){
+        id = row.id;
+        currentLine = {
+            "line_id": id,
+            "product_code": $("code_" + id).innerHTML,
+            "unit_code": $("unit_" + id).innerHTML,
+            "quantity": $("quantity_" + id).value,
+            "unit_price": $("price_" + id).value,
+            "line_price": $("total_" + id).value,
+            "product_description": $("desc_" + id).value
+        };
+        lines.push(currentLine);
+    });
 
     var requestData = {
-        "function": "delete_cart_detail",
-        "user_id": userId,
-        "line_id": lineNumber
+        "function": "update_order",
+        "order_id": id,
+        "lines": lines,
+        "bill_to_name": document.getElementById("bill_to_name").value,
+        "bill_to_addr1": document.getElementById("bill_to_addr1").value,
+        "bill_to_addr2": document.getElementById("bill_to_addr2").value,
+        "bill_to_city": document.getElementById("bill_to_city").value,
+        "bill_to_state": document.getElementById("bill_to_state").value,
+        "bill_to_zip": document.getElementById("bill_to_zip").value,
+        "ship_to_name": document.getElementById("ship_to_name").value,
+        "ship_to_addr1": document.getElementById("ship_to_addr1").value,
+        "ship_to_addr2": document.getElementById("ship_to_addr2").value,
+        "ship_to_city": document.getElementById("ship_to_city").value,
+        "ship_to_state": document.getElementById("ship_to_state").value,
+        "ship_to_zip": document.getElementById("ship_to_zip").value,
+        "delivery_date": document.getElementById("delivery_date").value,
+        "total_amount": document.getElementById("total_amount").value,
+        "shipping_comments": document.getElementById("shipping_comments").value,
+        "comments": document.getElementById("comments").value,
+        "status": $("#status :selected").text(),
+        "delivery_method": $("#delivery-method :selected").text(),
+        "delivery_date": document.getElementById("delivery_date").value
     };
 
-    buildHttpRequest(method, url, requestData, removeRow, lineNumber);
-}
-
-var removeRow = function(lineNumber){
-    var currentTotal = parseFloat(document.getElementById("total-price").innerHTML);
-    var rowToRemove = document.getElementById("line_" + lineNumber);
-    var elements = rowToRemove.getElementsByTagName("td");
-    var price;
-    var qty;
-    for (var i = 0; i < elements.length; i++){
-        if (elements[i].className === "price"){
-            price = elements[i].innerHTML;
-        } else if (elements[i].className === "quantity"){
-            qty = elements[i].innerHTML;
-        }
-    }
-
-    price = price.slice(1);
-    currentTotal -= parseFloat(price * qty);
-    document.getElementById("total-price").innerHTML = currentTotal;
-
-    rowToRemove.remove();
-
-    var remainingRows = document.getElementById("cart-table").getElementsByTagName("tr").length;
-    if (remainingRows <= 1){
-        getOrderPage();
-    }
-
+    console.log(requestData);
     return;
 }
-
