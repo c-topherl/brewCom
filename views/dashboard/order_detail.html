@@ -143,8 +143,8 @@
                                 <td class="amount">
                                     $<input id="price_{{line_id}}" onblur="updateLine({{line_id}})" class="amount" type="text" value="{{unit_price}}" size="5"/>
                                 </td>
-                                <td class="amount" id="total_{{line_id}}">
-                                    $&nbsp;{{line_price}}
+                                <td class="amount">
+                                    $&nbsp;<span id="total_{{line_id}}">{{line_price}}</span>
                                 </td>
                                 <td class="remove-link">
                                     <a href="#" onclick="removeLine({{line_id}})">Remove</a>

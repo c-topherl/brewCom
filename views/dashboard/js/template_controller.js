@@ -318,22 +318,22 @@ var updateOrder = function(id){
     var url = requestUrl + "order_controller.php";
     var lines = [];
     var currentLine;
-    var id;
     var rows = document.getElementById("lines").childNodes;
-    rows = Array.prototype.slice.call(rows);
-    rows.forEach(function(row){
-        id = row.id;
-        currentLine = {
-            "line_id": id,
-            "product_code": $("code_" + id).innerHTML,
-            "unit_code": $("unit_" + id).innerHTML,
-            "quantity": $("quantity_" + id).value,
-            "unit_price": $("price_" + id).value,
-            "line_price": $("total_" + id).value,
-            "product_description": $("desc_" + id).value
-        };
-        lines.push(currentLine);
-    });
+    for(var i = 0; i < rows.length; i++){
+        row = rows[i];
+        if(row.tagName === "TR"){
+            currentLine = {
+                "line_id": row.id,
+                "product_code": document.getElementById("code_" + row.id).innerHTML,
+                "unit_code": document.getElementById("unit_" + row.id).innerHTML,
+                "quantity": document.getElementById("quantity_" + row.id).value,
+                "unit_price": document.getElementById("price_" + row.id).value,
+                "line_price": document.getElementById("total_" + row.id).innerHTML,
+                "product_description": document.getElementById("desc_" + row.id).innerHTML
+            };
+            lines.push(currentLine);
+        }
+    };
 
     var requestData = {
         "function": "update_order",
