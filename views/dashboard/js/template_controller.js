@@ -232,6 +232,37 @@ var parseRemainingOptions = function(selected, optionsList){
     return remainingOptions;
 }
 
+var getProducts = function(){
+    var url = requestUrl + "product_controller.php";
+    var requestData = {
+        "function": "get_products"
+    };
+
+    buildHttpRequestCustomParse(method, url, requestData, addLinePrompt);
+    return;
+}
+
+var addLinePrompt = function(resp){
+    var product_list = resp.products;
+    var current_id;
+    var lines = getCurrentLines();
+
+    for(var i = 0; i < product_list.length; i++){
+        for(var j = 0; j < lines.length; j++){
+            if(lines[j].product_code === product_list[i].product_code){
+                product_list.splice(i, 1);
+            }
+        }
+    }
+
+    var source   = $("#entry-template").html();
+    var template = Handlebars.compile(source);
+    var html = template({"products": product_list});
+    $("#dialog").html(html);
+    $("#dialog").dialog("open");
+
+    return;
+}
 
 var getCustomerDetail = function(customerId){
     var url = requestUrl + "customer_controller.php";
@@ -261,6 +292,11 @@ var getProductDetail = function(productId){
     //displayTable("product_table");
     alert("Not yet implemented");
     return;
+}
+
+var addProduct = function(){
+    alert("Not yet implemented.");
+    $("#dialog").dialog("close");
 }
 
 var loadOrderSearch = function(){
@@ -314,8 +350,7 @@ var searchCustomers = function(){
     return;
 }
 
-var updateOrder = function(id){
-    var url = requestUrl + "order_controller.php";
+var getCurrentLines = function(){
     var lines = [];
     var currentLine;
     var rows = document.getElementById("lines").childNodes;
@@ -334,6 +369,13 @@ var updateOrder = function(id){
             lines.push(currentLine);
         }
     };
+
+    return lines;
+}
+
+var updateOrder = function(id){
+    var url = requestUrl + "order_controller.php";
+    var lines = getCurrentLines();
 
     var requestData = {
         "function": "update_order",

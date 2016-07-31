@@ -30,3 +30,8 @@
 	display: none;
 	visibility: hidden;
 }
+
+.ui-dialog-titlebar-close {
+	display: none;
+	visibility: none;
+}
