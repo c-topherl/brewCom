@@ -4,17 +4,18 @@
         <h1 class="page-header">
             Order #{{orderId}}
         </h1>
+        <p class="hidden" id="user_id">{{userId}}
     </div>
 </div>
 <!-- /.row -->
 
 <div class="row">
     <div class="col-lg-1">
-        <a class="btn btn-default" href="javascript:void(0)" onclick="loadOrderSearch()">Search Orders</a>
+        <a class="btn btn-default" href="javascript:void(0)" onclick="loadSearch('order')">Search Orders</a>
     </div>
     <div class="col-lg-1"></div>
     <div class="col-lg-1">
-        <a class="btn btn-default" href="javascript:void(0)" onclick="getOrderList()">Open Orders</a>
+        <a class="btn btn-default" href="javascript:void(0)" onclick="getHeaderList('order')">Open Orders</a>
     </div>
 </div>
                     

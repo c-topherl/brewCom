@@ -22,7 +22,7 @@
                             <tbody>
                                 {{#customers}}
                                 <tr>
-                                    <td class="customer-detail-link"><a href="javascript:void(0)" onclick="getCustomerDetail({{customer_id}})">{{code}}</a></td>
+                                    <td class="customer-detail-link"><a href="javascript:void(0)" onclick="getRecordDetail('customer', {{customer_id}})">{{code}}</a></td>
                                     <td>{{name}}</td>
                                 </tr>
                                 {{/customers}}
@@ -33,7 +33,7 @@
                     <div class="col-xs-12">&nbsp;</div>
 
                     <div>
-                        <a class="btn btn-primary" href="javascript:void(0)" onclick="loadCustomerSearch()">Search Customers</a>
+                        <a class="btn btn-primary" href="javascript:void(0)" onclick="loadSearch('customer')">Search Customers</a>
                     </div>
                 </div>
             </div>
