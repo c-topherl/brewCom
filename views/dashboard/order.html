@@ -1,0 +1,34 @@
+<table id="products-table" class="dtable"> 
+	<thead>
+   		<tr>
+		   	<th>Beer</th>
+   			<th>Type</th>
+   			<th>Unit</th>
+   			<th class="dt-body-right">Price</th>
+   			<th class="dt-center">Quantity</th>
+   			<th class="hidden"></th>
+   			<th class="hidden"></th>
+   		</tr>
+   	</thead>
+   	<tbody>
+   		{{#product_units}}
+   		<tr>
+			<td id="product_{{product_unit_id}}">{{product_code}}</td>
+   			<td id="desc_{{product_unit_id}}">{{product_description}}</td>
+   			<td id="unit_{{product_unit_id}}">{{unit_description}}</td>
+   			<td id="price_{{product_unit_id}}" class="price">${{price}}</td>
+   			<td align="center"><input class="quantity-field" id="order_{{product_unit_id}}" onblur="validateQuantity(this)" value="{{getQuantity this.product_id this.unit_id}}" type="text"/></td>
+   			<td class="hidden" id="unit_id_{{product_unit_id}}">{{unit_id}}</td>
+   			<td class="hidden" id="product_id_{{product_unit_id}}">{{product_id}}</td>
+   		</tr>
+   		{{/product_units}}
+	</tbody>
+</table>
+
+<!-- spacing -->
+<div class="col-xs-12">&nbsp;</div>
+
+<div class="col-xs-12">
+   <a class="btn btn-primary" href="javascript:void(0)" onclick="getRecordDetail('order', {{order_number}});">Back</a>
+	<a class="btn btn-primary" href="javascript:void(0)" onclick="updateOrderDetail({{order_number}});">Save</a>
+</div>
