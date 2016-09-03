@@ -28,80 +28,80 @@ else
 }
 switch($function)
 {
-    case "add_product":
-        include "products/add_product.php";
+    case 'add_product':
+        include_once __DIR__ . '/products/add_product.php';
         $responseArray['response'] = add_product($values);
-        $responseArray['message'] = "Successfully added product";
+        $responseArray['message'] = 'Successfully added product';
         break;
-    case "get_products":
-        include "products/get_products.php";
+    case 'get_products':
+        include_once __DIR__ . '/products/get_products.php';
         $responseArray['response'] = get_products($values);
-        $responseArray['message'] = "Products successfully read";
+        $responseArray['message'] = 'Products successfully read';
         break;
-    case "update_product":
-        include "products/update_product.php";
+    case 'update_product':
+        include_once __DIR__ . '/products/update_product.php';
         update_product($values);
-        $responseArray['message'] = "Product successfully updated";
+        $responseArray['message'] = 'Product successfully updated';
         break;
-    case "add_product_class":
-        include "products/add_product_class.php";
+    case 'add_product_class':
+        include_once __DIR__ . '/products/add_product_class.php';
         add_product_class($values);
-        $responseArray['message'] = "Class successfully added";
+        $responseArray['message'] = 'Class successfully added';
         break;
-    case "get_product_classes":
-        include "products/get_product_classes.php";
+    case 'get_product_classes':
+        include_once __DIR__ . '/products/get_product_classes.php';
         $responseArray['response'] = get_product_classes($values);
-        $responseArray['message'] = "Classes successfully read";
+        $responseArray['message'] = 'Classes successfully read';
         break;
-    case "update_product_class":
-        include "products/update_product_class.php";
+    case 'update_product_class':
+        include_once __DIR__ . '/products/update_product_class.php';
         update_product_class($values);
-        $responseArray['message'] = "Product class successfully updated";
+        $responseArray['message'] = 'Product class successfully updated';
         break;
-    case "add_unit":
-        include "products/add_unit.php";
+    case 'add_unit':
+        include_once __DIR__ . '/products/add_unit.php';
         add_unit($values);
-        $responseArray['message'] = "Unit successfully added";
+        $responseArray['message'] = 'Unit successfully added';
         break;
-    case "get_units":
-        include "products/get_units.php";
+    case 'get_units':
+        include_once __DIR__ . '/products/get_units.php';
         $responseArray['response'] = get_units($values);
-        $responseArray['message'] = "Units successfully read";
+        $responseArray['message'] = 'Units successfully read';
         break;
-    case "update_unit":
-        include "products/update_unit.php";
+    case 'update_unit':
+        include_once __DIR__ . '/products/update_unit.php';
         $responseArray['response'] = update_unit($values);
-        $responseArray['message'] = "Successfully updated unit";
+        $responseArray['message'] = 'Successfully updated unit';
         break;
-    case "add_product_unit":
-        include "products/add_product_unit.php";
+    case 'add_product_unit':
+        include_once __DIR__ . '/products/add_product_unit.php';
         add_product_unit($values);
-        $responseArray['message'] = "Product/unit successfully added";
+        $responseArray['message'] = 'Product/unit successfully added';
         break;
-    case "get_product_units":
-        include "products/get_product_units.php";
+    case 'get_product_units':
+        include_once __DIR__ . '/products/get_product_units.php';
         $responseArray['response'] = get_product_units($values);
-        $responseArray['message'] = "Product/Units successfully read";
+        $responseArray['message'] = 'Product/Units successfully read';
         break;
-    case "update_inventory":
-        include "products/update_inventory.php";
+    case 'update_inventory':
+        include_once __DIR__ . '/products/update_inventory.php';
         $responseArray['response'] = update_inventory($values);
-        $responseArray['message'] = "Inventory updated";
+        $responseArray['message'] = 'Inventory updated';
         break;
-    case "add_warehouse":
-        include "products/add_warehouse.php";
+    case 'add_warehouse':
+        include_once __DIR__ . '/products/add_warehouse.php';
         $responseArray['response'] = add_warehouse($values);
-        $responseArray['message'] = "Added warehouse";
+        $responseArray['message'] = 'Added warehouse';
         break;
-    case "get_warehouses":
-        include "products/get_warehouses.php";
+    case 'get_warehouses':
+        include_once __DIR__ . '/products/get_warehouses.php';
         $responseArray['response'] = get_warehouses($values);
-        $responseArray['message'] = "Got warehouses";
+        $responseArray['message'] = 'Got warehouses';
         break;
-    case "update_warehouse":
-        include "products/update_warehouse.php";
+    case 'update_warehouse':
+        include_once __DIR__ . '/products/update_warehouse.php';
         $responseArray['response'] = update_warehouse($values);
-        $responseArray['message'] = "Updated warehouse";
+        $responseArray['message'] = 'Updated warehouse';
         break;
     default:
         throw new Exception("Unknown function: $function.");
