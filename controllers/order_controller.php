@@ -36,70 +36,70 @@ else
 
 switch($function)
 {
-    case "add_cart_header":
-        include "orders/add_cart.php";
+    case 'add_cart_header':
+        include_once __DIR__ . '/orders/add_cart.php';
         add_cart_header($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart header created successfully.';
         break;
-    case "add_cart_detail":
-        include "orders/add_cart.php";
+    case 'add_cart_detail':
+        include_once __DIR__ . '/orders/add_cart.php';
         add_cart_detail($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart detail added successfully.';
         break;
-    case "get_cart":
-        include "orders/get_cart.php";
+    case 'get_cart':
+        include_once __DIR__ . '/orders/get_cart.php';
         $responseArray['response'] = get_cart($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Here is your cart';
         break;
-    case "update_cart_header":
-        include "orders/update_cart.php";
+    case 'update_cart_header':
+        include_once __DIR__ . '/orders/update_cart.php';
         $responseArray['response'] = update_cart_header($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Cart successfully updated';
         break;
-    case "delete_cart":
-        include "orders/delete_cart.php";
+    case 'delete_cart':
+        include_once __DIR__ . '/orders/delete_cart.php';
         $responseArray['response'] = delete_cart($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Successfully deleted cart';
         break;
-    case "delete_cart_detail":
-        include "orders/delete_cart.php";
+    case 'delete_cart_detail':
+        include_once __DIR__ . '/orders/delete_cart.php';
         $responseArray['response'] = delete_cart_detail($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Successfully deleted cart line';
         break;
-    case "submit_order":
-        include "orders/submit_order.php";
+    case 'submit_order':
+        include_once __DIR__ . '/orders/submit_order.php';
         $responseArray['response'] = submit_order($values);
         $responseArray['status'] = 'success';
         $responseArray['message'] = 'Order successfully submited';
         break;
-    case "add_order":
-        include "orders/add_order.php";
+    case 'add_order':
+        include_once __DIR__ . '/orders/add_order.php';
         $responseArray['response'] = add_order($values);
         $responseArray['status'] = 'success';
-        $responseArray['message'] = "Added order";
+        $responseArray['message'] = 'Added order';
         break;
-    case "get_orders":
-        include "orders/get_orders.php";
+    case 'get_orders':
+        include_once __DIR__ . '/orders/get_orders.php';
         $responseArray['response'] = get_orders($values);
         $responseArray['status'] = 'success';
-        $responseArray['message'] = "Orders successfully read";
+        $responseArray['message'] = 'Orders successfully read';
         break;
-    case "get_order_detail":
-        include "orders/get_orders.php";
+    case 'get_order_detail':
+        include_once __DIR__ . '/orders/get_orders.php';
         $responseArray['response'] = get_order_detail($values);
         $responseArray['status'] = 'success';
-        $responseArray['message'] = "Order details successfully read";
+        $responseArray['message'] = 'Order details successfully read';
         break;
-    case "get_delivery_options":
-        include "orders/get_delivery_options.php";
-        $responseArray['status'] = "success";
-        $responseArray['message'] = "This feature is not implemented, but always will return \"pickup\" for now";
+    case 'get_delivery_options':
+        include_once __DIR__ . '/orders/get_delivery_options.php';
+        $responseArray['status'] = 'success';
+        $responseArray['message'] = 'This feature is not implemented, but always will return \'pickup\' for now';
         $responseArray['response'] =  get_delivery_options($values);
         break;
     default:
