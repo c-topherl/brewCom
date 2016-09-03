@@ -77,6 +77,11 @@ switch($function)
         $responseArray['response'] = verify_user($values);
         $responseArray['message'] = "User verified";
         break;
+    case "verify_admin":
+        include "customers/verify_admin.php";
+        $responseArray['response'] = verify_admin($values);
+        $responseArray['message'] = "Admin verified";
+        break;
     default:
         throw new Exception("Unknown function: $function");
 }
