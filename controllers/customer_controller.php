@@ -28,57 +28,57 @@ else
 switch($function)
 {
     case 'add_address';
-        include __DIR__ . '/customers/add_address.php';
+        include_once __DIR__ . '/customers/add_address.php';
         $responseArray['response'] = add_address($values);
         $responseArray['message'] = 'Address added';
         break;
     case 'get_addresses';
-        include __DIR__ . '/customers/get_addresses.php';
+        include_once __DIR__ . '/customers/get_addresses.php';
         $responseArray['response'] = get_addresses($values);
         $responseArray['message'] = 'Addresses got';
         break;
     case 'update_address';
-        include __DIR__ . '/customers/update_address.php';
+        include_once __DIR__ . '/customers/update_address.php';
         $responseArray['response'] = update_address($values);
         $responseArray['message'] = 'Address updated';
         break;
     case 'add_user':
-        include __DIR__ . '/customers/add_user.php';
+        include_once __DIR__ . '/customers/add_user.php';
         $responseArray['response'] = add_user($values);
         $responseArray['message'] = 'User successfully added';
         break;
     case 'get_users':
-        include __DIR__ . '/customers/get_users.php';
+        include_once __DIR__ . '/customers/get_users.php';
         $responseArray['response'] = get_users($values);
         $responseArray['message'] = 'Users successfully read';
         break;
     case 'update_user':
-        include __DIR__ . '/customers/update_user.php';
+        include_once __DIR__ . '/customers/update_user.php';
         $responseArray['response'] = update_user($values);
         $responseArray['message'] = 'User updated.';
         break;
     case 'add_customer':
-        include __DIR__ . '/customers/add_customer.php';
+        include_once __DIR__ . '/customers/add_customer.php';
         $responseArray['response'] = add_customer($values);
         $responseArray['message'] = 'Customer successfully added';
         break;
     case 'update_customer':
-        include __DIR__ . '/customers/update_customer.php';
+        include_once __DIR__ . '/customers/update_customer.php';
         $responseArray['response'] = update_customer($values);
         $responseArray['message'] = 'Customer updated.';
         break;
     case 'get_customers':
-        include __DIR__ . '/customers/get_customers.php';
+        include_once __DIR__ . '/customers/get_customers.php';
         $responseArray['response'] = get_customers($values);
         $responseArray['message'] = 'Customers successfully read';
         break;
     case 'verify_user':
-        include __DIR__ . '/customers/verify_user.php';
+        include_once __DIR__ . '/customers/verify_user.php';
         $responseArray['response'] = verify_user($values);
         $responseArray['message'] = 'User verified';
         break;
     case "verify_admin":
-        include __DIR__ . '/customers/verify_admin.php';
+        include_once __DIR__ . '/customers/verify_admin.php';
         $responseArray['response'] = verify_admin($values);
         $responseArray['message'] = 'Admin verified';
         break;
