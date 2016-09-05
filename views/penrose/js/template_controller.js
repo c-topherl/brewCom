@@ -1,6 +1,6 @@
 var targetDiv = "#main-content";
 var method = "post";
-var templatePath = "http://joelmeister.net/brewCom/views/penrose/";
+var templatePath = window.location.origin + "/brewCom/views/penrose/";
 var requestUrl = "http://joelmeister.net/brewCom/controllers/"
 var userCart;
 
