@@ -76,7 +76,7 @@ var verifyLogin = function(){
 		hideAlerts();
 	}
 
-	var url = "customer_controller.php";
+	var url = requestUrl + "customer_controller.php";
 
 	var req = new XMLHttpRequest();
     req.open(method, url, true);
