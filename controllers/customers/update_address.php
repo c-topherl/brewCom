@@ -10,7 +10,7 @@ state
 zipcode
 type - (0) billing / (1) shipping
 */
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 require_once "customers/get_addresses.php";
 function update_address($addressInfo)
 {

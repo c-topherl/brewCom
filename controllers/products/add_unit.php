@@ -3,7 +3,7 @@
 code
 description
 */
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function add_unit($unitArray)
 {
     $dbh = new PDOConnection();

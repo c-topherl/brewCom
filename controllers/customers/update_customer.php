@@ -1,7 +1,7 @@
 <?php
 /**/
 include_once "common.inc";
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 function update_customer($customer)
 {
     if(!isset($customer['id']))

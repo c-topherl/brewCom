@@ -5,7 +5,7 @@ INPUTS:
     email
     password
 */
-require_once("PDOConnection.php"); 
+require_once("PDOConnection.inc"); 
 require_once("common.inc"); //hash_password
 function add_customer($custInfo)
 {

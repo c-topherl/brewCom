@@ -1,7 +1,7 @@
 <?php
 /**/
 include_once "common.inc";
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 include_once "token.inc";
 function update_user($user)
 {

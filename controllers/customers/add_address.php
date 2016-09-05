@@ -9,7 +9,7 @@ state
 zipcode
 type - (0) billing / (1) shipping
 */
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 function add_address($addressInfo)
 {
     if(!(isset($addressInfo['name'])

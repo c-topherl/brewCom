@@ -1,7 +1,7 @@
 <?php
 //TODO:
 //classFilters to be expanded later
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function get_product_classes($classFilters = NULL)
 {
     $dbh = new PDOConnection();

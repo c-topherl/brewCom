@@ -4,7 +4,7 @@ INPUTS:
 code
 description
 */
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function add_product_class($classArray)
 {
     $dbh = new PDOConnection();

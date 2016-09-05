@@ -2,7 +2,7 @@
 /*
 There is no add/delete inventory.  we will just insert values and then on duplicate key update
 */
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 function update_inventory($inventoryInfo)
 {
     if(!isset($inventoryInfo['inventory']))

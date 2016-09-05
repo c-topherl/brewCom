@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . '/../PDOConnection.php');
+require_once(__DIR__ . '/../PDOConnection.inc');
 require_once(__DIR__ . '/../common.inc');
 require_once(__DIR__ . '/../token.inc');
 include_once(__DIR__ . '/../orders/get_cart.php');

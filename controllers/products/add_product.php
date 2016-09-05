@@ -6,7 +6,7 @@ description
 price
 class
 */
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function add_product($productArray)
 {
     $dbh = new PDOConnection();

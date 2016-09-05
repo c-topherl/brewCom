@@ -6,7 +6,7 @@ unit_code/unit_id
 
 note: passing id will be faster
 */
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function add_product_class($info)
 {
     $dbh = new PDOConnection();

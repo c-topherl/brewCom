@@ -1,5 +1,5 @@
 <?php
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 require_once "common.inc";
 include_once "orders/common_cart_functions.inc";
 include_once "customers/get_addresses.php";

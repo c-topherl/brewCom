@@ -1,5 +1,5 @@
 <?php
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 //optional product info to read info by product code
 //TODO finish optional parameters and binding paramters
 function get_product_units($info = NULL)
