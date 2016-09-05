@@ -1,44 +1,50 @@
 <?php
-require_once("PDOConnection.inc");
-require_once("common.inc");
-require_once("token.inc");
-include_once("orders/get_cart.php");
-include_once("orders/get_delivery_options.php");
+require_once(__DIR__ . '/../PDOConnection.inc');
+require_once(__DIR__ . '/../common.inc');
+require_once(__DIR__ . '/../token.inc');
+include_once(__DIR__ . '/../orders/get_cart.php');
+include_once(__DIR__ . '/../orders/get_delivery_options.php');
 
 function verify_user($userArray)
 {
-    if(!(isset($userArray['user_id']) || (isset($userArray['username']) || isset($userArray['email'])) && (isset($userArray['password']) || isset($userArray['token']))))
+    if(!(isset($userArray['user_id']) || 
+        (isset($userArray['username']) || isset($userArray['email'])) 
+        && (isset($userArray['password']) || isset($userArray['token']))
+        ))
     {
         throw new Exception("Must provide (username or email) and password.");
     }
     //set variables
-    $userArray['user_id'] = isset($userArray['user_id']) ? $userArray['user_id'] : NULL;
-    $userArray['username'] = isset($userArray['username']) ? $userArray['username'] : NULL;
+    $user_id = isset($userArray['user_id']) ? $userArray['user_id'] : NULL;
+    $username = isset($userArray['username']) ? $userArray['username'] : NULL;
+    $email = isset($userArray['email']) ? $userArray['email'] : NULL;
+    $password = isset($userArray['password']) ? $userArray['password'] : NULL;
+    $token = isset($userArray['token']) ? $userArray['token'] : NULL;
 
-    $token = NULL;
-    $user_id = FALSE;
-    if(isset($userArray['token']))
+    if(isset($token))
     {
-        $user_id = VerifyToken($userArray['token'], $userArray['user_id'], $userArray['username']);
+        $user_id = VerifyToken($token, $user_id, $username);
         if($user_id === FALSE)
         {
             throw new Exception("Your session has expired.  Please log in again.");
         }
-        $token = $userArray['token'];
+        $token = $token;
     }
 
     $dbh = new PDOConnection();
-    if($user_id === FALSE)
+    // Could not verify by token, try by username/email and password
+    if(empty($user_id))
     {
-        $row = VerifyUser($dbh, $userArray);
+        $row = GetUserInfo($dbh, $username, $email, $password);
         //user verified, return proper landing page content
         $user_id= $row['id'];
-        $token = GenerateToken($userArray['username'], $userArray['password']);
-        StoreToken($userArray['username'], $token);
+        $token = GenerateToken($username, $password);
+        StoreToken($username, $token);
     }
-    return array_merge(GetLandingPageContent($dbh, $user_id),array('token' => $token));
+    return array_merge(GetLandingPageContent($dbh, $user_id), array('token' => $token));
 }
 /*
+ * Determine what to to return as response
  */
 function GetLandingPageContent($dbh, $user_id)
 {
@@ -64,26 +70,24 @@ function GetLandingPageContent($dbh, $user_id)
     $landing_page = array_merge($landing_page, array('user_id' => $user_id));
     return $landing_page;
 }
-/**
-  Verifies login attempt and returns row of user information
- */
-function VerifyUser($dbh, $userArray)
-{
-    $username = isset($userArray['username']) ? $userArray['username'] : NULL;
-    $email = isset($userArray['email']) ? $userArray['email'] : NULL;
 
+/*
+ * Verifies login attempt and returns row of user information
+ */
+function GetUserInfo($dbh, $username, $email, $password)
+{
     $query = "SELECT id,username, email, password FROM users WHERE username = :username OR email = :email";
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
     $sth->execute();
-    if($sth->rowCount() <= 0)
+    $row = $sth->fetch();
+    if(empty($row))
     {
         throw new Exception("Invalid username or email address.");
     }
 
-    $row = $sth->fetch();
-    $password = hash_password($userArray['password'], $row['username']);
+    $password = hash_password($password, $username);
     if($row['password'] !== $password)
     {
         throw new Exception("Invalid password.");

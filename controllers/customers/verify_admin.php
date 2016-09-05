@@ -8,7 +8,7 @@ include_once(__DIR__ . '/verify_user.php');
 
 function verify_admin($userArray)
 {
-    $is_admin = verifyAdmin($userArray['user_id']);
+    $is_admin = verifyUserIsAdmin($userArray['username']);
     if(!$is_admin)
     {
         throw new Exception('User is not admin!');
@@ -16,12 +16,13 @@ function verify_admin($userArray)
     $result = verify_user($userArray);
     return $result;
 }
-function verifyAdmin($user_id)
+
+function verifyUserIsAdmin($username)
 {
     $dbh = new PDOConnection();
-    $query = 'SELECT user_id FROM admins WHERE user_id = :user_id';
+    $query = 'SELECT user_id FROM admins JOIN users ON users.id = user_id WHERE username = :username';
     $sth = $dbh->prepare($query);
-    $sth->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+    $sth->bindParam(':username', $username, PDO::PARAM_STR);
     if(!$sth->execute())
     {
         throw new Exception($sth->errorInfo()[2]);
