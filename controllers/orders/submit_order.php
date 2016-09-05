@@ -4,14 +4,14 @@
 
     email will be retrieved from users table if not filled in
 */
-require_once("PDOConnection.php");
-include_once('mail.inc');
-include_once('token.inc');
-include_once('common.inc');
-include_once('customers/get_users.php');
-include_once('customers/get_addresses.php');
-include_once('orders/get_cart.php');
-include_once('orders/add_order.php');
+require_once(__DIR__ . '/../PDOConnection.php');
+include_once(__DIR__ . '/../mail.inc');
+include_once(__DIR__ . '/../token.inc');
+include_once(__DIR__ . '/../common.inc');
+include_once(__DIR__ . '/../customers/get_users.php');
+include_once(__DIR__ . '/../customers/get_addresses.php');
+include_once(__DIR__ . '/get_cart.php');
+include_once(__DIR__ . '/add_order.php');
 
 function submit_order($values)
 {
