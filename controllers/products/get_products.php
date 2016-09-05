@@ -1,5 +1,5 @@
 <?php
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 //optional product info to read info by code
 //TODO add optional parameter support
 function get_products($info = NULL, &$error = NULL)

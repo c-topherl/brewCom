@@ -2,8 +2,8 @@
 /*
 This file contains functions related to user tokens
 */
-require_once("PDOConnection.php");
-require_once("common.inc");
+require_once(__DIR__ . '/PDOConnection.inc');
+require_once(__DIR__ . '/common.inc');
 
 //Verify that a token is correct and has not expired
 function VerifyToken($token, $user_id = NULL, $username = NULL)

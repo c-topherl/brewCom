@@ -1,5 +1,5 @@
 <?php
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 include_once "orders/common_cart_functions.inc";
 
 function delete_cart($info)

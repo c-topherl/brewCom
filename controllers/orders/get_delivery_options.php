@@ -1,5 +1,5 @@
 <?php
-include_once('PDOConnection.php');
+include_once('PDOConnection.inc');
 function get_delivery_options($optionsArray = NULL)
 {
     $dbh = new PDOConnection();

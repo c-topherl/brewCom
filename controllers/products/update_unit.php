@@ -1,5 +1,5 @@
 <?php
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 include_once "products/get_units.php";
 //At least needs ID passed in.  If you don't know it, get it from the get_products() routine
 // This is so we can update a product code (since we store id on everything, don't change that)

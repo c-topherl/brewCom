@@ -2,7 +2,7 @@
 /*
 user_id required
 */
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function get_cart($cartInfo)
 {
     $dbh = new PDOConnection();

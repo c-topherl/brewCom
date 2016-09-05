@@ -1,5 +1,5 @@
 <?php
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 /*
 INPUTS:
 id

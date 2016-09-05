@@ -9,7 +9,7 @@ status?
 comments?
 shipping_comments?
 */
-require_once "PDOConnection.php";
+require_once "PDOConnection.inc";
 require_once "orders/get_orders.php";
 function add_order($orderInfo)
 {

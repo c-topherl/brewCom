@@ -7,7 +7,7 @@
    start_date/end_date => delivery_date
    delivery_method
  */
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function get_orders($filters = NULL)
 {
     $dbh = new PDOConnection();

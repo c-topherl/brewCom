@@ -1,5 +1,5 @@
 <?php
-include_once('PDOConnection.php');
+include_once('PDOConnection.inc');
 function get_warehouses($opts = NULL)
 {
     $dbh = new PDOConnection();

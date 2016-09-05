@@ -1,6 +1,6 @@
 <?php
 
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 function get_addresses($values = NULL)
 {
     if(!(isset($values['user_id']) || isset($values['customer_id'])))

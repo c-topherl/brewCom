@@ -1,5 +1,5 @@
 <?php
-require_once("PDOConnection.php");
+require_once("PDOConnection.inc");
 require_once("common.inc");
 require_once("token.inc");
 include_once("orders/get_cart.php");
