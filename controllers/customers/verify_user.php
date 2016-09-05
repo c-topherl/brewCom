@@ -32,6 +32,7 @@ function verify_user($userArray)
     }
 
     $dbh = new PDOConnection();
+    // Could not verify by token, try by username/email and password
     if(empty($user_id))
     {
         $row = GetUserInfo($dbh, $username, $email, $password);
@@ -40,9 +41,10 @@ function verify_user($userArray)
         $token = GenerateToken($username, $password);
         StoreToken($username, $token);
     }
-    return array_merge(GetLandingPageContent($dbh, $user_id),array('token' => $token));
+    return array_merge(GetLandingPageContent($dbh, $user_id), array('token' => $token));
 }
 /*
+ * Determine what to to return as response
  */
 function GetLandingPageContent($dbh, $user_id)
 {
@@ -75,8 +77,6 @@ function GetLandingPageContent($dbh, $user_id)
 function GetUserInfo($dbh, $username, $email, $password)
 {
     $query = "SELECT id,username, email, password FROM users WHERE username = :username OR email = :email";
-    //echo "$query -- $username -- $email -- $password -- " ;
-    //exit;
     $sth = $dbh->prepare($query);
     $sth->bindParam(':username',$username);
     $sth->bindParam(':email',$email);
