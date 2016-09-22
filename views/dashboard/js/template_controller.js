@@ -62,7 +62,7 @@ var sessionExists = function(){
 
 var verifyLogin = function(){
     var requestData = {
-        "function": "verify_user"
+        "function": "verify_admin"
     };
     
     var userId = getCookie('userId');
