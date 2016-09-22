@@ -398,10 +398,10 @@ var updateOrder = function(id){
         "shipping_comments": document.getElementById("shipping_comments").value,
         "comments": document.getElementById("comments").value,
         "status": $("#status :selected").text(),
-        "delivery_method": $("#delivery-method :selected").text(),
+        "delivery_method": getDeliveryCodeFromDescription($("#delivery_method :selected").text()),
         "delivery_date": document.getElementById("delivery_date").value
     };
 
-    console.log(requestData);
+    buildHttpRequest(method, url, requestData, showConfirmation, "Order updated successfully.");
     return;
 }

@@ -9,6 +9,16 @@ var alertList = [
 	successAlert
 ];
 
+var deliveryMethodCodeMappings = {
+	"Pick-up": "pu",
+	"Standard Delivery": "stnd",
+	"One Day Delivery": "1day"
+};
+
+var getDeliveryCodeFromDescription = function(description){
+	return deliveryMethodCodeMappings[description];
+}
+
 var validateQuantity = function(quantityField){
 	var quantity = quantityField.value;
 	if (isNaN(quantity) || quantity < 0){
