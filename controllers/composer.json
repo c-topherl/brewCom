@@ -1,0 +1,10 @@
+{
+  "name": "ec2-user/brew-com",
+  "require": {},
+  "autoload": {
+    "psr-4":{
+      "Util\\":"Util/",
+      "Products\\":"products/"
+    }
+  }
+}

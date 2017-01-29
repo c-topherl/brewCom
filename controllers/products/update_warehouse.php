@@ -1,6 +1,6 @@
 <?php
-//id required
 require_once "PDOConnection.inc";
+//id required
 function update_warehouse($info)
 {
     //TODO

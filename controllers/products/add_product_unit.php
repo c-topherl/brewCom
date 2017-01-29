@@ -1,4 +1,5 @@
 <?php
+require_once("PDOConnection.inc");
 /*
 INPUTS:
 product_code/product_id
@@ -6,7 +7,6 @@ unit_code/unit_id
 
 note: passing id will be faster
 */
-require_once("PDOConnection.inc");
 function add_product_class($info)
 {
     $dbh = new PDOConnection();
