@@ -1,8 +1,13 @@
 <?php
+
+namespace Util;
+
+use \PDO;
+
 class PDOConnection extends PDO
 {
-    public function __construct($dsn="mysql:host=localhost;dbname=joelmeis_brewCom",
-            $user="joelmeis_brewery",$pass="brewcom9876")
+    public function __construct($dsn="mysql:host=localhost;dbname=brewCom",
+                                $user="root",$pass="")
     {
         parent::__construct($dsn,$user,$pass);
     }
@@ -15,4 +20,3 @@ class PDOConnection extends PDO
     }
 
 }
-?>
